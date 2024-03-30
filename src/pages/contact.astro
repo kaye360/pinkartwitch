@@ -1,0 +1,23 @@
+---
+import Hero from '../components/Hero.astro';
+import Wrapper from '../components/Wrapper.astro';
+import H1 from '../components/Heading/H1.astro';
+import TextFlow from '../components/TextFlow.astro';
+import Image from '../components/Image.astro';
+import SocialMediaPost from '../components/SocialMediaPost.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout props
+	title="Home"
+	description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro in expedita beatae perferendis quod qui perspiciatis numquam."
+	lang="en"
+>
+
+	<section class="mt-28">
+		<Wrapper width='max' padding='inline' class="">
+			<H1>Contact</H1>
+		</Wrapper>
+	</section>
+
+</BaseLayout>

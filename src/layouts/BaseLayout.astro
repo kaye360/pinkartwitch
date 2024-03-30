@@ -18,15 +18,15 @@ const {
 } = Astro.props
 ---
 
-<html lang={lang} class="">
+<html lang={lang}>
 
 	<Meta title={title} description={description} />
 
-	<body class:list={['bg-[var(--body-bg-color)] font-base text-[var(--body-text-color)]', className]}>
+	<body class:list={['bg-[var(--body-bg-color)] text-[var(--body-text-color)] font-base', className]}>
 
 		<SkipToContent />
 
-		<Header variant='sticky' props />
+		<Header variant='fixed' props />
 		
         <MainContent>
 
