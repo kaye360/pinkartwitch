@@ -1,0 +1,28 @@
+---
+/**
+ * 
+ * Note: html scrol-behavior : smooth-scroll must be disabled
+ * 
+ */
+---
+<script is:inline src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script> 
+
+<script>
+// @ts-nocheck
+
+const lenis = new Lenis()
+
+function raf(time) {
+  lenis.raf(time)
+  requestAnimationFrame(raf)
+}
+
+requestAnimationFrame(raf)
+
+
+// Grab all links that have a hash (#) and add lenis scrollTo method
+document.querySelectorAll('a').forEach(link => {
+	if( link.hash ) link.addEventListener('click', () => { lenis.scrollTo(link.hash) })
+})
+
+</script>

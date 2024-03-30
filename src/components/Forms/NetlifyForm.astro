@@ -1,0 +1,40 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'form'> {
+
+    /** Name of the Form. Needed for Netlify UI */
+    name : string,
+
+    /** Email subject. Only use if there is 1 subject option - ie: subject is not a <select> */
+    subject? : string,
+
+    /**
+     * @prop subject - string
+     * @prop slot
+     */
+    props? : true
+}
+
+const {
+    name,
+    subject
+} = Astro.props
+---
+
+<form id="email-form" method="post" data-netlify="true" name={name}>
+
+    { subject && <input type="hidden" name="subject" value={subject} /> }
+
+    <slot />
+
+</form>
+
+
+<style>
+
+form {
+    display : grid;
+    gap : 2rem;
+}
+</style>

@@ -1,0 +1,36 @@
+---
+import EvenColumns from "./EvenColumns.astro";
+import TextFlow from "./TextFlow.astro";
+
+interface Props {
+    date : string, 
+    tags: string[],
+    description : string
+}
+
+const {
+    date, tags, description 
+} = Astro.props
+
+---
+
+<EvenColumns class="gap-x-12 gap-y-4">
+    <div class="bg-primary-300 rounded-lg min-h-[200px]"></div>
+
+    <div class="grid grid-cols-[150px_1fr] gap-4">
+
+        <div class="text-right">
+            <span class="block font-bold text-lg text-primary-500">{date}</span>
+            <span class="block font-bold">{tags.map( tag => '#' + tag + ' ')}</span>
+        </div>
+
+        <div>
+            <TextFlow class='mb-4'>
+                <p>{description}</p>
+            </TextFlow>
+
+            <a href="#" class="font-bold text-primary-500">View Post</a>
+        </div>
+
+    </div>
+</EvenColumns>

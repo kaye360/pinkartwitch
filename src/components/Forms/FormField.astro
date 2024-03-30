@@ -1,0 +1,227 @@
+---
+
+type TextInputs = 'textarea' | 'date' | 'datetime-local' | 'email' | 'month' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url' | 'week'
+
+type NonTextInputs = 'checkbox' | 'color' | 'file' | 'image' | 'radio' | 'range' | 'reset' | 'select'
+
+
+
+interface BaseFormFieldProps {
+
+    /** <label> title and <input>, <textarea> name, id (toLowerCase) */
+    name : string,
+
+    /** Label title if name and label need to be different */
+    label? : string,
+
+    /** Required Field */
+    required? : boolean,
+    
+    /**
+     * @prop name - string
+     * @prop label - string (optional)
+     * @prop required - boolean (Default false)
+     * @prop type - 'HTMLInputType' | 'textarea'
+     * @prop floatingLabel : boolean (Default false, can only use on text input types)
+     */
+     props? : true,
+}
+
+
+
+interface TextInput extends BaseFormFieldProps {
+    type : TextInputs,
+    floatingLabel? : boolean
+}
+
+
+
+interface NonTextInput extends BaseFormFieldProps {
+    type : NonTextInputs,
+    floatingLabel? : never
+}
+
+
+
+type Props = TextInput | NonTextInput
+
+const {
+    type,
+    name,
+    required = false,
+    floatingLabel = false
+} = Astro.props
+
+let { label = name } = Astro.props
+
+const inputTextTypes = [
+    'textarea', 'date', 'datetime-local', 'email', 'month', 'number', 'password', 'search','tel', 'text', 'time', 'url', 'week'
+]
+
+const isInputTextType = inputTextTypes.includes(type)
+
+
+---
+
+<label class={floatingLabel && isInputTextType ? 'floating-label' : ''}>
+
+
+    <span class="form-field-title">
+        { label }
+        { required && <span class="form-field-required">(Required)</span> }
+    </span>
+
+
+    { type ===  'textarea' ? (
+
+        <textarea name={name.toLowerCase()} id={name.toLowerCase()} />
+
+    ) : type === 'select' ? (
+
+        <select name={name.toLowerCase()} id={name.toLowerCase()}>
+            <slot />    
+        </select>
+
+    ) : (
+
+        <input type={type} name={name.toLowerCase()} id={name.toLowerCase()} required={required} />
+
+    )}
+
+</label>
+
+
+<style>
+
+label  {
+    display : grid;
+    align-items: center;
+    width : 100%;
+    max-width: 600px;
+}
+
+label:has(input[type=checkbox]),
+label:has(input[type=radio]) {
+    grid-template-columns: 1fr 2fr;
+    justify-content: start;
+    justify-items: start;
+    gap : 1rem;
+    padding-block : 0.25rem;
+}
+
+label:has(input[type=checkbox]):hover,
+label:has(input[type=radio]):hover {
+    cursor: pointer;
+    background-color: var(--form-field-bg-color-hover);
+
+}
+
+label:first-of-type {
+    margin-top : 0.5rem;
+}
+
+span.form-field-title {
+    z-index: 2;
+    display : block;
+    margin-bottom: 0.25rem;
+    transition: all 350ms cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    width : fit-content;
+    font-weight: 600;
+    line-height: 1rem;
+}
+
+span.form-field-required {
+    display : inline-block;
+    margin-left : 0.5rem;
+    font-size : 0.9rem;
+    opacity: 40%;
+}
+
+input, textarea, select {
+    position: relative;
+    z-index: 1;
+    padding : 0.75rem 0.5rem !important;
+    border : 1px solid var(--form-field-border-color);
+    border-radius: 0.5rem;
+    background : var(--form-field-bg-color);
+    color : var(--form-field-text-color) !important;
+}
+
+input[type=checkbox],
+input[type=radio] {
+    margin-bottom: 0.15rem;
+}
+
+textarea {
+    height : 8rem;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline : none;
+    background-color: var(--form-field-bg-color-hover);
+    border : 1px solid var(--form-field-border-color-hover);
+    color : var(--form-field-text-color-hover) !important;
+}
+
+
+
+.floating-label .form-field-title,
+.floating-label input,
+.floating-label textarea {
+    grid-column: 1;
+    grid-row: 1;
+    padding : 0.5rem;
+    margin : 0;
+}
+
+.floating-label .form-field-title {
+    margin-left : 0.25rem;
+    min-width : 80%;
+    background-color: var(--form-field-bg-color);
+}
+
+.floating-label:has(textarea) .form-field-title {
+    align-self: start;
+    margin-top : 0.5rem;
+}
+
+.floating-label-is-focused .form-field-title {
+    transform: translateX(0.25rem) translateY(-85%);
+    min-width : fit-content;
+}
+
+
+</style>
+
+
+<script>
+
+const floatingLabels = document.querySelectorAll('.floating-label') as NodeListOf<HTMLLabelElement>
+
+floatingLabels.forEach( label => {
+
+    let formField = label.children[1] as HTMLTextAreaElement | HTMLInputElement
+
+
+    if( !( formField instanceof HTMLInputElement || formField instanceof HTMLTextAreaElement )) {
+        return
+    }
+
+    formField.addEventListener('blur',  (e) => toggleFloatingLabelInputs(label, formField, e))
+    formField.addEventListener('focus', (e) => toggleFloatingLabelInputs(label, formField, e))
+})
+
+function toggleFloatingLabelInputs(label: HTMLLabelElement, formField: HTMLInputElement | HTMLTextAreaElement, e: Event) {
+
+    if(e.type === 'focus') {
+        label.classList.add('floating-label-is-focused')
+    }
+
+    if(e.type === 'blur' && !formField.value) {
+        label.classList.remove('floating-label-is-focused')
+    }
+}
+
+</script>

@@ -1,0 +1,112 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+
+interface Props extends HTMLAttributes<'div'> {
+    'padding-x-sm'? : boolean,
+    'padding-x-md'? : boolean,
+    'padding-x-lg'? : boolean,
+    'padding-y-sm'? : boolean,
+    'padding-y-md'? : boolean,
+    'padding-y-lg'? : boolean,
+    'padding-b-sm'? : boolean,
+    'padding-b-md'? : boolean,
+    'padding-b-lg'? : boolean,
+    'rounded-sm'? : boolean,
+    'rounded-md'? : boolean,
+    'rounded-lg'? : boolean,
+    'hover-grow'? : boolean,
+
+    /**
+     * @prop padding-[x|y|b]-[sm|md|lg]? : boolean
+     * @prop rounded-[sm|md|lg]? : boolean
+     * @prop hover-grow? : boolean
+     */
+    props? : true
+}
+
+const {
+    'padding-x-sm' : paddingXSm = null,
+    'padding-x-md' : paddingXMd = null,
+    'padding-x-lg' : paddingXLg = null,
+    'padding-y-sm' : paddingYSm = null,
+    'padding-y-md' : paddingYMd = null,
+    'padding-y-lg' : paddingYLg = null,
+    'padding-b-sm' : paddingBSm = null,
+    'padding-b-md' : paddingBMd = null,
+    'padding-b-lg' : paddingBLg = null,
+    'rounded-sm' : roundedSm = null,
+    'rounded-md' : roundedMd = null,
+    'rounded-lg' : roundedLg = null,
+    'hover-grow' : hoverGrow = null
+} = Astro.props
+
+
+---
+
+<div-cards 
+    data-card-padding-x-sm={paddingXSm} 
+    data-card-padding-x-md={paddingXMd} 
+    data-card-padding-x-lg={paddingXLg} 
+    data-card-padding-y-sm={paddingYSm} 
+    data-card-padding-y-md={paddingYMd} 
+    data-card-padding-y-lg={paddingYLg} 
+    data-card-padding-b-sm={paddingBSm} 
+    data-card-padding-b-md={paddingBMd} 
+    data-card-padding-b-lg={paddingBLg} 
+    data-card-rounded-sm={roundedSm}
+    data-card-rounded-md={roundedMd}
+    data-card-rounded-lg={roundedLg}
+    data-card-hover-grow={hoverGrow}
+>
+    <slot />
+</div-cards>
+
+
+<style>
+
+div-cards {
+    display : grid;
+    column-gap : 1.25rem;
+    row-gap : 2rem; 
+    grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+}
+
+</style>
+
+<style is:global>
+
+.card {
+    --padding-x-sm : 1rem;
+    --padding-x-md : 1.75rem;
+    --padding-x-lg : 2.25rem;
+
+    --padding-y-sm : 1rem;
+    --padding-y-md : 1.75rem;
+    --padding-y-lg : 2.25rem;
+
+    --border-sm : 0.5rem;
+    --border-md : 1.25rem;
+    --border-lg : 2rem;
+}
+
+/* Card Padding */
+[data-card-padding-x-sm] :where(.card-content, .card-heading) { padding-inline: var(--padding-x-sm); }
+[data-card-padding-x-md] :where(.card-content, .card-heading) { padding-inline: var(--padding-x-md); }
+[data-card-padding-x-lg] :where(.card-content, .card-heading) { padding-inline: var(--padding-x-lg); }
+[data-card-padding-y-sm] .card { padding-block: var(--padding-y-sm); }
+[data-card-padding-y-md] .card { padding-block: var(--padding-y-md); }
+[data-card-padding-y-lg] .card { padding-block: var(--padding-y-lg); }
+[data-card-padding-b-sm] .card { padding-bottom: var(--padding-y-sm); }
+[data-card-padding-b-md] .card { padding-bottom: var(--padding-y-md); }
+[data-card-padding-b-lg] .card { padding-bottom: var(--padding-y-lg); }
+
+/* Card Rounded */
+[data-card-rounded-sm] .card { border-radius: var(--border-sm); }
+[data-card-rounded-md] .card { border-radius: var(--border-md); }
+[data-card-rounded-lg] .card { border-radius: var(--border-lg); }
+
+/* Card Scale Up on hover */
+[data-card-hover-grow] .card:hover { transform: scale(1.05); }
+
+</style>

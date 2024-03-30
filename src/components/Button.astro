@@ -1,0 +1,185 @@
+---
+import Icon from './Icon.astro';
+
+
+interface Base  { 
+
+    variant : 'outline-primary' | 'outline-secondary' | 'outline-tertiary' | 
+            'fill-primary' | 'fill-secondary' | 'fill-tertiary' | 
+            'plain-primary' | 'plain-secondary' | 'plain-tertiary',
+
+    icon? : string,
+
+    class? : string,
+
+    id? : string,
+
+    /**
+     * 
+     * @description This component can render as either a button or an anchor tag.
+     * 
+     * @prop variant : 'outline-primary' | 'outline-secondary' | 'outline-tertiary' | 'fill-primary' | 'fill-secondary' | 'fill-tertiary' | 'plain-primary' | 'plain-secondary' | 'plain-tertiary',
+     * @prop icon? : string
+     * @prop class? : string
+     * @prop id? : string
+     * 
+     * @prop href? : string
+     * @prop target? : '_blank'
+     * @prop download? : boolean
+     * 
+     * @prop type? : 'submit' | 'reset' | 'button'
+     * @prop disabled? : boolean
+     * @prop name? : string
+     * @prop value? : string
+     * 
+     * @prop slot
+     */
+    props? : true,
+}
+
+interface HtmlATag extends Base {
+    href : string,
+    target? : '_blank',
+    download? : boolean,
+
+    type? : never,
+    disabled?  : never,
+    name? : never,
+    value? : never
+}
+
+interface HtmlButtonTag extends Base { 
+    href? : never,
+    target? : never,
+    download? : never
+
+    type? : 'submit' | 'reset' | 'button',
+    disabled?  : boolean,
+    name? : string,
+    value? : string
+}
+
+
+type Props = HtmlATag | HtmlButtonTag
+
+// Props that aren't attributes
+const { 
+    variant,
+    icon,
+    class: className,
+} = Astro.props
+
+
+// Attribute props
+const attrs: {[key : string] : any} = {...Astro.props}
+
+delete attrs.class
+delete attrs.icon
+delete attrs.variant
+
+const Element = attrs.href ? 'a' : 'button'
+
+---
+
+<Element 
+    class:list={[
+        'inline-flex items-center justify-center gap-2 px-6 py-2 font-semibold tracking-wide rounded-md w-full border btn min-w-max', 
+        `btn-${variant}`, 
+        className
+    ]}
+    {...attrs}
+>
+    {icon && <Icon icon={icon} /> }
+    <slot />
+</Element>
+
+
+
+
+
+<style>
+
+.btn {
+    border-color : var(--border-color);
+    color : var(--text-color);
+    background-color: var(--background-color, #fff);
+}
+
+.btn:hover, .btn:focus {
+    border-color : var(--border-hover-color);
+    background-color: var(--background-hover-color);
+}
+
+.btn-outline-primary {
+    --border-color : hsl( var(--primary-color), 60% );
+    --border-hover-color : hsl( var(--primary-color), 20% );
+    --background-color : transparent;
+    --text-color : hsl( var(--primary-color), 30% );
+}
+
+.btn-outline-secondary {
+    --border-color : hsl( var(--secondary-color), 60% );
+    --border-hover-color : hsl( var(--secondary-color), 40% );
+    --background-color : transparent;
+    --text-color :  hsl( var(--secondary-color), 50% );
+}
+
+.btn-outline-tertiary {
+    --border-color : hsl( var(--tertiary-color), 60% );
+    --border-hover-color : hsl( var(--tertiary-color), 30% );
+    --background-color : transparent;
+    --text-color :  hsl( var(--tertiary-color), 40% );
+}
+
+.btn-fill-primary {
+    --border-color : transparent;
+    --border-hover-color : transparent;
+    --text-color : hsl( var(--primary-color), 95% );
+    --background-color : hsl( var(--primary-color), 50% );
+    --background-hover-color : hsl( var(--primary-color), 30% );
+    background: linear-gradient( 
+        180deg,
+        hsl( var(--primary-color), 70% ) ,
+        hsl( var(--primary-color), 50% ) 40%
+    );
+    border : none;
+}
+
+.btn-fill-secondary {
+    --border-color : hsl( var(--secondary-color), 50% );
+    --border-hover-color : hsl( var(--secondary-color), 60% );
+    --text-color : hsl( var(--secondary-color), 95% );
+    --background-color : hsl( var(--secondary-color), 50% );
+    --background-hover-color : hsl( var(--secondary-color), 60% );
+}
+
+.btn-fill-tertiary {
+    --border-color : hsl( var(--tertiary-color), 40% );
+    --border-hover-color : hsl( var(--tertiary-color), 60% );
+    --text-color : hsl( var(--tertiary-color), 95% );
+    --background-color : hsl( var(--tertiary-color), 40% );
+    --background-hover-color : hsl( var(--tertiary-color), 60% );
+}
+
+.btn-plain-primary {
+    --border-color : transparent;
+    --border-hover-color : hsl( var(--primary-color), 50% ) ; 
+    --background-color : transparent;
+    --text-color : hsl( var(--primary-color), 50% );
+}   
+
+.btn-plain-secondary {
+    --border-color : transparent;
+    --border-hover-color : hsl( var(--secondary-color), 50% ) ; 
+    --background-color : transparent;
+    --text-color : hsl( var(--secondary-color), 50% );
+}   
+
+.btn-plain-tertiary {
+    --border-color : transparent;
+    --border-hover-color : hsl( var(--tertiary-color), 50% ) ; 
+    --background-color : transparent;
+    --text-color : hsl( var(--tertiary-color), 50% );
+}   
+
+</style>

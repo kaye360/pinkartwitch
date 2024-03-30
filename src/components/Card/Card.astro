@@ -1,0 +1,33 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div' | 'a'>  {
+
+    href? : string,
+
+    class? : string,
+
+    /**
+     * @prop href? : string,
+     * @prop class? : string,
+     */
+    props? : true
+}
+
+const {
+    href = null,
+    class : className,
+    ...rest
+} = Astro.props
+
+const Element = href ? 'a' : Fragment
+
+---
+
+
+<Element {href}>
+    <div class:list={['card flex flex-col gap-3 h-full overflow-hidden transition-all border border-primary-100', className]} {...rest}>
+        <slot />
+    </div>
+</Element>
+

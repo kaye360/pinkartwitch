@@ -1,0 +1,67 @@
+---
+import Wrapper from "./Wrapper.astro";
+import Image from "./Image.astro";
+import type { HTMLAttributes } from "astro/types";
+import { PAGES } from "../config";
+import NavLink from "./Nav/NavLink.astro";
+import SocialLinkList from "./Nav/SocialLinkList.astro";
+import DeviantArtIcon from "./icons/DeviantArtIcon.astro";
+import InstagramIcon from "./icons/InstagramIcon.astro";
+import ThreadsIcon from "./icons/ThreadsIcon.astro";
+import TumblrIcon from "./icons/TumblrIcon.astro";
+
+interface Props extends HTMLAttributes<'footer'> {}
+const {...rest} = Astro.props
+
+const totalPages = PAGES.length
+---
+
+<footer class="bg-[url(/img/footer-stars-bg.webp)] bg-contain bg-no-repeat bg-bottom text-primary-500" {...rest}>
+    <Wrapper padding="inline" width="max" class="py-16 grid gap-12 lg:gap-8">
+
+        <a href="/" class="flex flex-col items-center mx-auto text-primary-500">
+            <Image 
+                src="/img/logo.webp"
+                width={48}
+                height={48}
+                alt="PinkArtWitch Logo"
+            />
+            <span class="font-bold text-md">
+                @PinkArtWitch
+            </span>
+        </a>
+
+        <nav>
+            <ul class="flex items-center justify-center gap-6 flex-wrap mx-auto">
+                { PAGES.map( (page, i: number) => {
+                    return page.group.includes('header') && (
+            
+                        <NavLink href={page.path} title={page.title} class="text-base">{page.title}</NavLink>
+                        <>
+                            {i + 1 !== totalPages ? (
+                                <Image src="/img/nav-star.svg" width={13} height={13} alt="" class="" /> 
+                            ) : (
+                                ''
+                            )}
+                        </>
+            
+                    )
+                })}
+            </ul>
+        </nav>
+
+        <ul class="flex items-center gap-6 justify-center">
+            <li><InstagramIcon /></li>
+            <li><DeviantArtIcon /></li>
+            <li><TumblrIcon /></li>
+            <li><ThreadsIcon /></li>
+        </ul>
+
+        <p class="text-center">
+            Copyright { new Date().getFullYear() } @PinkArtWitch
+        </p>
+
+    </Wrapper>
+</footer>
+
+

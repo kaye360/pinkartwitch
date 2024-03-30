@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+
+
+        /* ------------------------ Colors ------------------------ */
+                
+        /* Color Picker is just for use in IDE */
+        --color-picker : hsl(204, 36%, 36%);
+        --color-picker : hsl(0, 0%, 0%);
+        --color-picker : hsl(0, 0%, 0%);
+
+        /* 
+            Base Site Colors (HSL) 
+            Note: only provide H and S values. L values are not needed
+        */
+        --primary-color   : 336deg 76%;
+        --secondary-color : 0deg 0%;
+        --tertiary-color  : 0deg 0%;
+
+        
+        /* Color Config */
+
+        --body-bg-color                  : #FFF5F5;
+        --body-text-color                : hsl( var(--primary-color) 25% );
+
+        --contact-bar-bg-color           : hsl( var(--primary-color) 10% );
+        --contact-bar-text-color         : hsl( var(--primary-color) 90% );
+
+        --nav-bar-bg-color               : transparent;
+        --nav-bar-text-color             : hsl( var(--primary-color) 50% );
+        --nav-bar-transparent-text-color : hsl( var(--primary-color) 90% );
+
+        --nav-bar-CTA-bg-color           : hsl( var(--primary-color) 30% );
+        --nav-bar-CTA-text-color         : hsl( var(--primary-color) 85% );
+
+        --nav-bar-CTA-bg-color-hover     : hsl( var(--secondary-color) 50% );
+        --nav-bar-CTA-text-color-hover   : hsl( var(--secondary-color) 95% );
+
+        --hero-text-color                : hsl( var(--secondary-color) 60% );
+
+        --form-field-bg-color            : hsl( var(--primary-color) 96% );
+        --form-field-border-color        : hsl( var(--primary-color) 80% );
+        --form-field-text-color          : hsl( var(--primary-color) 30% );
+
+        --form-field-bg-color-hover      : hsl( var(--primary-color) 93% );
+        --form-field-border-color-hover  : hsl( var(--primary-color) 30% );
+        --form-field-text-color-hover    : hsl( var(--primary-color) 30% );
+
+        --footer-bg-color-from           : hsl( var(--primary-color) 75% );
+        --footer-bg-color-to             : hsl( var(--primary-color) 95% );
+        --footer-text-color              : hsl( var(--primary-color) 30% );
+
+
+        /* ------------------------ Spacing ------------------------ */
+
+        --spacing-inline-default : 2vw;
+        --spacing-block-default : 2rem;
+        
+        @media screen and (min-width : 768px) {
+            --spacing-inline-default : 2vw;
+            --spacing-block-default : 4rem;
+        }
+
+
+
+
+    }
+    
+    html {
+        scroll-behavior: smooth;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        text-wrap : balance;
+    }
+
+    p {
+        line-height: 1.6rem;
+    }
+
+    a {
+        color : hsl( var(--primary-color) 50%);
+    }
+
+    .text-flow ul {
+        list-style: disc;
+        margin-left: 2rem;
+    }
+
+}
+
+
+@layer components {
+
+}
+
+@layer utilities {
+
+    .px-default {
+        padding-inline : var(--spacing-inline-default);
+    }
+    
+    .py-default {
+        padding-block : var(--spacing-block-default);
+    }
+    
+    .mx-default {
+        margin-inline : var(--spacing-inline-default);
+    }
+    
+    .my-default {
+        margin-block : var(--spacing-block-default);
+    }
+
+    .scrollbar::-webkit-scrollbar {
+        width: 20px;
+        height: 10px;
+    }
+    
+    .scrollbar::-webkit-scrollbar-track {
+        border-radius: 100vh;
+        background: transparent;
+    }
+    
+    .scrollbar::-webkit-scrollbar-thumb {
+        background: hsl( var(--primary-color) 90% );
+        border-radius: 100vh;
+        border: 3px solid hsl( var(--primary-color) 90% );
+    }
+    
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+        background: hsl( var(--primary-color) 50% );
+        border: 3px solid hsl( var(--primary-color) 50% );
+    }
+}

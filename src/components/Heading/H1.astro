@@ -1,0 +1,26 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Image  from "../Image.astro";
+interface Props extends HTMLAttributes<'h1'> {}
+
+
+const {
+    class : className,
+    ...rest
+} = Astro.props
+
+---
+
+<h1 class:list={[`relative mb-8 text-3xl lg:text-4xl text-primary-500 uppercase font-semibold tracking-wide font-theme`, className]} {...rest}>
+    <Image 
+        src="/img/h1-star.svg" 
+        width={88}
+        height={90}
+        alt=""
+        class="absolute -z-10 -left-8 lg:-left-20 -top-6"
+    />
+    <slot />
+</h1>
+
+
+

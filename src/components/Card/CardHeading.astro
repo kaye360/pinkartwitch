@@ -1,0 +1,25 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'span' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'> {
+
+    Element? : 'span' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+
+    class? : string,
+
+    /**
+     * @prop Element? : 'span' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+     * @prop class? : string
+     */
+    props? : true
+}
+
+const {
+    Element = 'span',
+    class : className
+} = Astro.props
+---
+
+<Element class:list={['card-heading text-xl font-semibold', className]}>
+    <slot />    
+</Element>

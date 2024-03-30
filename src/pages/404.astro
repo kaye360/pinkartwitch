@@ -1,0 +1,57 @@
+---
+import Wrapper from "../components/Wrapper.astro";
+import Image from "../components/Image.astro";
+import { PAGES } from "../config";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import EvenColumns from "../components/EvenColumns.astro";
+
+
+---
+
+<BaseLayout props
+    lang="en"
+    title="Page Not Found"
+    description="This page cannot be found"
+>
+
+    <Wrapper width="max" padding="both" class="">
+
+        <EvenColumns class="mb-12 gap-12">
+            <div class="self-center">
+                <h1 class="text-3xl mb-4">Error: Page not found</h1>
+        
+                <p class="mb-4">We're sorry, the page you are looking for could not be found. Here is a list of all our pages:</p>
+            </div>
+
+            <Image 
+                src="/img/404.webp"
+                class="mix-blend-darken"
+                width={319}
+                height={148}
+                alt="Error 404"
+            />
+        </EvenColumns>
+
+
+        <ul>
+            { PAGES.map( page => (
+                <li>
+                    <a href={page.path} class="hover:underline">{page.title}</a>
+                </li>
+            ))}
+        </ul>
+
+
+    </Wrapper>
+
+</BaseLayout>
+
+<style>
+
+ul {
+    display : grid;
+    gap : 1rem;
+    grid-template-columns: repeat( auto-fit, minmax(175px, 1fr) );
+}
+
+</style>

@@ -1,0 +1,74 @@
+---
+import { FAVICON_PATH, OPENGRAPH_PATH, SITE_BASE_PATH, SITE_SHORT_NAME, SITE_URL } from '../config';
+
+interface Props {
+
+    /** <title> tag */
+    title : string,
+
+    /** Meta Description */
+    description : string,
+
+    /**
+     * @prop title : string
+     * @prop description : string
+     * @prop slot
+     */
+    props? : true
+}
+
+const {
+    title,
+    description
+} = Astro.props
+---
+
+<head>
+    <meta 
+        http-equiv="Content-Security-Policy" 
+        content=`default-src https:; 
+                 img-src 'self';
+                 object-src 'self';
+                 connect-src 'self';
+                 script-src 'self' ${import.meta.env.DEV ? 'http://localhost:4321;' : ''};
+                 ${import.meta.env.DEV 
+                    ? "style-src 'unsafe-inline' https://fonts.googleapis.com;" 
+                    : "style-src 'self' https://fonts.googleapis.com;"
+                 }
+                 style-src-attr 'unsafe-inline';
+    `/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <link rel="icon" type="image/svg+xml" href={FAVICON_PATH} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+    <!-- <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> -->
+    
+    <meta name="description" content={description}>
+
+    <title>
+        {`${title} - ${SITE_SHORT_NAME}`} 
+    </title>
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content={`${SITE_URL}${SITE_BASE_PATH}`}>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:image" content={OPENGRAPH_PATH}>
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content={SITE_URL}>
+    <meta property="twitter:url" content={`${SITE_URL}${SITE_BASE_PATH}`}>
+    <meta name="twitter:title" content={title}>
+    <meta name="twitter:description" content={description}>
+    <meta name="twitter:image" content={OPENGRAPH_PATH}>
+
+    <slot />
+</head>

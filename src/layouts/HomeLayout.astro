@@ -1,0 +1,44 @@
+---
+import SkipToContent from '../components/SkipToContent.astro';
+import '../css/config.css'
+import Footer from '../components/Footer.astro';
+import MainContent from '../components/MainContent.astro';
+import Meta from '../components/Meta.astro';
+import type { Layout } from './types';
+import Header from '../components/Header.astro';
+
+
+interface Props extends Layout { }
+
+const {
+    title,
+    description,
+	lang,
+	class : className
+} = Astro.props
+---
+
+<html lang={lang}>
+
+	<Meta title={title} description={description} />
+
+	<body class:list={['bg-[var(--body-bg-color)] text-[var(--body-text-color)] font-base', className]}>
+
+		<SkipToContent />
+
+		<Header variant='fixed' props />
+		
+        <MainContent>
+
+            <slot />
+
+        </MainContent>
+
+        <Footer />
+
+		<slot name="pageEnd" />
+		
+	</body>
+</html>
+
+

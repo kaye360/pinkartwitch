@@ -1,0 +1,36 @@
+---
+import { LANGUAGES } from "../../config"
+
+const { lang } = Astro.params
+
+
+---
+
+
+<script define:vars={{ lang, LANGUAGES }}>
+
+function resolveLang() {
+
+    let allowableLangs = []
+    allowableLangs = LANGUAGES.map( lang => lang.code)
+
+    // Set To Default if no localstorage set, or is set to something other than an allowable Lang
+    if( 
+        !localStorage.lang || 
+        !allowableLangs.includes(localStorage.lang) 
+    ) {
+        localStorage.lang = lang || 'en'
+    }
+
+    // If our page path matches localstorage, we are good to go
+    if( lang === localStorage.lang ) return
+
+    // Redirect to correct language index
+    const redirect = '/' + localStorage.lang + window.location.pathname.slice(3)
+
+    window.location.href = redirect
+}
+	
+resolveLang()
+
+</script>

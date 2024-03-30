@@ -1,0 +1,21 @@
+---
+import Image from "../Image.astro"
+---
+
+<Image 
+    src="/img/pink-witch.webp"
+    width={141}
+    height={187}
+    alt="Pink witch drawn by Nova Alexander"
+    class="hero-pink-witch absolute right-0 top-32 sm:right-auto sm:left-[6vw] md:left-[8vw]"
+/>
+
+<style>
+
+@media screen and (max-width : 639px) {
+    img.hero-pink-witch {
+        transform: rotateY(180deg);
+    }
+}
+    
+</style>

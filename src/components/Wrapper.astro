@@ -1,0 +1,51 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+
+
+interface Props extends HTMLAttributes<'div'> {
+
+    /** Width of Wrapper.
+     * Default is wide with of 100%
+     * max = 72rem, 1152px
+     * text = 70ch
+     */
+    width? : 'max' | 'text',
+
+    /** Default padding applied to inline, block, or both */
+    padding? : 'inline' | 'block' | 'both'
+    
+    class? : string,
+
+    /**
+     * @prop width ('max' | 'text')
+     * @prop padding ('inline' | 'block' | 'both')
+     * @prop slot
+     */
+    props? : true
+}
+
+const { 
+    width,
+    padding,
+    class : className,
+    ...rest
+} = Astro.props
+---
+
+<div 
+    class:list={[
+        'mx-auto w-full',
+        `${width === 'max' ? 'max-w-6xl' : ''}`,
+        `${width === 'text' ? 'max-w-[70ch]' : ''}`,
+        `${padding === 'inline' ? 'px-default' : ''}`,
+        `${padding === 'block' ? 'py-default' : ''}`,
+        `${padding === 'both' ? 'px-default py-default' : ''}`,
+        className
+    ]} 
+    {...rest}
+>
+
+    <slot />
+
+</div>

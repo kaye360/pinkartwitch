@@ -1,0 +1,99 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+
+
+interface Props extends HTMLAttributes<'button'> {
+    class? : string,
+
+    /**
+     * @extends <button>
+     */
+    props? : true
+}
+
+
+
+const {
+    class : className,
+} = Astro.props
+
+---
+
+
+<button aria-label="Toggle Menu" data-element="mobile-menu-btn" class={className}>
+
+    <svg class="nav-icon-open" width="34" height="25" viewBox="0 0 34 25" fill="none">
+        
+        <line class="mobile-btn-line mobile-btn-line-1"
+            x1="2.5" y1="17" x2="31.5" y2="17" 
+            stroke="black" stroke-width="3" stroke-linecap="round"
+        />
+
+        <!-- <line  class="mobile-btn-line mobile-btn-line-2"
+            x1="2.5" y1="20.5" x2="31.5" y2="20.5" 
+            stroke="black" stroke-width="3" stroke-linecap="round"
+        /> -->
+
+        <line class="mobile-btn-line mobile-btn-line-3"
+            x1="2.5" y1="8" x2="31.5" y2="8" 
+            stroke="black" stroke-width="3" stroke-linecap="round"
+        />
+
+    </svg>
+
+</button>
+
+<style>
+
+button {
+    position: relative;
+    z-index : 9999;
+    flex-shrink: 0;
+    display: inline-block;
+    height : 25px;
+    cursor : pointer;
+    transition: all 250ms;
+}
+
+.mobile-btn-line {
+    stroke : var(--nav-bar-text-color);
+    transform-origin: center;
+    transition: all 550ms ease-in-out;
+}
+</style>
+
+<style is:global>
+
+.mobile-menu-is-open .mobile-btn-line-1 {
+    transform: rotate(-225deg) translate(3%, -15%);
+}
+
+.mobile-menu-is-open .mobile-btn-line-3 {
+    transform: rotate(225deg) translate(-0%, 15%);
+}
+
+
+/* .mobile-menu-is-open .mobile-btn-line-2 {
+    transform: rotate(90deg) translateX(200%);
+} */
+
+</style>
+
+
+
+<script>
+
+const btn = document.querySelector('[data-element="mobile-menu-btn"]') as HTMLButtonElement
+
+function toggleMobileMenu(): void { 
+    const body = document.body as HTMLBodyElement
+    body.classList.toggle('mobile-menu-is-open')
+}
+
+btn.addEventListener('click', () => { toggleMobileMenu(); btn.blur() })
+btn.addEventListener('focus', toggleMobileMenu )
+btn.addEventListener('blur', toggleMobileMenu )
+  
+</script>
+  

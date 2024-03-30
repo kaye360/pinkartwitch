@@ -1,0 +1,44 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import EvenColumns from "../EvenColumns.astro";
+import TextFlow from "../TextFlow.astro";
+import Wrapper from "../Wrapper.astro";
+
+interface Props extends HTMLAttributes<'section'> {
+
+    /** Extra classes for lines */
+    lineClass? : string,
+
+    /**
+     * @prop lineClass - string (optional)
+     * @prop slot
+     * @prop {...rest}
+     */
+    props? : true,
+
+    [key : string] : any
+}
+
+const { 
+    lineClass = '',
+    ...rest
+} = Astro.props
+
+---
+<section { ...rest }>
+	<Wrapper width="max" padding="both">
+		<EvenColumns class='items-center gap-8'>
+
+			<div class={`h-1 bg-primary-100 ${lineClass}`}></div>
+			
+			<TextFlow>
+
+                <slot />
+
+			</TextFlow>
+
+			<div class={`h-1 bg-primary-100 ${lineClass}`}></div>
+
+		</EvenColumns>
+	</Wrapper>
+</section>

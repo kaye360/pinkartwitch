@@ -1,0 +1,62 @@
+
+
+<button 
+    class="hidden md:block p-4 lg:hidden absolute z-10 left-0 top-1/2 -translate-y-1/2"
+    data-hero-scroll-left
+>
+    <svg width="24" height="51" viewBox="0 0 24 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.968244 27.388L20.3672 50.2771C20.7697 50.6634 21.3045 50.8789 21.8606 50.8789C22.4167 50.8789 22.9514 50.6634 23.3539 50.2771L23.3799 50.251C23.5757 50.0637 23.7316 49.8383 23.8382 49.5885C23.9447 49.3387 23.9996 49.0696 23.9996 48.7977C23.9996 48.5259 23.9447 48.2568 23.8382 48.007C23.7316 47.7572 23.5757 47.5318 23.3799 47.3445L5.38775 25.8062L23.325 4.41332C23.5208 4.22606 23.6767 4.00066 23.7832 3.75083C23.8898 3.501 23.9447 3.23196 23.9447 2.96007C23.9447 2.68819 23.8898 2.41915 23.7832 2.16931C23.6767 1.91948 23.5208 1.69408 23.325 1.50682L23.299 1.48067C22.8965 1.0944 22.3617 0.878908 21.8056 0.878908C21.2495 0.878908 20.7147 1.0944 20.3122 1.48067L0.968244 24.2331C0.756089 24.4366 0.58719 24.6814 0.471786 24.9525C0.356382 25.2237 0.296875 25.5156 0.296875 25.8106C0.296875 26.1056 0.356382 26.3975 0.471786 26.6686C0.58719 26.9398 0.756089 27.1845 0.968244 27.388Z" fill="currentColor"/>
+    </svg>
+    
+</button>
+
+<button 
+    class="hidden md:block p-4 lg:hidden absolute z-10 right-0 top-1/2 -translate-y-1/2"
+    data-hero-scroll-right    
+>
+
+    <svg width="24" height="51" viewBox="0 0 24 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M23.3286 24.3698L3.92969 1.48067C3.52718 1.09439 2.99242 0.878905 2.43632 0.878905C1.88022 0.878905 1.34546 1.09439 0.942954 1.48067L0.91698 1.50681C0.721175 1.69407 0.56526 1.91947 0.458717 2.16931C0.352173 2.41914 0.297231 2.68818 0.297231 2.96006C0.297231 3.23195 0.352173 3.50099 0.458717 3.75082C0.56526 4.00065 0.721175 4.22606 0.91698 4.41332L18.9091 25.9516L0.971923 47.3445C0.776118 47.5317 0.620203 47.7571 0.51366 48.007C0.407116 48.2568 0.352174 48.5259 0.352174 48.7977C0.352174 49.0696 0.407116 49.3387 0.51366 49.5885C0.620203 49.8383 0.776118 50.0637 0.971923 50.251L0.997896 50.2771C1.40041 50.6634 1.93516 50.8789 2.49126 50.8789C3.04736 50.8789 3.58213 50.6634 3.98464 50.2771L23.3286 27.5247C23.5408 27.3212 23.7097 27.0765 23.8251 26.8053C23.9405 26.5342 24 26.2422 24 25.9472C24 25.6522 23.9405 25.3603 23.8251 25.0892C23.7097 24.818 23.5408 24.5733 23.3286 24.3698Z" fill="currentColor"/>
+    </svg>
+    
+</button>
+
+
+<style>
+
+@media (hover : hover) {
+    button:hover {
+        background-color: hsla(336, 76%, 90%, 0.548);
+        border-radius: 0.5rem;
+        display: grid;
+        place-items: center;
+    }
+}
+
+</style>
+
+
+<script>
+
+const artContainer = document.querySelector('[data-hero-art-container]') as HTMLDivElement
+const leftBtn = document.querySelector('[data-hero-scroll-left]') as HTMLButtonElement
+const rightBtn = document.querySelector('[data-hero-scroll-right]') as HTMLButtonElement
+
+artContainer.scrollLeft = 0
+
+rightBtn.addEventListener('click', () => {
+    artContainer.scrollTo({
+        left : artContainer.scrollLeft + 150,
+        behavior : 'smooth'
+    })
+})
+
+leftBtn.addEventListener('click', () => {
+    artContainer.scrollTo({
+        left : artContainer.scrollLeft - 150,
+        behavior : 'smooth'
+    })
+})
+
+
+</script>

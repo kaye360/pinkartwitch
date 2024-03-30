@@ -1,0 +1,81 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'li'> {
+
+    /** Link href of Nav Link */
+    href : string,
+
+    title : string,
+
+    class? : string,
+
+    /**
+     * @prop href (string)
+     * @prop icon (string)
+     * @prop slot
+     */
+    props? : true
+}
+
+const {
+    href,
+    title,
+    class : className,
+} = Astro.props
+
+const { pathname } = Astro.url
+
+const isActive = pathname === href
+
+
+---
+
+<li>
+    <a
+        href={href} 
+        data-title={title}
+        class:list={[
+            'relative flex items-center gap-2 font-bold border-b-4 min-w-max overflow-hidden text-2xl lg:text-base',
+            className,
+            `${isActive ? ' border-primary-300 ' : 'border-transparent'}`
+        ]}
+    >
+
+        <span class="transition-all">
+            <slot />
+        </span>
+
+    </a>
+
+</li>
+
+
+<style>
+
+
+a::before {
+    position: absolute;
+    inset : auto auto 300% 0rem;
+    content: attr(data-title);
+    transition: all 750ms cubic-bezier(0.16, 1, 0.3, 1);
+    rotate: 30deg;
+}
+
+a:hover::before {
+    bottom : 0;
+    rotate: 0deg;
+}
+
+a span {
+    transition: all 750ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+a:hover span {
+    transform : translateY(150%);
+}
+
+</style>
+
+
+

@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'h5'> { 
+    class? : string,
+    /**
+     * @prop class? : string
+     */
+    props? : true
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<h2 class:list={['text-lg font-bold', className]} {...rest}>
+    <slot />
+</h2>

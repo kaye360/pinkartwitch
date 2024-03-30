@@ -1,0 +1,61 @@
+---
+import Wrapper from "./Wrapper.astro";
+import Image from "./Image.astro";
+import Button from "./Button.astro";
+import HeroScrollBtns from "./Hero/HeroScrollBtns.astro";
+import HeroArt from "./Hero/HeroArt.astro";
+import HeroMoreArtBtn from "./Hero/HeroMoreArtBtn.astro";
+import HeroContent from "./Hero/HeroContent.astro";
+import HeroWitch from "./Hero/HeroWitch.astro";
+import HeroStars from "./Hero/HeroStars.astro";
+import HeroStarCircle from "./Hero/HeroStarCircle.astro";
+
+---
+
+<section 
+    id="hero" 
+    data-element="hero" 
+    class=" bg-[url(/img/hero-bg-desktop.webp)] bg-cover bg-bottom  text-primary-100"
+>
+    
+    <Wrapper 
+        width="max" 
+        padding="inline"
+        class="relative pt-32 pb-48"
+    >
+
+        <HeroContent />
+
+        <HeroWitch />
+
+        <HeroStars />
+
+        <HeroStarCircle />
+        
+    </Wrapper>
+    
+</section>
+
+
+<div class="relative mx-auto w-fit text-primary-100 -mt-36">
+
+    <HeroScrollBtns />
+
+    <div 
+        class="flex items-stretch gap-4 overflow-y-auto py-8 scrollbar snap-x snap-mandatory px-4"
+        data-hero-art-container
+    >
+
+        <HeroArt />
+
+        <HeroMoreArtBtn />
+
+    </div>
+
+</div>
+
+
+
+
+
+

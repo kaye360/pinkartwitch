@@ -1,0 +1,75 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+
+interface Props extends HTMLAttributes<'div'> {
+
+    /** 
+     * How many breakpoints in the grid. Default 1
+     * If 0, Columns will not collapse
+     * If 1, Columns will collapse to 1 on medium screens
+     * If 2, Columms will collapse to 2 on medium and 1 on small screens
+     * 
+     */
+    breakpoints? : number,
+
+    /**
+     * @prop breakpoints number
+     * @prop slot
+     */
+    props? : true
+}
+
+
+
+const {
+    breakpoints = 1,
+    class : classList = '',
+    ...rest
+} = Astro.props
+
+
+const breakpointsClass = 
+    breakpoints === 0 ? 'even-columns-0' : 
+    breakpoints === 1 ? 'even-columns-1 lg:grid-cols-2' :
+    breakpoints === 2 ? 'even-columns-2 lg:grid-cols-2' : ''
+---
+
+
+
+<div class={`even-columns items-stretch ${breakpointsClass} ${classList}`}  {...rest} >
+    <slot />
+</div>
+
+
+
+<style is:global>
+
+.even-columns {
+    display : grid;
+}
+
+.even-columns-0 {
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+}
+
+@media screen and (min-width: 768px) {
+    .even-columns-1 {
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+    }
+
+    .even-columns-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .even-columns-2 {
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+    }
+}
+
+</style>
