@@ -1,0 +1,60 @@
+---
+import Wrapper from "./Wrapper.astro";
+---
+
+<div 
+    class="fixed inset-0 -z-50 bg-primary-100/95 opacity-0 pt-4 transition-all duration-500"
+    data-art-modal
+>
+    <Wrapper width='max' class="flex justify-end px-2">
+        <button data-close-art-modal-button>
+            Close
+        </button>
+    </Wrapper>
+
+    <Wrapper width="max">
+        <div class="bg-primary-200 py-4">
+            Image picker
+        </div>
+    </Wrapper>
+
+    <div
+        data-art-modal-content
+        class="grid place-items-center"
+    >
+    </div>
+</div>
+
+
+<style is:global>
+
+	.art-modal-animation {
+		animation: art-modal-animation 300ms ease-in-out;
+	}
+	
+	@keyframes art-modal-animation {
+		from {
+			transform : translateY(3rem);
+		}
+		to {
+			transform: translateY(0rem);
+		}
+	}
+</style>
+
+
+<script>
+import ArtModal from '../lib/ArtModal'
+
+const modal = new ArtModal({
+    modal         : '[data-art-modal]',
+    modalContent  : '[data-art-modal-content]',
+    artBtn        : '[data-art-button]',
+    closeModalBtn : '[data-close-art-modal-button]'
+})
+modal.init()
+
+</script>
+
+
+
