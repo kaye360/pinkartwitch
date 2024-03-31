@@ -24,7 +24,8 @@ const modal = new ArtModal({
     artBtn : '[data-art-button]',
 })
 modal.init()
-modal.mockOpenModal()
+
+import.meta.env.DEV && modal.mockOpenModal()
 
 </script>
 
