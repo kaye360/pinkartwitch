@@ -2,26 +2,26 @@
 
 <div 
     class="fixed inset-0 -z-50 bg-primary-50/90 opacity-0 pt-4 transition-all duration-500"
-    data-art-modal
+    data-img-modal
 />
 
 <style is:global>
-	.art-modal-animation {
-		animation: art-modal-animation 300ms ease-in-out;
+	.img-modal-animation {
+		animation: img-modal-animation 300ms ease-in-out;
 	}
 	
-	@keyframes art-modal-animation {
+	@keyframes img-modal-animation {
 		from { transform : translateY(3rem); }
 		to   { transform: translateY(0rem);}
 	}
 </style>
 
 <script>
-import ArtModal from '../lib/ArtModal'
+import GalleryModal from '../lib/galleryModal'
 
-const modal = new ArtModal({
-    modal  : '[data-art-modal]',
-    artBtn : '[data-art-button]',
+const modal = new GalleryModal({
+    modal  : '[data-img-modal]',
+    imgBtn : '[data-img-button]',
 })
 modal.init()
 

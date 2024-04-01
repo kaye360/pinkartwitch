@@ -2,9 +2,9 @@
 import Wrapper from '../components/Wrapper.astro';
 import H1 from '../components/Heading/H1.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ArtModal from '../components/ArtModal.astro';
 import Image from '../components/Image.astro';
 import { imageList } from '../lib/imageList';
+import GalleryModal from '../components/GalleryModal.astro';
 
 ---
 
@@ -25,7 +25,7 @@ import { imageList } from '../lib/imageList';
 			<div class="flex justify-center items-stretch gap-2 lg:gap-6 flex-wrap">
 
 				{ imageList.map( (img, i) => (
-					<button data-art-button class=" hover:cursor-pointer relative group">
+					<button data-img-button class=" hover:cursor-pointer relative group">
 						<Image 
 							src={img.src}
 							width={img.width}
@@ -53,7 +53,7 @@ import { imageList } from '../lib/imageList';
 		</Wrapper>
 	</section>
 
-	<ArtModal slot='pageEnd' />
+	<GalleryModal slot='pageEnd' />
 
 </BaseLayout>
 
