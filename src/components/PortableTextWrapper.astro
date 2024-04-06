@@ -1,0 +1,16 @@
+---
+import TextFlow from "./TextFlow.astro";
+import {PortableText} from 'astro-portabletext'
+
+
+const { value } = Astro.props
+---
+
+<div class="[&_h2]:text-3xl [&_h2]:font-theme [&_h2]:text-primary-600 [&_h2]:font-semibold ">
+    <TextFlow>
+        <PortableText
+            value={value}
+        />
+    </TextFlow>
+</div>
+

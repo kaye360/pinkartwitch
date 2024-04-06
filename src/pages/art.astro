@@ -3,8 +3,10 @@ import Wrapper from '../components/Wrapper.astro';
 import H1 from '../components/Heading/H1.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Image from '../components/Image.astro';
-import { imageList } from '../lib/imageList';
 import GalleryModal from '../components/GalleryModal.astro';
+import { getArtWork } from '../lib/api/api';
+
+const artworkList = await getArtWork()
 
 ---
 
@@ -24,25 +26,25 @@ import GalleryModal from '../components/GalleryModal.astro';
 
 			<div class="flex justify-center items-stretch gap-2 lg:gap-6 flex-wrap">
 
-				{ imageList.map( (img, i) => (
-					<button data-img-button class=" hover:cursor-pointer relative group">
+				{ artworkList.map( (art, i) => (
+					<button data-art-button class=" hover:cursor-pointer relative group">
 						<Image 
-							src={img.src}
-							width={img.width}
-							height={img.height}
+							src={art.image.url}
+							width={art.image.width}
+							height={art.image.height}
 							alt=""
 							class='h-[125px] lg:h-[250px] w-auto rounded-md'
-							data-description={img.description}
-							data-title={img.title}
+							data-description={art.description}
+							data-title={art.title}
 							data-index={i}
 						/>
 
 						<div class="hidden lg:grid gap-1 text-left absolute inset-0 p-4 bg-primary-100/80 opacity-0  group-hover:opacity-100 transition-all duration-300 ">
 							<h2 class="text-xl font-bold font-theme translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-								{img.title}
+								{art.title}
 							</h2>
 							<p class="hidden lg:block translate-y-8 group-hover:translate-y-0 transition-all duration-300 overflow-hidden h-32">
-								{img.description}
+								{art.description}
 							</p>
 							<span class="hidden lg:block translate-y-12 group-hover:translate-y-0 transition-all duration-300 underline font-semibold ">Read More</span>
 						</div>

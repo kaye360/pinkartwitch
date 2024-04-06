@@ -1,4 +1,4 @@
-import { imageList, type GalleryModalImage } from './imageList';
+import type { Artwork } from "../api/contentTypes"
 
 export default class GalleryModal {
 
@@ -6,22 +6,23 @@ export default class GalleryModal {
     imgBtnElName : string
     modal : HTMLDivElement | null
     currentImageIndex : number | null
-    imageList : GalleryModalImage[]
+    artList : Artwork[]
 
     constructor({ modal, imgBtn } : { modal: string, imgBtn: string }) {
         this.dataModalElName = modal
         this.imgBtnElName = imgBtn
         this.modal = null
-        this.imageList = imageList
         this.currentImageIndex = null
+        this.artList = []
     }
 
     // 
     // Main Methods
     // 
+
     init = () => {
+        this.artList = this.generateArtList()
         this.modal = document.querySelector(this.dataModalElName) as HTMLDivElement
-        if(!this.modal) throw('Error: Modal Element not found')
         this.addImgButtonEventListeners()
     }
 
@@ -42,10 +43,29 @@ export default class GalleryModal {
         this.hideModalUI()
         this.setIsModalOpen(false)
     }
+
+    // 
+    // Init Helpers
+    // 
         
-    addImgButtonEventListeners = () => {
+    addImgButtonEventListeners = async () => {
         const artBtnList = document.querySelectorAll(this.imgBtnElName) as NodeListOf<HTMLButtonElement>
         artBtnList.forEach( (btn , i) => btn.addEventListener('click', (e : MouseEvent) => { this.open(i,e) }) )
+    }
+
+    generateArtList = () => {
+        const btnList = Array.from( document.querySelectorAll(this.imgBtnElName) )
+        return btnList.map( btn => {
+            const imageEL = btn.querySelector('img')
+            const image = {
+                url : imageEL?.getAttribute('src'),
+                width : Number( imageEL?.getAttribute('width') ),
+                height : Number (imageEL?.getAttribute('height' ))
+            }
+            const description = imageEL?.dataset.description || ''
+            const title = imageEL?.dataset.title || ''
+            return { image, title, description }
+        } ) as Artwork[]
     }
 
     // 
@@ -155,10 +175,10 @@ export default class GalleryModal {
         return `
             <div class="mx-auto w-full max-w-6xl bg-primary-50" data-img-modal-scroller>
                 <div class="my-4 pb-2 mx-4 overflow-y-scroll flex justify-start gap-1 scrollbar" data-image-content>
-                    ${imageList.map( (img, i: number) => (
+                    ${this.artList.map( (art, i: number) => (
                         `<button class="w-auto min-w-fit ${i !== this.currentImageIndex ? 'opacity-50' : ''}">
                             <img 
-                                src="${img.src}"
+                                src="${art.image.url}"
                                 class="h-[80px] w-auto rounded"
                             >
                         </button>`
@@ -174,12 +194,12 @@ export default class GalleryModal {
             <div data-img-modal-content class="mx-auto w-full max-w-6xl">
                 <div class="img-modal-animation flex items-start overflow-x-auto snap-mandatory snap-x scrollbar-hide" data-img-modal-content-scroller>
 
-                    ${ imageList.map( (image, index) => (`
+                    ${ this.artList.map( (art, index) => (`
                         <div class="min-w-full grid lg:flex gap-4 lg:gap-12 items-center p-4 snap-center">
                             <img 
-                                src="${image.src}" 
-                                width="${image.width}" 
-                                height="${image.height}" 
+                                src="${art.image.url}" 
+                                width="${art.image.width}" 
+                                height="${art.image.height}" 
                                 alt="" 
                                 class='rounded'
                                 style='max-height:70vh; width: auto'
@@ -187,10 +207,10 @@ export default class GalleryModal {
                             >
                             <div>
                                 <h2 data-img-modal-img-title class="text-4xl font-semibold font-theme mb-4">
-                                    ${image.title}
+                                    ${art.title}
                                 </h2>
                                 <p data-img-modal-img-description>
-                                    ${image.description}
+                                    ${art.description}
                                 </p>
                             </div>
                         </div>

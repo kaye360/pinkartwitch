@@ -22,14 +22,13 @@ const {
     description
 } = Astro.props
 ---
-
 <head>
     <meta 
         http-equiv="Content-Security-Policy" 
         content=`default-src https:; 
-                 img-src 'self';
+                 img-src 'self' https://cdn.sanity.io; 
                  object-src 'self';
-                 connect-src 'self';
+                 connect-src 'self' https://v81020gt.apicdn.sanity.io;
                  script-src 'self' ${import.meta.env.DEV ? 'http://localhost:4321;' : ''};
                  ${import.meta.env.DEV 
                     ? "style-src 'unsafe-inline' https://fonts.googleapis.com;" 
@@ -47,7 +46,6 @@ const {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
-    <!-- <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> -->
     
     <meta name="description" content={description}>
 

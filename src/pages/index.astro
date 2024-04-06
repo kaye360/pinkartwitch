@@ -2,10 +2,14 @@
 import Hero from '../components/Hero.astro';
 import Wrapper from '../components/Wrapper.astro';
 import H1 from '../components/Heading/H1.astro';
-import TextFlow from '../components/TextFlow.astro';
-import Image from '../components/Image.astro';
 import SocialMediaPost from '../components/SocialMediaPost.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getHomeContent, getSocialMediaPosts } from '../lib/api/api';
+import Image from '../components/Image.astro';
+import PortableTextWrapper from '../components/PortableTextWrapper.astro';
+
+const content = await getHomeContent()
+const socialMediaPosts = await getSocialMediaPosts()
 ---
 
 <BaseLayout props
@@ -14,26 +18,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	lang="en"
 >
 
-	<Hero />
+	<Hero>
+		<Fragment slot="heroHeadline">{content.hero.headline}</Fragment>
+		<Fragment slot="heroSubHeadline">{content.hero.subHeadline}</Fragment>
+		<Fragment slot="heroArt">
+			{ content.hero.featuredArt.map( img => (
+				<Image 
+					src={img.url}
+					width={img.width}
+					height={img.height}
+					alt=''
+					aria-hidden
+				/>
+			))}
+		</Fragment>
+	</Hero>
 
 	<section>
 		<Wrapper width='text' padding='both' class="relative">
 
-			<H1>About PinkArtWitch</H1>
-
-			<TextFlow>
-				<p>
-					Introduce yourself here. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt assumenda quam, quae adipisci tempore laboriosam, architecto provident obcaecati delectus maiores unde sint quisquam nihil optio, beatae aperiam non.
-				</p>
-
-				<p>
-					Labore optio consectetur dignissimos facere voluptatibus numquam excepturi suscipit explicabo sequi. A ea facere optio delectus vero ipsum nemunde sint quisquam nihil optio, beatae aperiam non.
-				</p>
-
-				<p>
-					Labore optio consectetur dignissimos facere voluptatibus numquam excepturi suscipit explicabo sequi. A ea facere optio delectus vero ipsum nemo expedita minus dolor!
-				</p>
-			</TextFlow>
+			<PortableTextWrapper value={content.intro} />
 
 			<Image
 				src="/img/intro-dots.svg"
@@ -41,7 +45,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				height={176}
 				alt=""
 				class='absolute -z-10 -left-[90px] top-1/2 -translate-y-1/2'
-			/>
+			/> 
 		</Wrapper>
 	</section>
 
@@ -65,26 +69,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 			<div class="grid gap-8">
 
-				<SocialMediaPost 
-					date="Jan 23"
-					tags={['wrting', 'art', 'stuff']}
-					description='temporibus voluptatem vero earum inventore nemo unde dolore tempore, obcaecati doloremque enim nesciunt? Nisi omnis doloremque accusamus, quam corporis, sequi reprehenderit voluptatem '
-				/>
-				<SocialMediaPost 
-					date="Jan 23"
-					tags={['wrting', 'art', 'stuff']}
-					description='temporibus voluptatem vero earum inventore nemo unde dolore tempore, obcaecati doloremque enim nesciunt? Nisi omnis doloremque accusamus, quam corporis, sequi reprehenderit voluptatem '
-				/>
-				<SocialMediaPost 
-					date="Jan 23"
-					tags={['wrting', 'art', 'stuff']}
-					description='temporibus voluptatem vero earum inventore nemo unde dolore tempore, obcaecati doloremque enim nesciunt? Nisi omnis doloremque accusamus, quam corporis, sequi reprehenderit voluptatem '
-				/>
-				<SocialMediaPost 
-					date="Jan 23"
-					tags={['wrting', 'art', 'stuff']}
-					description='temporibus voluptatem vero earum inventore nemo unde dolore tempore, obcaecati doloremque enim nesciunt? Nisi omnis doloremque accusamus, quam corporis, sequi reprehenderit voluptatem '
-				/>
+				{ socialMediaPosts.map(post => <SocialMediaPost {...post } /> )}
+
 			</div>
 		</Wrapper>
 
@@ -130,16 +116,4 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	</section>
 
 </BaseLayout>
-
-<!-- 
-<script is:inline>
-	// if (window.netlifyIdentity) {
-	//   window.netlifyIdentity.on("init", user => {
-	// 	if (!user) {
-	// 	  window.netlifyIdentity.on("login", () => {
-	// 		document.location.href = "/admin/";
-	// 	  });
-	// 	}
-	//   });
-	// }
-</script> -->
+../lib/api/api

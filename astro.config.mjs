@@ -7,7 +7,7 @@ export default defineConfig({
   integrations: [tailwind()],
 
   // Set base URL
-  site : 'https://joshs-astro-starter.netlify.app',
+  site : 'https://pinkartwitch.com',
 
   // Set path for site
   base : '/',

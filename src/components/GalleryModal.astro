@@ -1,8 +1,7 @@
 
-
 <div 
     class="fixed inset-0 -z-50 overflow-y-scroll scrollbar-hide bg-primary-50/95 opacity-0 pt-4 transition-all duration-500"
-    data-img-modal
+    data-art-modal
 />
 
 <style is:global>
@@ -17,14 +16,13 @@
 </style>
 
 <script>
-import GalleryModal from '../lib/galleryModal'
+import GalleryModal from '../lib/galleryModal/galleryModal'
 
 const modal = new GalleryModal({
-    modal  : '[data-img-modal]',
-    imgBtn : '[data-img-button]',
+    modal  : '[data-art-modal]',
+    imgBtn : '[data-art-button]',
 })
 modal.init()
-
 // import.meta.env.DEV && modal.mockOpenModal()
 
 </script>

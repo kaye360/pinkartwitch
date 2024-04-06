@@ -1,27 +1,46 @@
 ---
 import EvenColumns from "./EvenColumns.astro";
 import TextFlow from "./TextFlow.astro";
+import Image from "./Image.astro";
 
 interface Props {
     date : string, 
     tags: string[],
-    description : string
+    description : string,
+    image : {
+        url : string,
+        width : number,
+        height : number
+    }
 }
 
 const {
-    date, tags, description 
+    date, tags, description, image
 } = Astro.props
 
 ---
 
-<EvenColumns class="gap-x-12 gap-y-4">
-    <div class="bg-primary-300 rounded-lg min-h-[200px]"></div>
+<EvenColumns class="gap-x-8 gap-y-4">
+    <div class="bg-primary-300 rounded-lg min-h-[200px]">
+        <Image 
+            src={image.url}
+            width={image.width}
+            height={image.height}
+            alt="Social Media Post"
+            class="w-full h-full object-cover "
+        />
+    </div>
 
-    <div class="grid grid-cols-[150px_1fr] gap-4">
+    <div class="grid grid-cols-[200px_1fr] gap-4">
 
         <div class="text-right">
-            <span class="block font-bold text-lg text-primary-500">{date}</span>
-            <span class="block font-bold">{tags.map( tag => '#' + tag + ' ')}</span>
+            <div class="font-bold text-lg text-primary-500">{date}</div>
+            <div class="flex gap-x-2 flex-wrap justify-end font-bold">{tags.map( tag => (
+                <span class="min-w-max">
+                    #{tag}
+                </span>
+            ))}
+            </div>
         </div>
 
         <div>
@@ -29,7 +48,7 @@ const {
                 <p>{description}</p>
             </TextFlow>
 
-            <a href="#" class="font-bold text-primary-500">View Post</a>
+            <a href="#" class=" text-lg font-bold text-primary-500">View Post</a>
         </div>
 
     </div>
