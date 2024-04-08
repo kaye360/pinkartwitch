@@ -1,6 +1,6 @@
 import { createClient } from "@sanity/client"
 import type { HomeContent } from "./contentTypes"
-import { formatArtWork, formatHomeContent, formatSocialMediaPosts } from "./services"
+import { formatArtWork, formatBloodAndThorns, formatHomeContent, formatSocialMediaPosts } from "./services"
 
 export const client = createClient({
    projectId: "v81020gt", 
@@ -45,4 +45,17 @@ export async function getArtWork() {
         }
     `)
     return formatArtWork(data)
+}
+
+
+export async function getBloodAndThorns() {
+    const [data] = await client.fetch(`
+        *[ _type == 'bloodAndThorns' ] {
+            "section1imageURL" : section1image.asset->url,
+            section1content,
+            "section2imageURL" : section2image.asset->url,
+            section2content
+        }
+    `)
+    return formatBloodAndThorns(data)
 }

@@ -1,11 +1,13 @@
 ---
-import Hero from '../components/Hero.astro';
 import Wrapper from '../components/Wrapper.astro';
 import H1 from '../components/Heading/H1.astro';
-import TextFlow from '../components/TextFlow.astro';
 import Image from '../components/Image.astro';
-import SocialMediaPost from '../components/SocialMediaPost.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getBloodAndThorns } from '../lib/api/api';
+import PortableTextWrapper from '../components/PortableTextWrapper.astro';
+import Button from '../components/Button.astro';
+
+const content = await getBloodAndThorns()
 ---
 
 <BaseLayout props
@@ -15,9 +17,65 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
 
 	<section class="mt-28">
-		<Wrapper width='max' padding='inline' class="">
+		<Wrapper props width="max" padding='inline'>
 			<H1>Blood and Thorns</H1>
 		</Wrapper>
+
+		<Wrapper props width="max" padding='both'>
+			<div class="relative grid lg:grid-cols-[1fr_1.5fr] items-stretch justify-center mx-auto gap-8 flex-wrap">
+	
+				<Image 
+					src={content.section1image.url}
+					width={content.section1image.width}
+					height={content.section1image.height}
+					alt=""
+					class='max-h-[80vh] w-auto sticky top-0 ml-auto rounded hidden lg:block'
+				/>
+	
+				<div>
+					<Image 
+						src={content.section1image.url}
+						width={content.section1image.width}
+						height={content.section1image.height}
+						alt=""
+						class='max-h-auto w-1/2 ml-2 rounded lg:hidden float-right'
+					/>
+					<PortableTextWrapper value={content.section1content} />
+
+					<Button 
+						href="https://www.worldanvil.com/w/ozelea-pinkchaosstories"
+						variant="fill-primary"
+						class="mt-12"
+					>
+						Read Blood and thorns for free on World Anvil
+					</Button>
+				</div>
+	
+			</div>
+		</Wrapper>
+
+		<Wrapper width="max">
+			<Image 
+				src={content.section2image.url}
+				width={content.section2image.width}
+				height={content.section2image.height}
+				alt=""
+				class='mx-auto rounded'
+			/>
+		</Wrapper>
+
+		<Wrapper width="text" padding='both'>
+			<PortableTextWrapper value={content.section2content} />
+
+			<Button 
+				href="https://www.worldanvil.com/w/ozelea-pinkchaosstories"
+				variant="fill-primary"
+				class="mt-12"
+			>
+				Read Blood and thorns for free on World Anvil
+			</Button>
+		</Wrapper>
+
 	</section>
 
 </BaseLayout>

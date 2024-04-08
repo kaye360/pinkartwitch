@@ -50,12 +50,6 @@ const currentPage = Astro.url.pathname
  */}
 
 
-
-{/**
- * data-toggleTransparencyOnScroll, data-element, and hasColorBg/hasTransparentBg class  
- * are used to toggle the header Bg transparency on Scroll, usually in a hero section 
- */}
-
 <header
     data-element="header-main"
     class:list={[
@@ -66,8 +60,6 @@ const currentPage = Astro.url.pathname
         className
     ]}
 >
-
-
 
     <Wrapper width='max' padding='inline'>
 
@@ -89,15 +81,10 @@ const currentPage = Astro.url.pathname
 
 
         </div>
-        
 
     </Wrapper>
 
-
 </header>
-
-
-
 
 
 <style is:global>
@@ -121,33 +108,8 @@ header {
     flex-wrap: wrap;
     padding-top : 0.5rem;
 }
-
     
 </style>
-
-<style is:global>
- 
-
-
-/* This is for when mobile menu is open when user is over hero section. */
-.mobile-menu-is-open header,
-header:has( nav a:focus ) {
-    /* background-color: var(--nav-bar-bg-color) !important;
-    color : var(--nav-bar-text-color) !important; */
-}
-
-
-@media screen and (max-width : 1023px) {
-
-    .mobile-menu-is-open header {
-        /* background: hsl( var(--primary-color) 90% ); */
-    }
-}
-
-</style>
-
-
-
 
 
 <script>
@@ -167,8 +129,6 @@ const toggleHeaderBGClass = () => {
 document.addEventListener('scroll', debounce(toggleHeaderBGClass, 50) )
 window.addEventListener('resize', debounce(toggleHeaderBGClass, 50) )
 
-
-    
 </script>
     
     

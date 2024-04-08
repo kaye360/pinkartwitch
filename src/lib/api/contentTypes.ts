@@ -30,3 +30,10 @@ export interface Artwork {
     description : string,
     image : ImageMetaData
 }
+
+export interface BloodAndThorns {
+    section1image : ImageMetaData,
+    section1content : any[],
+    section2image : ImageMetaData,
+    section2content : any[]
+}
