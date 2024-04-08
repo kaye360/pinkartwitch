@@ -70,8 +70,8 @@ export const PAGES : Page[] = [
         group : ['header', 'footer'],
     },
     {
-        title : 'Shop',
-        path  : '/shop',
+        title : 'Support',
+        path  : '/support',
         group : ['header', 'footer'],
     },
     {

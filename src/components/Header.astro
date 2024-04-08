@@ -28,6 +28,8 @@ const {
     class: className
 } = Astro.props
 
+const currentPage = Astro.url.pathname
+
 ---
 
 
@@ -57,7 +59,7 @@ const {
 <header
     data-element="header-main"
     class:list={[
-        'bg-primary-50/80 backdrop-blur-md',
+        'header-bg',
         `${variant === 'relative' ? 'relative' : ''}`,
         `${variant === 'sticky' ? 'sticky top-0 z-[999]' : ''}`,
         `${variant === 'fixed' ? 'fixed top-0 left-0 right-0 z-[999]' : ''}`,
@@ -100,10 +102,16 @@ const {
 
 <style is:global>
 
+
 header {
     transition: all 250ms;
     background-color: var(--nav-bar-bg-color);
     color : var(--nav-bar-text-color);
+}
+
+.header-bg {
+    background-color: hsl( var(--primary-color) 95% / 0.8 );
+    backdrop-filter: blur(12px);
 }
 
 .nav-wrapper {
@@ -140,3 +148,27 @@ header:has( nav a:focus ) {
 
 
 
+
+
+<script>
+// @ts-ignore
+import debounce from 'lodash.debounce'
+
+const header = document.querySelector('[data-element="header-main"]') as HTMLDivElement
+    
+const toggleHeaderBGClass = () => {
+    if(screen.availWidth < 1023 ) {
+        header.classList.add('header-bg')
+        return
+    }
+    header.classList.toggle('header-bg', scrollY > 50)
+}
+
+document.addEventListener('scroll', debounce(toggleHeaderBGClass, 50) )
+window.addEventListener('resize', debounce(toggleHeaderBGClass, 50) )
+
+
+    
+</script>
+    
+    

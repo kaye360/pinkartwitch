@@ -54,6 +54,7 @@
         --footer-bg-color-to             : hsl( var(--primary-color) 95% );
         --footer-text-color              : hsl( var(--primary-color) 30% );
 
+        --easeOutQuart : cubic-bezier(0.25, 1, 0.5, 1);
 
         /* ------------------------ Spacing ------------------------ */
 
@@ -64,8 +65,6 @@
             --spacing-inline-default : 2vw;
             --spacing-block-default : 4rem;
         }
-
-
 
 
     }

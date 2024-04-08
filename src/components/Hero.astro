@@ -23,15 +23,15 @@ import HeroStarCircle from "./Hero/HeroStarCircle.astro";
     >
     
         <div class="grid gap-4 sm:text-center text-primary-500 relative z-10">
-            <h1 class="text-2xl uppercase font-bold w-[65vw] sm:w-[30vw] sm:mx-auto">
+            <h1 class="text-2xl uppercase font-bold w-[65vw] sm:w-[30vw] sm:mx-auto hero-animation">
                 <slot name="heroHeadline" />
             </h1>
         
-            <p class="w-[65vw] sm:w-[30vw] sm:mx-auto text-lg">
+            <p class="w-[65vw] sm:w-[30vw] sm:mx-auto text-lg hero-animation">
                 <slot name="heroSubHeadline">
             </p>
         
-            <div class="grid sm:flex gap-4 sm:w-min sm:mx-auto">
+            <div class="grid sm:flex gap-4 sm:w-min sm:mx-auto hero-animation">
                 <Button variant="fill-primary" href="/shop">
                     Shop
                     <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,6 +80,23 @@ import HeroStarCircle from "./Hero/HeroStarCircle.astro";
 
 
 
+<style is:global>
 
+.hero-animation {
+    animation : hero-animation 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes hero-animation {
+    from {
+        opacity: 0;
+        translate: 0 20px;
+    }
+    to {
+        opacity: 1;
+        translate: 0;
+    }
+}
+
+</style>
 
 

@@ -8,5 +8,26 @@ import Image from "../Image.astro"
     width={137}
     height={142}
     alt="Stars"
-    class="absolute left-2 sm:left-[27vw] top-[6.5rem] sm:top-36 sm:opacity-50 z-[1]"
+    class="absolute left-2 sm:left-[27vw] top-[6.5rem] sm:top-36 sm:opacity-50 z-[1] hero-starcircle-animation"
 />
+
+<style is:global>
+
+.hero-starcircle-animation {
+    animation : hero-starcircle-animation 1s cubic-bezier(0.22, 1, 0.36, 1) 100ms both;
+}
+
+@keyframes hero-starcircle-animation {
+    from {
+        opacity: 0;
+        translate: -100px 0px;
+    }
+    to {
+        opacity: 1;
+        translate: 0;
+    }
+}
+
+</style>
+
+    

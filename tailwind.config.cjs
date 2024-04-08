@@ -48,6 +48,9 @@ module.exports = {
 			},
 			backgroundImage : {
 				'radial-gradient' : 'radial-gradient(var(--tw-gradient-stops))'
+			},
+			transitionTimingFunction : {
+				'easeOutQuart' : 'cubic-bezier(0.25, 1, 0.5, 1)'
 			}
 		},
 	},
