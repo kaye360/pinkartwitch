@@ -37,3 +37,9 @@ export interface BloodAndThorns {
     section2image : ImageMetaData,
     section2content : any[]
 }
+
+export interface Bio {
+    bioImage : ImageMetaData,
+    section1content : any[],
+    section2content : any[]
+}

@@ -1,11 +1,12 @@
 ---
-import Hero from '../components/Hero.astro';
 import Wrapper from '../components/Wrapper.astro';
 import H1 from '../components/Heading/H1.astro';
-import TextFlow from '../components/TextFlow.astro';
-import Image from '../components/Image.astro';
-import SocialMediaPost from '../components/SocialMediaPost.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getBio } from '../lib/api/api'
+import PortableTextWrapper from '../components/PortableTextWrapper.astro';
+import Image from '../components/Image.astro';
+
+const content = await getBio()
 ---
 
 <BaseLayout props
@@ -17,6 +18,44 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	<section class="mt-28">
 		<Wrapper width='max' padding='inline' class="">
 			<H1>Bio - About Me</H1>
+		</Wrapper>
+	</section>
+
+	<section class="bg-primary-100">
+		<Wrapper width='max' padding='both' class="grid grid-cols-[2fr_1fr] gap-24">
+			
+			<PortableTextWrapper value={content.section1content} />
+
+			<Image 
+				src={content.bioImage.url}
+				width={content.bioImage.width}
+				height={content.bioImage.height}
+				alt=""
+			/>
+
+		</Wrapper>
+	</section>
+
+
+	<section>
+		<Wrapper width="max" padding='both' class='grid grid-cols-[2fr_1fr] gap-24 items-start'>
+
+			<PortableTextWrapper value={content.section2content} />
+
+			<div class="border-l border-primary-500">
+				<ul>
+					<li>IG</li>
+					<li>DA</li>
+					<li>TM</li>
+					<li>TH</li>
+				</ul>
+
+				<ul>
+					<li>Support My Work</li>
+					<li>PT</li>
+					<li>KF</li>
+				</ul>
+			</div>
 		</Wrapper>
 	</section>
 

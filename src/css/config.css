@@ -77,6 +77,10 @@
         text-wrap : balance;
     }
 
+    h2 {
+        @apply relative mb-8 text-2xl lg:text-4xl text-primary-500 uppercase font-medium tracking-wide font-theme
+    }
+
     p {
         line-height: 1.6rem;
     }
