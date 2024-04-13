@@ -52,8 +52,10 @@ const currentPage = Astro.url.pathname
 
 <header
     data-element="header-main"
+    data-currentpage={currentPage}
     class:list={[
-        'header-bg',
+        'transition-all duration-200 te',
+        `${currentPage !== '/' ? 'header-bg' : ''}`,
         `${variant === 'relative' ? 'relative' : ''}`,
         `${variant === 'sticky' ? 'sticky top-0 z-[999]' : ''}`,
         `${variant === 'fixed' ? 'fixed top-0 left-0 right-0 z-[999]' : ''}`,
@@ -63,8 +65,7 @@ const currentPage = Astro.url.pathname
 
     <Wrapper width='max' padding='inline'>
 
-
-        <div class="nav-wrapper">
+        <div class="flex items-center gap-4 flex-wrap pt-2">
 
             <div class="order-1 mr-auto">
                 <Logo />
@@ -90,23 +91,9 @@ const currentPage = Astro.url.pathname
 <style is:global>
 
 
-header {
-    transition: all 250ms;
-    background-color: var(--nav-bar-bg-color);
-    color : var(--nav-bar-text-color);
-}
-
 .header-bg {
     background-color: hsl( var(--primary-color) 95% / 0.8 );
     backdrop-filter: blur(12px);
-}
-
-.nav-wrapper {
-    display : flex;
-    align-items: center;
-    column-gap:  1rem;
-    flex-wrap: wrap;
-    padding-top : 0.5rem;
 }
     
 </style>
@@ -116,18 +103,24 @@ header {
 // @ts-ignore
 import debounce from 'lodash.debounce'
 
-const header = document.querySelector('[data-element="header-main"]') as HTMLDivElement
-    
-const toggleHeaderBGClass = () => {
-    if(screen.availWidth < 1023 ) {
-        header.classList.add('header-bg')
-        return
-    }
-    header.classList.toggle('header-bg', scrollY > 50)
-}
 
-document.addEventListener('scroll', debounce(toggleHeaderBGClass, 50) )
-window.addEventListener('resize', debounce(toggleHeaderBGClass, 50) )
+const header = document.querySelector('[data-element="header-main"]') as HTMLDivElement
+const currentPage = header.dataset.currentpage
+
+if( currentPage === '/' ) {
+
+    const toggleHeaderBGClass = () => {
+        if(screen.availWidth < 1023 ) {
+            header.classList.add('header-bg')
+            return
+        }
+        header.classList.toggle('header-bg', scrollY > 50)
+    }
+
+    document.addEventListener('scroll', debounce(toggleHeaderBGClass, 50) )
+    window.addEventListener('resize', debounce(toggleHeaderBGClass, 50) )
+}
+    
 
 </script>
     

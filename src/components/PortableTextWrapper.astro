@@ -3,14 +3,12 @@ import TextFlow from "./TextFlow.astro";
 import {PortableText} from 'astro-portabletext'
 
 
-const { value } = Astro.props
+const { value, class: className = ''} = Astro.props
 ---
 
-<div>
-    <TextFlow class="w-full">
-        <PortableText
-            value={value}
-        />
-    </TextFlow>
-</div>
+<TextFlow class:list={["w-full", className]}>
+    <PortableText
+        value={value}
+    />
+</TextFlow>
 

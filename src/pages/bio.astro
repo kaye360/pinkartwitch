@@ -5,6 +5,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getBio } from '../lib/api/api'
 import PortableTextWrapper from '../components/PortableTextWrapper.astro';
 import Image from '../components/Image.astro';
+import BioLink from '../components/BioLink.astro';
+import InstagramIcon from '../components/icons/InstagramIcon.astro';
+import DeviantArtIcon from '../components/icons/DeviantArtIcon.astro';
+import TumblrIcon from '../components/icons/TumblrIcon.astro';
+import ThreadsIcon from '../components/icons/ThreadsIcon.astro';
+import {SOCIAL_LINKS} from '../config'
+import KofiIcon from '../components/icons/KofiIcon.astro';
 
 const content = await getBio()
 ---
@@ -21,16 +28,17 @@ const content = await getBio()
 		</Wrapper>
 	</section>
 
-	<section class="bg-primary-100">
-		<Wrapper width='max' padding='both' class="grid grid-cols-[2fr_1fr] gap-24">
+	<section class="bg-primary-100 bg-[url('/img/cloud-bg.webp')] bg-cover">
+		<Wrapper width='max' padding='inline' class="grid lg:grid-cols-[2fr_0.5fr] gap-12 lg:gap-36 items-center py-6">
 			
-			<PortableTextWrapper value={content.section1content} />
+			<PortableTextWrapper value={content.section1content} class="max-w-[70ch]" />
 
 			<Image 
 				src={content.bioImage.url}
 				width={content.bioImage.width}
 				height={content.bioImage.height}
 				alt=""
+				class=' w-3/4 lg:w-full mx-auto lg:m-0 lg:scale-[1.35] lg:origin-right'
 			/>
 
 		</Wrapper>
@@ -38,22 +46,22 @@ const content = await getBio()
 
 
 	<section>
-		<Wrapper width="max" padding='both' class='grid grid-cols-[2fr_1fr] gap-24 items-start'>
+		<Wrapper width="max" padding='both' class='grid md:grid-cols-[1fr_auto] gal-12 md:gap-24 items-start'>
 
 			<PortableTextWrapper value={content.section2content} />
 
-			<div class="border-l border-primary-500">
-				<ul>
-					<li>IG</li>
-					<li>DA</li>
-					<li>TM</li>
-					<li>TH</li>
+			<div class="pl-16 border-l border-primary-500 text-primary-500">
+				<ul class="grid justify-end text-right">
+					<li class="font-bold">@pinkartwitch</li>
+					<BioLink href={SOCIAL_LINKS.instagram} title="Instagram" Icon={InstagramIcon} />
+					<BioLink href={SOCIAL_LINKS.deviantArt} title="DeviantArt" Icon={DeviantArtIcon} />
+					<BioLink href={SOCIAL_LINKS.tumblr} title="Tumblr" Icon={TumblrIcon} />
+					<BioLink href={SOCIAL_LINKS.threads} title="Threads" Icon={ThreadsIcon} />
 				</ul>
 
-				<ul>
-					<li>Support My Work</li>
-					<li>PT</li>
-					<li>KF</li>
+				<ul class="mt-6">
+					<li class="font-bold">Support My Work</li>
+					<BioLink href={SOCIAL_LINKS.kofi} title="Ko-fi" Icon={KofiIcon} />
 				</ul>
 			</div>
 		</Wrapper>

@@ -1,17 +1,44 @@
 ---
+import { SOCIAL_LINKS } from "../../config";
 import DeviantArtIcon from "../icons/DeviantArtIcon.astro";
 import InstagramIcon from "../icons/InstagramIcon.astro";
+import KofiIcon from "../icons/KofiIcon.astro";
 import ThreadsIcon from "../icons/ThreadsIcon.astro";
 import TumblrIcon from "../icons/TumblrIcon.astro";
 
 
 ---
 
-<ul class="social-links flex items-center gap-6 social-links justify-center lg:justify-end order-2 lg:order-1">
-    <li><InstagramIcon /></li>
-    <li><DeviantArtIcon /></li>
-    <li><TumblrIcon /></li>
-    <li><ThreadsIcon /></li>
+<ul class="social-links flex items-center gap-6 social-links justify-center lg:justify-end order-2 lg:order-1 text-primary-500">
+    <li>
+        <a href={SOCIAL_LINKS.instagram}>
+            <InstagramIcon />
+        </a>
+    </li>
+
+    <li>
+        <a href={SOCIAL_LINKS.deviantArt}>
+            <DeviantArtIcon />
+        </a>
+    </li>
+
+    <li>
+        <a href={SOCIAL_LINKS.tumblr}>
+            <TumblrIcon />
+        </a>
+    </li>
+
+    <li>
+        <a href={SOCIAL_LINKS.threads}>
+            <ThreadsIcon />
+        </a>
+    </li>
+
+    <li>
+        <a href={SOCIAL_LINKS.kofi}>
+            <KofiIcon />
+        </a>
+    </li>
 </ul>
 
 

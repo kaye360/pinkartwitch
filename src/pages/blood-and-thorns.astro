@@ -6,6 +6,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getBloodAndThorns } from '../lib/api/api';
 import PortableTextWrapper from '../components/PortableTextWrapper.astro';
 import Button from '../components/Button.astro';
+import TextFlow from '../components/TextFlow.astro';
+import Socials from '../components/Socials.astro';
 
 const content = await getBloodAndThorns()
 ---
@@ -22,7 +24,7 @@ const content = await getBloodAndThorns()
 		</Wrapper>
 
 		<Wrapper props width="max" padding='both'>
-			<div class="relative grid lg:grid-cols-[1fr_1.5fr] items-stretch justify-center mx-auto gap-8 flex-wrap">
+			<div class="relative grid lg:grid-cols-[auto_1fr] items-stretch justify-center mx-auto gap-8 flex-wrap">
 	
 				<Image 
 					src={content.section1image.url}
@@ -76,11 +78,27 @@ const content = await getBloodAndThorns()
 			/>
 		</Wrapper>
 
-		<Wrapper width='text' padding='both'>
-			Kofi Section
-			<Button href="/support" variant='fill-primary'>
-				Learn about ways to support the creator
-			</Button>
+		<Socials class="my-12" />
+
+		<Wrapper width='text' padding='inline'>
+			<TextFlow>
+				<p>
+					To support Nova Alexander and the world of Blood and Thorns, you can head over to Ko-fi for single-time donations, monthly subscriptions, digital downloads, and more. See you there!					
+				</p>
+			</TextFlow>
+
+			<a 
+				href="https://ko-fi.com"
+				class="block my-6 rounded-lg border-2 border-primary-500 hover:border-primary-200 overflow-hidden"
+			>
+				<Image 
+					src="/img/kofi_button_stroke.png"
+					width={600}
+					height={81}
+					alt="Support me on Ko-fi"
+					class="mx-auto"
+				/>
+			</a>
 		</Wrapper>
 
 	</section>
