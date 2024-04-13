@@ -54,7 +54,7 @@ const currentPage = Astro.url.pathname
     data-element="header-main"
     data-currentpage={currentPage}
     class:list={[
-        'transition-all duration-200 te',
+        'transition-all duration-200',
         `${currentPage !== '/' ? 'header-bg' : ''}`,
         `${variant === 'relative' ? 'relative' : ''}`,
         `${variant === 'sticky' ? 'sticky top-0 z-[999]' : ''}`,
@@ -116,6 +116,8 @@ if( currentPage === '/' ) {
         }
         header.classList.toggle('header-bg', scrollY > 50)
     }
+
+    toggleHeaderBGClass()
 
     document.addEventListener('scroll', debounce(toggleHeaderBGClass, 50) )
     window.addEventListener('resize', debounce(toggleHeaderBGClass, 50) )
