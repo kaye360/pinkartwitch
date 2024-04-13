@@ -2,13 +2,14 @@
 import Wrapper from "./Wrapper.astro";
 import Image from "./Image.astro";
 import type { HTMLAttributes } from "astro/types";
-import { PAGES } from "../config";
+import { PAGES, SOCIAL_LINKS } from "../config";
 import NavLink from "./Nav/NavLink.astro";
 import SocialLinkList from "./Nav/SocialLinkList.astro";
 import DeviantArtIcon from "./icons/DeviantArtIcon.astro";
 import InstagramIcon from "./icons/InstagramIcon.astro";
 import ThreadsIcon from "./icons/ThreadsIcon.astro";
 import TumblrIcon from "./icons/TumblrIcon.astro";
+import KofiIcon from "./icons/KofiIcon.astro";
 
 interface Props extends HTMLAttributes<'footer'> {}
 const {...rest} = Astro.props
@@ -50,11 +51,37 @@ const totalPages = PAGES.length
             </ul>
         </nav>
 
-        <ul class="flex items-center gap-6 justify-center">
-            <li><InstagramIcon /></li>
-            <li><DeviantArtIcon /></li>
-            <li><TumblrIcon /></li>
-            <li><ThreadsIcon /></li>
+
+        <ul class="social-links flex items-center gap-6 social-links justify-center text-primary-500">
+            <li>
+                <a href={SOCIAL_LINKS.instagram}>
+                    <InstagramIcon />
+                </a>
+            </li>
+        
+            <li>
+                <a href={SOCIAL_LINKS.deviantArt}>
+                    <DeviantArtIcon />
+                </a>
+            </li>
+        
+            <li>
+                <a href={SOCIAL_LINKS.tumblr}>
+                    <TumblrIcon />
+                </a>
+            </li>
+        
+            <li>
+                <a href={SOCIAL_LINKS.threads}>
+                    <ThreadsIcon />
+                </a>
+            </li>
+        
+            <li>
+                <a href={SOCIAL_LINKS.kofi}>
+                    <KofiIcon />
+                </a>
+            </li>
         </ul>
 
         <p class="text-center">
