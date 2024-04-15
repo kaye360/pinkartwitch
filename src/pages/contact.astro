@@ -1,11 +1,15 @@
 ---
-import Hero from '../components/Hero.astro';
 import Wrapper from '../components/Wrapper.astro';
 import H1 from '../components/Heading/H1.astro';
-import TextFlow from '../components/TextFlow.astro';
-import Image from '../components/Image.astro';
-import SocialMediaPost from '../components/SocialMediaPost.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import FormSubmit from '../components/Forms/FormSubmit.astro'
+import NetlifyForm from '../components/Forms/NetlifyForm.astro';
+import TextFlow from '../components/TextFlow.astro';
+import FormField from '../components/Forms/FormField.astro';
+import { getContact } from '../lib/api/api';
+import PortableTextWrapper from '../components/PortableTextWrapper.astro';
+
+const content = await getContact()
 ---
 
 <BaseLayout props
@@ -17,6 +21,24 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	<section class="mt-28">
 		<Wrapper width='max' padding='inline' class="">
 			<H1>Contact</H1>
+		</Wrapper>
+	</section>
+
+	<section>
+		<Wrapper width="max" padding='inline'>
+			<PortableTextWrapper value={content.intro} class='max-w-[60ch] mb-12' />
+
+			<NetlifyForm name="PinkArtWitch Contact Form" subject='PinkArtWitch website inquiry'>
+				
+				<FormField name="Name" type="text" required />
+
+				<FormField name="Email" type="email" required />
+
+				<FormField name="Message" type="textarea" required />
+
+				<FormSubmit />
+
+			</NetlifyForm>
 		</Wrapper>
 	</section>
 

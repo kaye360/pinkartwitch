@@ -8,6 +8,11 @@ import { getArtWork } from '../lib/api/api';
 
 const artworkList = await getArtWork()
 
+function formatArtworkDescription(desc : string, maxLength: number ) : string {
+	if( !desc || typeof desc !== 'string' ) return ''
+	if( desc.length > maxLength ) return desc.slice(0,maxLength) + '...'
+	return desc
+}
 ---
 
 <BaseLayout props
@@ -27,7 +32,7 @@ const artworkList = await getArtWork()
 			<div class="flex justify-center items-stretch gap-2 lg:gap-6 flex-wrap">
 
 				{ artworkList.map( (art, i) => (
-					<button data-art-button class=" hover:cursor-pointer relative group">
+					<button data-art-button class=" hover:cursor-pointer relative group overflow-hidden">
 						<Image 
 							src={art.image.url}
 							width={art.image.width}
@@ -39,14 +44,16 @@ const artworkList = await getArtWork()
 							data-index={i}
 						/>
 
-						<div class="hidden lg:grid gap-1 text-left absolute inset-0 p-4 bg-primary-100/80 opacity-0  group-hover:opacity-100 transition-all duration-300 ">
-							<h2 class="text-xl font-bold font-theme translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-								{art.title}
-							</h2>
-							<p class="hidden lg:block translate-y-8 group-hover:translate-y-0 transition-all duration-300 overflow-hidden h-32">
-								{art.description}
-							</p>
-							<span class="hidden lg:block translate-y-12 group-hover:translate-y-0 transition-all duration-300 underline font-semibold ">Read More</span>
+						<div class="hidden lg:block absolute inset-0 p-4 bg-primary-100/80 opacity-0 group-hover:opacity-100 transition-all duration-300 ">
+							<div class="grid gap-2 text-left">
+								<h2 class="text-xl font-bold font-theme translate-y-4 group-hover:translate-y-0 transition-all duration-300 m-0">
+									{art.title}
+								</h2>
+								<p class="hidden lg:block translate-y-8 group-hover:translate-y-0 transition-all duration-300 m-0">
+									{ formatArtworkDescription(art.description, 50) }
+								</p>
+								<span class="hidden lg:block translate-y-12 group-hover:translate-y-0 transition-all duration-300 underline font-semibold m-0 ">Read More</span>
+							</div>
 						</div>
 					</button>
 				) )}

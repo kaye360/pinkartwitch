@@ -1,4 +1,4 @@
-import type { Artwork, Bio, BloodAndThorns, HomeContent, SocialMediaPost } from "./contentTypes"
+import type { Artwork, Bio, BloodAndThorns, Contact, HomeContent, SocialMediaPost } from "./contentTypes"
 import { formatSocialMediaPostDate, getImageListMetaData, getImageMetaDataFromURL } from "./utils"
 
 
@@ -49,4 +49,9 @@ export function formatBloodAndThorns(data: any) : BloodAndThorns {
 export function formatBio(data: any) : Bio {
     const bioImage = getImageMetaDataFromURL(data.bioImageURL)
     return {...data, bioImage}
+}
+
+
+export function formatContact(data: any) : Contact {
+    return data
 }

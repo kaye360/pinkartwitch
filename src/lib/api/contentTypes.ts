@@ -43,3 +43,7 @@ export interface Bio {
     section1content : any[],
     section2content : any[]
 }
+
+export interface Contact {
+    intro : any[]
+}

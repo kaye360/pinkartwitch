@@ -9,20 +9,23 @@ interface Props extends HTMLAttributes<'form'> {
     /** Email subject. Only use if there is 1 subject option - ie: subject is not a <select> */
     subject? : string,
 
+    class? : string,
     /**
      * @prop subject - string
      * @prop slot
      */
     props? : true
+    
 }
 
 const {
     name,
-    subject
+    subject,
+    class : className = ''
 } = Astro.props
 ---
 
-<form id="email-form" method="post" data-netlify="true" name={name}>
+<form id="email-form" method="post" data-netlify="true" name={name} class={className}>
 
     { subject && <input type="hidden" name="subject" value={subject} /> }
 
