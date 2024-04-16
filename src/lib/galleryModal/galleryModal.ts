@@ -122,7 +122,7 @@ export default class GalleryModal {
         return `
             <button 
                 data-gallery-tag-button
-                class="block p-2 rounded border border-primary-200 font-medium text-primary-500 ${isCurrent ? 'bg-primary-100' : ''}"
+                class="block px-2 py-0 hover:bg-primary-200 text-base rounded border border-primary-200 font-medium text-primary-500 ${isCurrent ? 'bg-primary-100' : ''}"
             >
                 ${tag}
             </button>
