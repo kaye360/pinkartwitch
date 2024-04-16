@@ -7,6 +7,7 @@ export default class GalleryModal {
     modal : HTMLDivElement | null
     currentImageIndex : number | null
     artList : Artwork[]
+    tagList : Set<string>
 
     constructor({ modal, imgBtn } : { modal: string, imgBtn: string }) {
         this.dataModalElName = modal
@@ -14,6 +15,7 @@ export default class GalleryModal {
         this.modal = null
         this.currentImageIndex = null
         this.artList = []
+        this.tagList = new Set
     }
 
     // 
@@ -24,6 +26,8 @@ export default class GalleryModal {
         this.artList = this.generateArtList()
         this.modal = document.querySelector(this.dataModalElName) as HTMLDivElement
         this.addImgButtonEventListeners()
+        this.tagList = this.generateTags()
+        this.showTags()
     }
 
     open = (i: number, e: MouseEvent) => {
@@ -64,8 +68,65 @@ export default class GalleryModal {
             }
             const description = imageEL?.dataset.description || ''
             const title = imageEL?.dataset.title || ''
-            return { image, title, description }
+            const tags = JSON.parse(imageEL?.dataset.tags || '') || []
+            return { image, title, description, tags }
         } ) as Artwork[]
+    }
+
+    generateTags = () => {
+        const tagList = this.artList.map( art => art.tags ).flat()
+        return new Set(tagList)
+    }
+
+    showTags = () => {
+        const tagEl = document.querySelector('[data-gallery-tags]')
+        let tags = this.TagButtonHTML('All', true)
+        this.tagList.forEach(tag => {
+            tags += this.TagButtonHTML(tag)
+        })
+        tagEl?.insertAdjacentHTML('afterbegin', tags)
+        this.addTagButtonEventListeners()
+    }
+
+    addTagButtonEventListeners = () => {
+        const tagBtns = document.querySelectorAll('[data-gallery-tag-button]')
+        const artBtnList = document.querySelectorAll(this.imgBtnElName) as NodeListOf<HTMLButtonElement>
+
+        tagBtns.forEach( btn => btn.addEventListener('click', () => {
+
+            tagBtns.forEach(btn => btn.classList.remove('bg-primary-100'))
+            btn.classList.add('bg-primary-100')
+
+            const tag =  btn.textContent?.trim() || ''
+
+            this.showCurrentTaggedImgs(artBtnList, tag)
+        }))
+    }
+
+    showCurrentTaggedImgs = (artBtnList : NodeListOf<HTMLButtonElement>, tag : string) => {
+        artBtnList.forEach( (btn, i) => {
+            const img = btn.querySelector('img')
+            img?.classList.remove('hidden')
+
+            if( tag === 'All') {
+                return
+            }
+            
+            if( !this.artList[i].tags.includes(tag)) {
+                img?.classList.add('hidden')
+            }
+        })
+    }
+
+    TagButtonHTML = (tag : string, isCurrent : boolean = false) => {
+        return `
+            <button 
+                data-gallery-tag-button
+                class="block p-2 rounded border border-primary-200 font-medium text-primary-500 ${isCurrent ? 'bg-primary-100' : ''}"
+            >
+                ${tag}
+            </button>
+        `
     }
 
     // 

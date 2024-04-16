@@ -28,7 +28,8 @@ export interface SocialMediaPost {
 export interface Artwork {
     title : string,
     description : string,
-    image : ImageMetaData
+    image : ImageMetaData,
+    tags : string | string[]
 }
 
 export interface BloodAndThorns {

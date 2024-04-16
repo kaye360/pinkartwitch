@@ -41,7 +41,8 @@ export async function getArtWork() {
         *[ _type == 'artwork'] {
             title,
             description,
-            "imageURL" : image.asset->url
+            "imageURL" : image.asset->url,
+            tags
         }
     `)
     return formatArtWork(data)

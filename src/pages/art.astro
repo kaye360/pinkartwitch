@@ -25,9 +25,10 @@ function formatArtworkDescription(desc : string, maxLength: number ) : string {
 		<Wrapper width='max' padding='inline' class="">
 			<H1>Featured Art</H1>
 
-			<p class="mb-8">
-				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure laborum optio ipsum at porro voluptates et, aliquid cum doloremque autem obcaecati, nemo itaque, beatae iste laboriosam maxime non ipsam distinctio?
-			</p>
+			<div 
+				data-gallery-tags 
+				class="flex items-center gap-4 flex-wrap justify-center my-2"
+			/>
 
 			<div class="flex justify-center items-stretch gap-2 lg:gap-6 flex-wrap">
 
@@ -41,6 +42,7 @@ function formatArtworkDescription(desc : string, maxLength: number ) : string {
 							class='h-[125px] lg:h-[250px] w-auto rounded-md'
 							data-description={art.description}
 							data-title={art.title}
+							data-tags={JSON.stringify(art.tags)}
 							data-index={i}
 						/>
 
