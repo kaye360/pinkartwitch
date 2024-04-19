@@ -11,6 +11,7 @@ export default defineConfig({
     dataset: "production", 
     apiVersion: "2024-03-11",
     useCdn: true, 
+    studioBasePath : '/admin'
  }), react()],
   // Set base URL
   site: 'https://pinkartwitch.com',
