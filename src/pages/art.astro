@@ -39,7 +39,7 @@ function formatArtworkDescription(desc : string, maxLength: number ) : string {
 							width={art.image.width}
 							height={art.image.height}
 							alt=""
-							class='h-[125px] lg:h-[250px] w-auto rounded-md'
+							class='h-[125px] lg:h-[250px] w-auto rounded-md  art-button-animation'
 							data-description={art.description}
 							data-title={art.title}
 							data-tags={JSON.stringify(art.tags)}
@@ -69,3 +69,22 @@ function formatArtworkDescription(desc : string, maxLength: number ) : string {
 
 </BaseLayout>
 
+
+<style is:global>
+
+@keyframes art-img {
+	from {
+		opacity: 0;
+		/* scale : 1.1;  */
+	}
+	to {
+		opacity: 1;
+		scale : 1;
+	}
+}
+
+.art-button-animation {
+    animation : art-img 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+</style>

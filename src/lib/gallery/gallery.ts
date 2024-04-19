@@ -1,12 +1,12 @@
-import type { Artwork } from "../api/contentTypes"
+import type { Image } from "../api/contentTypes"
 
-export default class GalleryModal {
+export default class Gallery {
 
     dataModalElName : string
     imgBtnElName : string
     modal : HTMLDivElement | null
     currentImageIndex : number | null
-    artList : Artwork[]
+    imgList : Image[]
     tagList : Set<string>
 
     constructor({ modal, imgBtn } : { modal: string, imgBtn: string }) {
@@ -14,7 +14,7 @@ export default class GalleryModal {
         this.imgBtnElName = imgBtn
         this.modal = null
         this.currentImageIndex = null
-        this.artList = []
+        this.imgList = []
         this.tagList = new Set
     }
 
@@ -23,7 +23,7 @@ export default class GalleryModal {
     // 
 
     init = () => {
-        this.artList = this.generateArtList()
+        this.imgList = this.generateImgList()
         this.modal = document.querySelector(this.dataModalElName) as HTMLDivElement
         this.addImgButtonEventListeners()
         this.tagList = this.generateTags()
@@ -53,11 +53,11 @@ export default class GalleryModal {
     // 
         
     addImgButtonEventListeners = async () => {
-        const artBtnList = document.querySelectorAll(this.imgBtnElName) as NodeListOf<HTMLButtonElement>
-        artBtnList.forEach( (btn , i) => btn.addEventListener('click', (e : MouseEvent) => { this.open(i,e) }) )
+        const imgBtnList = document.querySelectorAll(this.imgBtnElName) as NodeListOf<HTMLButtonElement>
+        imgBtnList.forEach( (btn , i) => btn.addEventListener('click', (e : MouseEvent) => { this.open(i,e) }) )
     }
 
-    generateArtList = () => {
+    generateImgList = () => {
         const btnList = Array.from( document.querySelectorAll(this.imgBtnElName) )
         return btnList.map( btn => {
             const imageEL = btn.querySelector('img')
@@ -70,64 +70,9 @@ export default class GalleryModal {
             const title = imageEL?.dataset.title || ''
             const tags = JSON.parse(imageEL?.dataset.tags || '') || []
             return { image, title, description, tags }
-        } ) as Artwork[]
+        } ) as Image[]
     }
 
-    generateTags = () => {
-        const tagList = this.artList.map( art => art.tags ).flat()
-        return new Set(tagList)
-    }
-
-    showTags = () => {
-        const tagEl = document.querySelector('[data-gallery-tags]')
-        let tags = this.TagButtonHTML('All', true)
-        this.tagList.forEach(tag => {
-            tags += this.TagButtonHTML(tag)
-        })
-        tagEl?.insertAdjacentHTML('afterbegin', tags)
-        this.addTagButtonEventListeners()
-    }
-
-    addTagButtonEventListeners = () => {
-        const tagBtns = document.querySelectorAll('[data-gallery-tag-button]')
-        const artBtnList = document.querySelectorAll(this.imgBtnElName) as NodeListOf<HTMLButtonElement>
-
-        tagBtns.forEach( btn => btn.addEventListener('click', () => {
-
-            tagBtns.forEach(btn => btn.classList.remove('bg-primary-100'))
-            btn.classList.add('bg-primary-100')
-
-            const tag =  btn.textContent?.trim() || ''
-
-            this.showCurrentTaggedImgs(artBtnList, tag)
-        }))
-    }
-
-    showCurrentTaggedImgs = (artBtnList : NodeListOf<HTMLButtonElement>, tag : string) => {
-        artBtnList.forEach( (btn, i) => {
-            const img = btn.querySelector('img')
-            img?.classList.remove('hidden')
-
-            if( tag === 'All') {
-                return
-            }
-            
-            if( !this.artList[i].tags.includes(tag)) {
-                img?.classList.add('hidden')
-            }
-        })
-    }
-
-    TagButtonHTML = (tag : string, isCurrent : boolean = false) => {
-        return `
-            <button 
-                data-gallery-tag-button
-                class="block px-2 py-0 hover:bg-primary-200 text-base rounded border border-primary-200 font-medium text-primary-500 ${isCurrent ? 'bg-primary-100' : ''}"
-            >
-                ${tag}
-            </button>
-        `
-    }
 
     // 
     // Open Modal Helpers
@@ -216,6 +161,65 @@ export default class GalleryModal {
     }
 
     // 
+    // Tags
+    // 
+
+    generateTags = () => {
+        const tagList = this.imgList.map( img => img.tags ).flat()
+        return new Set(tagList)
+    }
+
+    showTags = () => {
+        const tagEl = document.querySelector('[data-gallery-tags]')
+        let tags = this.TagButtonHTML('All', true)
+        this.tagList.forEach(tag => {
+            tags += this.TagButtonHTML(tag)
+        })
+        tagEl?.insertAdjacentHTML('afterbegin', tags)
+        this.addTagButtonEventListeners()
+    }
+
+    addTagButtonEventListeners = () => {
+        const tagBtns = document.querySelectorAll('[data-gallery-tag-button]')
+        const imgBtnList = document.querySelectorAll(this.imgBtnElName) as NodeListOf<HTMLButtonElement>
+
+        tagBtns.forEach( btn => btn.addEventListener('click', () => {
+
+            tagBtns.forEach(btn => btn.classList.remove('bg-primary-100'))
+            btn.classList.add('bg-primary-100')
+
+            const tag =  btn.textContent?.trim() || ''
+
+            this.showCurrentTaggedImgs(imgBtnList, tag)
+        }))
+    }
+
+    showCurrentTaggedImgs = (BtnList : NodeListOf<HTMLButtonElement>, tag : string) => {
+        BtnList.forEach( (btn, i) => {
+            btn.classList.remove('hidden')
+
+            if( tag === 'All') {
+                return
+            }
+            
+            if( !this.imgList[i].tags.includes(tag)) {
+                btn.classList.add('hidden')
+            }
+        })
+    }
+
+    TagButtonHTML = (tag : string, isCurrent : boolean = false) => {
+        return `
+            <button 
+                data-gallery-tag-button
+                class="block px-2 py-0 hover:bg-primary-200 text-base rounded border border-primary-200 font-medium text-primary-500 ${isCurrent ? 'bg-primary-100' : ''}"
+            >
+                ${tag}
+            </button>
+        `
+    }
+
+    // 
     // Components
     // 
     
@@ -236,7 +240,7 @@ export default class GalleryModal {
         return `
             <div class="mx-auto w-full max-w-6xl bg-primary-50" data-img-modal-scroller>
                 <div class="my-4 pb-2 mx-4 overflow-y-scroll flex justify-start gap-1 scrollbar" data-image-content>
-                    ${this.artList.map( (art, i: number) => (
+                    ${this.imgList.map( (art, i: number) => (
                         `<button class="w-auto min-w-fit ${i !== this.currentImageIndex ? 'opacity-50' : ''}">
                             <img 
                                 src="${art.image.url}"
@@ -255,7 +259,7 @@ export default class GalleryModal {
             <div data-img-modal-content class="mx-auto w-full max-w-6xl">
                 <div class="img-modal-animation flex items-start overflow-x-auto snap-mandatory snap-x scrollbar-hide" data-img-modal-content-scroller>
 
-                    ${ this.artList.map( (art, index) => (`
+                    ${ this.imgList.map( (art, index) => (`
                         <div class="min-w-full grid lg:flex gap-4 lg:gap-12 items-center p-4 snap-center">
                             <img 
                                 src="${art.image.url}" 

@@ -16,13 +16,14 @@
 </style>
 
 <script>
-import GalleryModal from '../lib/galleryModal/galleryModal'
+import Gallery from "../lib/gallery/gallery"
 
-const modal = new GalleryModal({
+const gallery = new Gallery({
     modal  : '[data-art-modal]',
     imgBtn : '[data-art-button]',
 })
-modal.init()
+gallery.init()
+
 // import.meta.env.DEV && modal.mockOpenModal()
 
 </script>
