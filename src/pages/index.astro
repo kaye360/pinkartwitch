@@ -2,15 +2,63 @@
 import Hero from '../components/Hero.astro';
 import Wrapper from '../components/Wrapper.astro';
 import H1 from '../components/Heading/H1.astro';
-import SocialMediaPost from '../components/SocialMediaPost.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getHomeContent, getSocialMediaPosts } from '../lib/api/api';
+import { client } from '../lib/api/api';
 import Image from '../components/Image.astro';
 import PortableTextWrapper from '../components/PortableTextWrapper.astro';
 import Socials from '../components/Socials.astro';
+import { formatSocialMediaPostDate, getImageListMetaData, getImageMetaDataFromURL } from '../lib/api/utils';
+import SocialMediaPost from '../components/SocialMediaPost.astro';
+import type { ImageMetaData } from '../lib/api/api';
 
-const content = await getHomeContent()
-const socialMediaPosts = await getSocialMediaPosts()
+interface HomeContent {
+    hero:  {
+        headline: string,
+        subHeadline: string,
+        featuredArt : ImageMetaData[]
+    },
+    intro: any[]
+}
+
+type SocialMediaPostList = {
+	description : string,
+	tags : string[],
+	date : string,
+	image : ImageMetaData
+}[]
+
+const [heroData] = await client.fetch(`
+	*[ _type == 'home']{
+		heroHeadline, 
+		heroSubHeadline,
+		"featuredArtURLs" : featuredArt[].asset->url,
+		intro
+	}
+`)
+	
+const content: HomeContent = {
+	hero : {
+		headline : heroData.heroHeadline,
+		subHeadline : heroData.heroSubHeadline,
+		featuredArt : getImageListMetaData(heroData.featuredArtURLs)
+	},
+	intro : heroData.intro,
+}
+
+const socialMediaPostData = await client.fetch(`
+	*[ _type == 'socialMediaPost'] | order(date desc)[0..4] {
+		description,
+		tags,
+		date,
+		"imageURL" : image.asset->url
+	}
+`)
+
+const socialMediaPostList: SocialMediaPostList = socialMediaPostData.map( (postData: any) => {
+	postData.date = formatSocialMediaPostDate(postData.date)
+	const metaData = getImageMetaDataFromURL(postData.imageURL)
+	return { image: metaData, ...postData}
+})	
 ---
 
 <BaseLayout props
@@ -70,7 +118,7 @@ const socialMediaPosts = await getSocialMediaPosts()
 
 			<div class="grid gap-8">
 
-				{ socialMediaPosts.map(post => <SocialMediaPost {...post } /> )}
+				{ socialMediaPostList.map(post => <SocialMediaPost {...post } /> )}
 
 			</div>
 		</Wrapper>

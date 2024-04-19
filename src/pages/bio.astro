@@ -2,7 +2,7 @@
 import Wrapper from '../components/Wrapper.astro';
 import H1 from '../components/Heading/H1.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getBio } from '../lib/api/api'
+import { client, type ImageMetaData } from '../lib/api/api'
 import PortableTextWrapper from '../components/PortableTextWrapper.astro';
 import Image from '../components/Image.astro';
 import BioLink from '../components/BioLink.astro';
@@ -12,8 +12,26 @@ import TumblrIcon from '../components/icons/TumblrIcon.astro';
 import ThreadsIcon from '../components/icons/ThreadsIcon.astro';
 import {SOCIAL_LINKS} from '../config'
 import KofiIcon from '../components/icons/KofiIcon.astro';
+import { getImageMetaDataFromURL } from '../lib/api/utils';
 
-const content = await getBio()
+interface Bio {
+    bioImage : ImageMetaData,
+    section1content : any[],
+    section2content : any[]
+}
+
+const [data] = await client.fetch(`
+	*[ _type == 'bio' ] {
+		"bioImageURL" : bioImage.asset->url,
+		section1content,
+		section2content
+	}
+`)
+
+const content: Bio = {
+	bioImage : getImageMetaDataFromURL(data.bioImageURL),
+	...data
+}
 ---
 
 <BaseLayout props

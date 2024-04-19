@@ -1,18 +1,22 @@
 import { defineConfig } from 'astro/config';
-
 import tailwind from "@astrojs/tailwind";
+
+import sanity from "@sanity/astro";
+import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind()],
-
+  integrations: [tailwind(), sanity({
+    projectId: "v81020gt", 
+    dataset: "production", 
+    apiVersion: "2024-03-11",
+    useCdn: true, 
+ }), react()],
   // Set base URL
-  site : 'https://pinkartwitch.com',
-
+  site: 'https://pinkartwitch.com',
   // Set path for site
-  base : '/',
-
-  build : {
-    inlineStylesheets : 'never'
+  base: '/',
+  build: {
+    inlineStylesheets: 'never'
   }
 });

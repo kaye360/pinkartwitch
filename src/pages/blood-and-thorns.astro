@@ -3,13 +3,35 @@ import Wrapper from '../components/Wrapper.astro';
 import H1 from '../components/Heading/H1.astro';
 import Image from '../components/Image.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getBloodAndThorns } from '../lib/api/api';
+import { client } from '../lib/api/api';
 import PortableTextWrapper from '../components/PortableTextWrapper.astro';
 import Button from '../components/Button.astro';
 import TextFlow from '../components/TextFlow.astro';
 import Socials from '../components/Socials.astro';
+import type { ImageMetaData } from '../lib/api/api';
+import { getImageMetaDataFromURL } from '../lib/api/utils';
 
-const content = await getBloodAndThorns()
+interface BloodAndThorns {
+    section1image : ImageMetaData,
+    section1content : any[],
+    section2image : ImageMetaData,
+    section2content : any[]
+}
+
+const [data] = await client.fetch(`
+	*[ _type == 'bloodAndThorns' ] {
+		"section1imageURL" : section1image.asset->url,
+		section1content,
+		"section2imageURL" : section2image.asset->url,
+		section2content
+	}
+`)
+
+const content : BloodAndThorns = {
+	section1image : getImageMetaDataFromURL(data.section1imageURL),
+    section2image : getImageMetaDataFromURL(data.section2imageURL),
+	...data
+}
 ---
 
 <BaseLayout props

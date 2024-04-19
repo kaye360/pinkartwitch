@@ -4,12 +4,22 @@ import H1 from '../components/Heading/H1.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FormSubmit from '../components/Forms/FormSubmit.astro'
 import NetlifyForm from '../components/Forms/NetlifyForm.astro';
-import TextFlow from '../components/TextFlow.astro';
 import FormField from '../components/Forms/FormField.astro';
-import { getContact } from '../lib/api/api';
+import { client } from '../lib/api/api';
 import PortableTextWrapper from '../components/PortableTextWrapper.astro';
 
-const content = await getContact()
+interface Contact {
+    intro : any[]
+}
+
+const [data] = await client.fetch(`
+    *[ _type == 'contact' ] {
+        intro
+	}
+`)
+
+const content: Contact = data
+// const content = await getContact()
 ---
 
 <BaseLayout props

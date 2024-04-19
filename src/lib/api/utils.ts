@@ -1,4 +1,4 @@
-import type { ImageMetaData } from "./contentTypes"
+import type { ImageMetaData } from "./api"
 
 
 export function getImageListMetaData(imgURLList: string[]) : ImageMetaData[] {

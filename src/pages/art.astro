@@ -4,9 +4,30 @@ import H1 from '../components/Heading/H1.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Image from '../components/Image.astro';
 import GalleryModal from '../components/GalleryModal.astro';
-import { getArtWork } from '../lib/api/api';
+import { client } from '../lib/api/api';
+import { getImageMetaDataFromURL } from '../lib/api/utils';
+import type { ImageMetaData } from '../lib/api/api';
 
-const artworkList = await getArtWork()
+interface Artwork {
+    title : string,
+    description : string,
+    image : ImageMetaData,
+    tags : string | string[]
+}
+
+const data = await client.fetch(`
+	*[ _type == 'artwork']  | order(_createdAt desc) {
+		title,
+		description,
+		"imageURL" : image.asset->url,
+		tags
+	}
+`)
+
+const artWorkList : Artwork[] = data.map( (art : any) => {
+	const image = getImageMetaDataFromURL(art.imageURL)
+	return { image, ...art }
+}  )
 
 function formatArtworkDescription(desc : string, maxLength: number ) : string {
 	if( !desc || typeof desc !== 'string' ) return ''
@@ -32,7 +53,7 @@ function formatArtworkDescription(desc : string, maxLength: number ) : string {
 
 			<div class="flex justify-center items-stretch gap-2 lg:gap-6 flex-wrap">
 
-				{ artworkList.map( (art, i) => (
+				{ artWorkList.map( (art, i) => (
 					<button data-art-button class=" hover:cursor-pointer relative group overflow-hidden">
 						<Image 
 							src={art.image.url}
