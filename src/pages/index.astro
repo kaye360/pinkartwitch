@@ -10,6 +10,7 @@ import Socials from '../components/Socials.astro';
 import { formatSocialMediaPostDate, getImageListMetaData, getImageMetaDataFromURL } from '../lib/api/utils';
 import SocialMediaPost from '../components/SocialMediaPost.astro';
 import type { ImageMetaData } from '../lib/api/api';
+import H2 from '../components/Heading/H2.astro';
 
 interface HomeContent {
     hero:  {
@@ -17,7 +18,8 @@ interface HomeContent {
         subHeadline: string,
         featuredArt : ImageMetaData[]
     },
-    intro: any[]
+    intro: any[],
+	bloodAndThornsIntro : any[]
 }
 
 type SocialMediaPostList = {
@@ -32,7 +34,8 @@ const [heroData] = await client.fetch(`
 		heroHeadline, 
 		heroSubHeadline,
 		"featuredArtURLs" : featuredArt[].asset->url,
-		intro
+		intro,
+		bloodAndThornsIntro
 	}
 `)
 	
@@ -43,6 +46,7 @@ const content: HomeContent = {
 		featuredArt : getImageListMetaData(heroData.featuredArtURLs)
 	},
 	intro : heroData.intro,
+	bloodAndThornsIntro : heroData.bloodAndThornsIntro
 }
 
 const socialMediaPostData = await client.fetch(`
@@ -99,11 +103,31 @@ const socialMediaPostList: SocialMediaPostList = socialMediaPostData.map( (postD
 	</section>
 
 
-	<section class="bg-slate-900">
-		<Wrapper padding='both'>
-			<H1>Blood and Thorns</H1>
-	
-			<p>Place holder textLorem ipsum dolor sit amet consectetur adipisicing elit. Hic officia expedita impedit odit rem accusantium vel eum modi velit ipsam ullam aliquam temporibus alias ducimus, soluta, illo itaque repellat. Magni neque delectus dolore mollitia repudiandae aspernatur praesentium reiciendis saepe deleniti id sint molestiae totam officiis alias velit nihil culpa, corporis voluptatem! Magnam, assumenda corporis maiores quaerat fugiat maxime adipisci. Neque deleniti temporibus voluptatem vero earum inventore nemo unde dolore tempore, obcaecati doloremque enim nesciunt? Nisi omnis doloremque accusamus, quam corporis, sequi reprehenderit voluptatem adipisci nemo nobis commodi. Assumenda nam ipsa quod sed molestias odio repellat enim nulla eius. Necessitatibus, dicta.</p>
+	<section class="relative overflow-hidden py-4 bg-gradient-to-b from-transparent via-primary-200 to-transparent">
+		<Wrapper width="max" padding='inline' class='grid lg:grid-cols-[auto_1fr] gap-8'>
+
+			<Image 
+				src="/img/blood-and-thorns.webp"
+				width={647}
+				height={100}
+				alt=""
+				class="h-[80vh] w-auto max-h-[600px] rounded-lg  order-2 lg:order-1"
+			/>
+
+			<div class="bg-primary-100/30 p-8 rounded-lg grid items-center relative order-1 lg:order-2">
+
+				<div class="relative z-10">
+					<PortableTextWrapper value={content.bloodAndThornsIntro} />
+				</div>
+
+				<Image 
+					src="/img/hero-star-circle.webp"
+					width={137}
+					height={142}
+					alt=""
+					class="hidden md:block absolute top-12 right-0 translate-x-1/3 mix-blend-multiplyd scale-[2]"
+				/>
+			</div>
 		</Wrapper>
 	</section>
 
@@ -112,9 +136,7 @@ const socialMediaPostList: SocialMediaPostList = socialMediaPostData.map( (postD
 
 		<Wrapper width="max" padding='both'>
 
-			<H1>
-				Social Media
-			</H1>
+			<H2>Social Media</H2>
 
 			<div class="grid gap-8">
 

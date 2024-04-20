@@ -10,7 +10,7 @@ export default defineConfig({
     projectId: "v81020gt", 
     dataset: "production", 
     apiVersion: "2024-03-11",
-    useCdn: true, 
+    useCdn: false, 
     studioBasePath : '/admin'
  }), react()],
   // Set base URL
