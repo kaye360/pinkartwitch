@@ -11,6 +11,7 @@ import { formatSocialMediaPostDate, getImageListMetaData, getImageMetaDataFromUR
 import SocialMediaPost from '../components/SocialMediaPost.astro';
 import type { ImageMetaData } from '../lib/api/api';
 import H2 from '../components/Heading/H2.astro';
+import Button from '../components/Button.astro';
 
 interface HomeContent {
     hero:  {
@@ -109,7 +110,7 @@ const socialMediaPostList: SocialMediaPostList = socialMediaPostData.map( (postD
 			<Image 
 				src="/img/blood-and-thorns.webp"
 				width={647}
-				height={100}
+				height={1000}
 				alt=""
 				class="h-[80vh] w-auto max-h-[600px] rounded-lg  order-2 lg:order-1"
 			/>
@@ -118,6 +119,13 @@ const socialMediaPostList: SocialMediaPostList = socialMediaPostData.map( (postD
 
 				<div class="relative z-10">
 					<PortableTextWrapper value={content.bloodAndThornsIntro} />
+
+					<Button 
+						href="/blood-and-thorns"
+						class='mt-6'
+					>
+						Read More
+					</Button>
 				</div>
 
 				<Image 
