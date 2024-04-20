@@ -13,6 +13,7 @@ import ThreadsIcon from '../components/icons/ThreadsIcon.astro';
 import {SOCIAL_LINKS} from '../config'
 import KofiIcon from '../components/icons/KofiIcon.astro';
 import { getImageMetaDataFromURL } from '../lib/api/utils';
+import SocialsContact from '../components/SocialsContact.astro';
 
 interface Bio {
     bioImage : ImageMetaData,
@@ -68,20 +69,7 @@ const content: Bio = {
 
 			<PortableTextWrapper value={content.section2content} />
 
-			<div class="pl-3 lg:pl-16 border-l border-primary-500 text-primary-500">
-				<ul class="grid lg:justify-end lg:text-right">
-					<li class="font-bold">@pinkartwitch</li>
-					<BioLink href={SOCIAL_LINKS.instagram} title="Instagram" Icon={InstagramIcon} />
-					<BioLink href={SOCIAL_LINKS.deviantArt} title="DeviantArt" Icon={DeviantArtIcon} />
-					<BioLink href={SOCIAL_LINKS.tumblr} title="Tumblr" Icon={TumblrIcon} />
-					<BioLink href={SOCIAL_LINKS.threads} title="Threads" Icon={ThreadsIcon} />
-				</ul>
-
-				<ul class="mt-6">
-					<li class="font-bold">Support My Work</li>
-					<BioLink href={SOCIAL_LINKS.kofi} title="Ko-fi" Icon={KofiIcon} />
-				</ul>
-			</div>
+			<SocialsContact />
 		</Wrapper>
 	</section>
 

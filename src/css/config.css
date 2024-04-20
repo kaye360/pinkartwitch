@@ -42,8 +42,8 @@
 
         --hero-text-color                : hsl( var(--secondary-color) 60% );
 
-        --form-field-bg-color            : hsl( var(--primary-color) 96% );
-        --form-field-border-color        : hsl( var(--primary-color) 80% );
+        --form-field-bg-color            : hsl( var(--primary-color) 97% );
+        --form-field-border-color        : hsl( var(--primary-color) 85% );
         --form-field-text-color          : hsl( var(--primary-color) 30% );
 
         --form-field-bg-color-hover      : hsl( var(--primary-color) 93% );

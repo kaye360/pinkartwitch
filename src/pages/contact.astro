@@ -1,5 +1,6 @@
 ---
 import Wrapper from '../components/Wrapper.astro';
+import Image from '../components/Image.astro';
 import H1 from '../components/Heading/H1.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FormSubmit from '../components/Forms/FormSubmit.astro'
@@ -7,6 +8,7 @@ import NetlifyForm from '../components/Forms/NetlifyForm.astro';
 import FormField from '../components/Forms/FormField.astro';
 import { client } from '../lib/api/api';
 import PortableTextWrapper from '../components/PortableTextWrapper.astro';
+import SocialsContact from '../components/SocialsContact.astro';
 
 interface Contact {
     intro : any[]
@@ -35,21 +37,36 @@ const content: Contact = data
 	</section>
 
 	<section>
-		<Wrapper width="max" padding='inline'>
-			<PortableTextWrapper value={content.intro} class='max-w-[60ch] mb-12' />
+		<Wrapper width="max" padding='inline' class="grid lg:grid-cols-[1fr_auto]">
 
-			<NetlifyForm name="PinkArtWitch Contact Form" subject='PinkArtWitch website inquiry'>
-				
-				<FormField name="Name" type="text" required />
+			<div>
+				<PortableTextWrapper value={content.intro} class='max-w-[60ch] mb-8' />
+	
+				<NetlifyForm name="PinkArtWitch Contact Form" subject='PinkArtWitch website inquiry'>
+					
+					<FormField name="Name" type="text" required />
+	
+					<FormField name="Email" type="email" required />
+	
+					<FormField name="Message" type="textarea" required />
+	
+					<FormSubmit />
+	
+				</NetlifyForm>
+			</div>
 
-				<FormField name="Email" type="email" required />
+			<div>
+				<SocialsContact />
+			</div>
 
-				<FormField name="Message" type="textarea" required />
-
-				<FormSubmit />
-
-			</NetlifyForm>
 		</Wrapper>
 	</section>
 
 </BaseLayout>
+
+
+<style>
+img.pink-witch {
+	transform: rotateY(180deg);
+}
+</style>
