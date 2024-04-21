@@ -24,6 +24,8 @@ export default defineConfig({
 
   plugins: [structureTool(), scheduledPublishing()],
 
+  basePath: '/admin',
+
   schema: {
     types: [home, socialMediaPost, artwork, bloodAndThorns, bio, contact],
   },
