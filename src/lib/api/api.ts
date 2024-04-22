@@ -8,6 +8,13 @@ export const client = createClient({
 })
 
 
+export interface Image {
+    image : ImageMetaData,
+    tags : string[],
+    title : string,
+    description : string
+}
+
 export interface ImageMetaData {
     url: string, 
     width : number,

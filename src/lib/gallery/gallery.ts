@@ -1,4 +1,4 @@
-import type { Image } from "../api/contentTypes"
+import type { Image } from "../api/api"
 
 export default class Gallery {
 
@@ -245,13 +245,12 @@ export default class Gallery {
                             <img 
                                 src="${art.image.url}"
                                 class="h-[80px] w-auto rounded"
-                            >
+                            />
                         </button>`
-                        ))}
+                    )).join('')}
                 </div>
             </div>
         `
-
     }
     
     ImageHTML = () : string => {
