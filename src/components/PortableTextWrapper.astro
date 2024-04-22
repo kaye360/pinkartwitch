@@ -1,14 +1,22 @@
 ---
+import Image from "./SanityImage.astro";
 import TextFlow from "./TextFlow.astro";
 import {PortableText} from 'astro-portabletext'
 
 
 const { value, class: className = ''} = Astro.props
+
+const components = {
+  type: {
+    image: Image
+  }
+}
 ---
 
 <TextFlow class:list={["w-full", className]}>
     <PortableText
         value={value}
+        components={components}
     />
 </TextFlow>
 

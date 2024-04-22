@@ -1,0 +1,32 @@
+---
+import { imageUrlFor } from '../lib/api/image';
+import { getImageMetaDataFromURL } from '../lib/api/utils';
+
+type Asset = Parameters<typeof imageUrlFor>[0];
+
+export interface Props {
+  node : {
+    asset: Asset;
+    alt: string;
+  }
+}
+
+const { node } = Astro.props;
+const { asset } = node
+const image = imageUrlFor(asset);
+
+// @ts-ignore
+const imageFileData = image.options.source['_ref'] as string
+const imageFile = imageFileData.slice(6).split('-')
+const imagePath = imageFile[0] + '-' + imageFile[1] + '.' + imageFile[2]
+const url = image.options.baseUrl + 
+            '/images/' + 
+            image.options.projectId + '/' + 
+            image.options.dataset + '/' + 
+            imagePath
+
+const { width, height } = getImageMetaDataFromURL(url)
+
+---
+
+<img src={url} width={width} height={height} alt="" />
