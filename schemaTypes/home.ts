@@ -28,7 +28,7 @@ export const home = defineType({
 			options: {
 				sortable: true,
 			},
-			validation: rule => rule.required().length(5)
+			validation: rule => rule.required().max(5)
 		}),
 
 		defineField({

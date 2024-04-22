@@ -10,7 +10,8 @@ export const contact = defineType({
 	fields: [
 		defineField({
 			title: 'Intro', name: 'intro', type: 'array', of: [
-				{ type: 'block' }
+				{ type: 'block' },
+				{ type : 'image'}
 		]}),
 	],
 });
