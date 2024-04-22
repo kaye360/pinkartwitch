@@ -13,11 +13,15 @@ export default defineConfig({
     useCdn: false, 
     studioBasePath : '/admin'
  }), react()],
+  output : 'hybrid',
   // Set base URL
   site: 'https://pinkartwitch.com',
   // Set path for site
   base: '/',
   build: {
     inlineStylesheets: 'never'
-  }
+  },
+  // redirects : {
+  //   '/admin/[...page]' : '/admin'
+  // }
 });
