@@ -12,18 +12,19 @@ export interface Props {
 }
 
 const { node } = Astro.props;
+
 const { asset } = node
 const image = imageUrlFor(asset);
 
 // @ts-ignore
-const imageFileData = image.options.source['_ref'] as string
-const imageFile = imageFileData.slice(6).split('-')
-const imagePath = imageFile[0] + '-' + imageFile[1] + '.' + imageFile[2]
+const sanityImageRef = image.options.source['_ref'] as string
+const sanityImageRefArray = sanityImageRef.slice(6).split('-')
+const imageFileName = sanityImageRefArray[0] + '-' + sanityImageRefArray[1] + '.' + sanityImageRefArray[2]
 const url = image.options.baseUrl + 
             '/images/' + 
             image.options.projectId + '/' + 
             image.options.dataset + '/' + 
-            imagePath
+            imageFileName
 
 const { width, height } = getImageMetaDataFromURL(url)
 
