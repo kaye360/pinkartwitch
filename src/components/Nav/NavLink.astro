@@ -19,9 +19,16 @@ interface Props extends HTMLAttributes<"li"> {
 
 const { href, title, class: className } = Astro.props;
 
-const { pathname } = Astro.url;
+let { pathname } = Astro.url;
 
+
+const pathNameLastChar = pathname.slice(-1)
+
+if(pathNameLastChar === '/') {
+    pathname = pathname.slice(0,-1)
+}
 const isActive = pathname === href;
+
 ---
 
 <li class="relative transition-all duration-100 rounded">
