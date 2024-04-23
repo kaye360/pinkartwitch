@@ -45,7 +45,7 @@ const content : BloodAndThorns = {
 			<H1>Blood and Thorns</H1>
 		</Wrapper>
 
-		<Wrapper props width="max" padding='both'>
+		<Wrapper props width="max" padding='inline'>
 			<div class="relative grid lg:grid-cols-[auto_1fr] items-stretch justify-center mx-auto gap-8 flex-wrap">
 	
 				<Image 
@@ -77,7 +77,7 @@ const content : BloodAndThorns = {
 			</div>
 		</Wrapper>
 
-		<Wrapper width="text" padding='both'>
+		<Wrapper width="text" padding='inline'>
 			<PortableTextWrapper value={content.section2content} />
 
 			<Button 
@@ -87,18 +87,6 @@ const content : BloodAndThorns = {
 				Read Blood and thorns for free on World Anvil
 			</Button>
 		</Wrapper>
-
-		<Wrapper width="max">
-			<Image 
-				src={content.section2image.url}
-				width={content.section2image.width}
-				height={content.section2image.height}
-				alt=""
-				class='mx-auto rounded'
-			/>
-		</Wrapper>
-
-		<Socials class="my-12" />
 
 		<Wrapper width='text' padding='inline'>
 			<TextFlow>

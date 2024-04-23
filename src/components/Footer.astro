@@ -4,12 +4,12 @@ import Image from "./Image.astro";
 import type { HTMLAttributes } from "astro/types";
 import { PAGES, SOCIAL_LINKS } from "../config";
 import NavLink from "./Nav/NavLink.astro";
-import SocialLinkList from "./Nav/SocialLinkList.astro";
 import DeviantArtIcon from "./icons/DeviantArtIcon.astro";
 import InstagramIcon from "./icons/InstagramIcon.astro";
 import ThreadsIcon from "./icons/ThreadsIcon.astro";
 import TumblrIcon from "./icons/TumblrIcon.astro";
 import KofiIcon from "./icons/KofiIcon.astro";
+import Socials from "./Socials.astro";
 
 interface Props extends HTMLAttributes<'footer'> {}
 const {...rest} = Astro.props
@@ -17,8 +17,10 @@ const {...rest} = Astro.props
 const totalPages = PAGES.length
 ---
 
+<Socials />
+
 <footer class="bg-[url(/img/footer-stars-bg.webp)] bg-contain bg-no-repeat bg-bottom text-primary-500" {...rest}>
-    <Wrapper padding="inline" width="max" class="py-16 grid gap-12 lg:gap-8">
+    <Wrapper padding="inline" width="max" class="pb-16 grid gap-12 lg:gap-8">
 
         <a href="/" class="flex flex-col items-center mx-auto text-primary-500">
             <Image 

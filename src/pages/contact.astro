@@ -37,9 +37,9 @@ const content: Contact = data
 	</section>
 
 	<section>
-		<Wrapper width="max" padding='inline' class="grid lg:grid-cols-[1fr_auto]">
+		<Wrapper width="max" padding='inline' class="grid lg:grid-cols-[1fr_auto] items-stretch">
 
-			<div>
+			<div class="mb-8">
 				<PortableTextWrapper value={content.intro} class='max-w-[60ch] mb-8' />
 	
 				<NetlifyForm name="PinkArtWitch Contact Form" subject='PinkArtWitch website inquiry'>
@@ -55,8 +55,8 @@ const content: Contact = data
 				</NetlifyForm>
 			</div>
 
-			<div>
-				<SocialsContact />
+			<div class="relative">
+				<SocialsContact class="sticky top-28" />
 			</div>
 
 		</Wrapper>

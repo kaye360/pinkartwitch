@@ -105,17 +105,17 @@ const socialMediaPostList: SocialMediaPostList = socialMediaPostData.map( (postD
 
 
 	<section class="relative overflow-hidden py-4 bg-gradient-to-b from-transparent via-primary-200 to-transparent">
-		<Wrapper width="max" padding='inline' class='grid lg:grid-cols-[auto_1fr] gap-8'>
+		<Wrapper width="max" padding='inline' class='grid md:grid-cols-[auto_1fr] gap-8'>
 
 			<Image 
 				src="/img/blood-and-thorns.webp"
 				width={647}
 				height={1000}
 				alt=""
-				class="h-[80vh] w-auto max-h-[600px] rounded-lg  order-2 lg:order-1"
+				class="h-[80vh] w-auto max-h-[600px] rounded-lg  order-2 md:order-1 mx-auto md:mx-0"
 			/>
 
-			<div class="bg-primary-100/30 p-8 rounded-lg grid items-center relative order-1 lg:order-2">
+			<div class="bg-primary-100/30 p-8 rounded-lg grid items-center relative order-1 md:order-2">
 
 				<div class="relative z-10">
 					<PortableTextWrapper value={content.bloodAndThornsIntro} />
@@ -146,7 +146,7 @@ const socialMediaPostList: SocialMediaPostList = socialMediaPostData.map( (postD
 
 			<H2>Social Media</H2>
 
-			<div class="grid gap-8">
+			<div class="grid gap-12">
 
 				{ socialMediaPostList.map(post => <SocialMediaPost {...post } /> )}
 
@@ -154,8 +154,5 @@ const socialMediaPostList: SocialMediaPostList = socialMediaPostData.map( (postD
 		</Wrapper>
 
 	</section>
-
-
-	<Socials />
 
 </BaseLayout>

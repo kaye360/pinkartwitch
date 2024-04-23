@@ -6,10 +6,13 @@ import InstagramIcon from "./icons/InstagramIcon.astro";
 import KofiIcon from "./icons/KofiIcon.astro";
 import ThreadsIcon from "./icons/ThreadsIcon.astro";
 import TumblrIcon from "./icons/TumblrIcon.astro";
+
+const { class: className = ''} = Astro.props
+
 ---
 
-<div class="pl-3 lg:pl-16 border-l border-primary-500 text-primary-500">
-    <ul class="grid lg:justify-end lg:text-right">
+<div class:list={["pl-3 lg:pl-16 border-l border-primary-500 text-primary-500", className]}>
+    <ul class="grid lg:justify-end lg:text-right mb-6">
         <li class="font-bold">@pinkartwitch</li>
         <BioLink href={SOCIAL_LINKS.instagram} title="Instagram" Icon={InstagramIcon} />
         <BioLink href={SOCIAL_LINKS.deviantArt} title="DeviantArt" Icon={DeviantArtIcon} />
@@ -17,8 +20,8 @@ import TumblrIcon from "./icons/TumblrIcon.astro";
         <BioLink href={SOCIAL_LINKS.threads} title="Threads" Icon={ThreadsIcon} />
     </ul>
 
-    <ul class="mt-6">
-        <li class="font-bold text-right">Support My Work</li>
+    <ul class="grid lg:justify-end lg:text-right">
+        <li class="font-bold">Support My Work</li>
         <BioLink href={SOCIAL_LINKS.kofi} title="Ko-fi" Icon={KofiIcon} />
     </ul>
 </div>
