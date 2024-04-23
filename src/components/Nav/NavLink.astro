@@ -21,14 +21,13 @@ const { href, title, class: className } = Astro.props;
 
 let { pathname } = Astro.url;
 
-
 const pathNameLastChar = pathname.slice(-1)
 
 if( pathname !== '/' && pathNameLastChar === '/') {
     pathname = pathname.slice(0,-1)
 }
-const isActive = pathname === href;
 
+const isActive = pathname === href;
 ---
 
 <li class="relative transition-all duration-100 rounded">
@@ -36,7 +35,7 @@ const isActive = pathname === href;
         href={href}
         data-title={title}
         class:list={[
-            "relative z-10 hover:text-primary-50 px-3 py-2 flex items-center gap-2 font-bold border-b-4 min-w-max overflow-hidden text-2xl lg:text-base transition-all duration-100",
+            "relative z-10 hover:text-primary-50 px-3 py-2 flex items-center gap-2 font-bold border-b-4 min-w-max overflow-hidden text-2xl lg:text-base transition-all duration-100 text-primary-600",
             className,
             `${isActive ? " border-primary-300 " : "border-transparent"}`,
         ]}
