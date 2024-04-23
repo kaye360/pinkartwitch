@@ -24,7 +24,7 @@ let { pathname } = Astro.url;
 
 const pathNameLastChar = pathname.slice(-1)
 
-if(pathNameLastChar === '/') {
+if( pathname !== '/' && pathNameLastChar === '/') {
     pathname = pathname.slice(0,-1)
 }
 const isActive = pathname === href;
