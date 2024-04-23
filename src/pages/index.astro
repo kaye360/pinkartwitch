@@ -5,11 +5,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { client } from '../lib/api/api';
 import Image from '../components/Image.astro';
 import PortableTextWrapper from '../components/PortableTextWrapper.astro';
-import { formatSocialMediaPostDate, getImageListMetaData, getImageMetaDataFromURL } from '../lib/api/utils';
-import SocialMediaPost from '../components/SocialMediaPost.astro';
+import { getImageListMetaData } from '../lib/api/utils';
 import type { ImageMetaData } from '../lib/api/api';
 import H2 from '../components/Heading/H2.astro';
 import Button from '../components/Button.astro';
+import PostList from '../components/Blog/PostList.astro';
 
 interface HomeContent {
     hero:  {
@@ -20,13 +20,6 @@ interface HomeContent {
     intro: any[],
 	bloodAndThornsIntro : any[]
 }
-
-type SocialMediaPostList = {
-	description : string,
-	tags : string[],
-	date : string,
-	image : ImageMetaData
-}[]
 
 const [heroData] = await client.fetch(`
 	*[ _type == 'home']{
@@ -47,21 +40,6 @@ const content: HomeContent = {
 	intro : heroData.intro,
 	bloodAndThornsIntro : heroData.bloodAndThornsIntro
 }
-
-const socialMediaPostData = await client.fetch(`
-	*[ _type == 'socialMediaPost'] | order(date desc)[0..4] {
-		description,
-		tags,
-		date,
-		"imageURL" : image.asset->url
-	}
-`)
-
-const socialMediaPostList: SocialMediaPostList = socialMediaPostData.map( (postData: any) => {
-	postData.date = formatSocialMediaPostDate(postData.date)
-	const metaData = getImageMetaDataFromURL(postData.imageURL)
-	return { image: metaData, ...postData}
-})	
 ---
 
 <BaseLayout props
@@ -142,13 +120,10 @@ const socialMediaPostList: SocialMediaPostList = socialMediaPostData.map( (postD
 
 		<Wrapper width="max" padding='both'>
 
-			<H2>Social Media</H2>
+			<H2>Blog Posts</H2>
 
-			<div class="grid gap-12">
+			<PostList />
 
-				{ socialMediaPostList.map(post => <SocialMediaPost {...post } /> )}
-
-			</div>
 		</Wrapper>
 
 	</section>
