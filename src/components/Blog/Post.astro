@@ -1,10 +1,10 @@
 ---
-import Image from "./Image.astro";
-import Button from "./Button.astro";
-import PortableTextWrapper from "./PortableTextWrapper.astro";
-import H2 from "./Heading/H2.astro";
+import Image from "../Image.astro";
+import Button from "../Button.astro";
+import PortableTextWrapper from "../PortableTextWrapper.astro";
+import H2 from "../Heading/H2.astro";
 
-export interface BlogPostProps {
+export interface PostProps {
     title : string,
     date : string, 
     tags: string[],
@@ -22,14 +22,11 @@ export interface BlogPostProps {
 }
 
 interface Props {
-    post : BlogPostProps
-    showViewPostBtn? : boolean
+    post : PostProps
 }
 
 
-const {
-    post, showViewPostBtn = true
-} = Astro.props
+const { post } = Astro.props
 
 ---
 

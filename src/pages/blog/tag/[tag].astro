@@ -1,0 +1,46 @@
+---
+import BackToBlog from "../../../components/Blog/BackToBlog.astro";
+import Post, { type PostProps } from "../../../components/Blog/Post.astro";
+import { blogPostData, getBlogPostList } from "../../../components/Blog/PostList.astro";
+import { getTags } from "../../../components/Blog/TagCloud.astro";
+import H1 from "../../../components/Heading/H1.astro";
+import Wrapper from "../../../components/Wrapper.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() : Promise<any> {
+
+    const blogPostList = await getBlogPostList(blogPostData)
+    const tagList = await getTags()
+
+    return tagList.map( (tag : string) => {
+        const filteredPostList = blogPostList.filter( post => post.tags.includes(tag) )
+        return {
+            params: { tag },
+            props : { posts: filteredPostList }
+        }
+    } )
+}
+
+const { tag } = Astro.params
+const { posts } = Astro.props
+const postList = posts as PostProps[]
+---
+
+<BaseLayout props
+	title="Blog"
+	description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro in expedita beatae perferendis quod qui perspiciatis numquam."
+	lang="en"
+>
+
+	<section class="mt-28">
+		<Wrapper width='max' padding='inline' class="min-h-[600px]">
+
+            <BackToBlog />
+
+			<H1 class="mb-2">
+                Posts Tagged: #{tag}
+            </H1>
+
+            { postList.map( post => <Post post={post}  /> )}
+		</Wrapper>
+	</section>

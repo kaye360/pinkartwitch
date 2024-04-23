@@ -1,0 +1,36 @@
+---
+import { client } from "../../lib/api/api"
+
+export async function getTags() : Promise<string[]> {
+	const tagSet = new Set()
+	
+	const tagData = await client.fetch(`
+		*[ _type == 'blogPost'] {
+			tags
+		}
+	`)
+	
+	tagData.forEach( (post : {tags : string[]}) => {
+		post.tags.forEach( tag => {
+			tagSet.add(tag)
+		} )
+	} )
+	
+	return Array.from( tagSet ).sort() as string[]
+}
+
+const tags = await getTags()
+---
+
+<ul class=" flex items-center gap-4 flex-wrap">
+    { tags.map( tag => (
+        <li>
+            <a 
+                href={'/blog/tag/' + tag}
+                class="block px-3 py-1 border border-primary-200 rounded-md hover:underline hover:border-primary-500"
+            >
+                #{tag}
+            </a>
+        </li>
+    ))}
+</ul>

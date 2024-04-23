@@ -1,7 +1,7 @@
 ---
-import { client } from "../lib/api/api"
-import { formatPostDate, formatSlug, getImageMetaDataFromURL } from "../lib/api/utils"
-import BlogPost, { type BlogPostProps } from "./BlogPost.astro"
+import { client } from "../../lib/api/api"
+import { formatSlug, formatPostDate, getImageMetaDataFromURL } from "../../lib/api/utils"
+import Post, { type PostProps } from "./Post.astro"
 
 export const blogPostData = await client.fetch(`
 	*[ _type == 'blogPost'] | order(date desc)[0..4] {
@@ -17,8 +17,8 @@ export const blogPostData = await client.fetch(`
 	}
 `)
 
-export async function getBlogPostList(blogPostData: any) : Promise<BlogPostProps[]> {
-    const blogPostList: BlogPostProps[] = blogPostData.map( (postData: any) => {
+export async function getBlogPostList(blogPostData: any) : Promise<PostProps[]> {
+    const blogPostList: PostProps[] = blogPostData.map( (postData: any) => {
         const slug = formatSlug(postData)
         const formattedDate = formatPostDate(postData.date)
         const formattedTitle: string = postData.title.trim()
@@ -33,7 +33,7 @@ const blogPostList = await getBlogPostList(blogPostData)
 
 <div class="grid gap-12">
 
-    {blogPostList.map( post => <BlogPost post={post}  /> )}
+    {blogPostList.map( post => <Post post={post}  /> )}
 
 </div>
 
