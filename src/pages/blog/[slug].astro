@@ -1,0 +1,70 @@
+---
+import BlogPostList, { blogPostData, getBlogPostList } from "../../components/BlogPostList.astro";
+import H1 from "../../components/Heading/H1.astro";
+import Wrapper from "../../components/Wrapper.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Image from "../../components/Image.astro";
+import PortableTextWrapper from "../../components/PortableTextWrapper.astro";
+
+    
+export async function getStaticPaths() {
+    const blogPostList = await getBlogPostList(blogPostData)
+    return blogPostList.map( post => {
+        return {
+            params: {slug : post.slug},
+            props : post
+        }
+    } )
+}
+
+// const { slug } = Astro.params
+const { post, image, title, deviantArtUrl, threadsUrl, instagramUrl, tumblrUrl, tags, date,   } = Astro.props
+---
+
+<BaseLayout props
+	title="Blog"
+	description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro in expedita beatae perferendis quod qui perspiciatis numquam."
+	lang="en"
+>
+
+	<section class="mt-28">
+		<Wrapper width='text' padding='inline' class="min-h-[600px]">
+            <a 
+                href="/blog"
+                class="flex items-center gap-2 text-lg font-semibold mb-2 ml-auto hover:underline"
+            >
+                <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 8L20 8M2 8L8 14M2 8L8 2" stroke="#E11E6A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>
+                    Back to blog
+                </span>                
+            </a>
+
+			<H1 class="mb-2">
+                {title}
+            </H1>
+
+            {tags && (
+                <div class="flex gap-4 font-semibold flex-wrap text-base mb-2">
+                    { tags.map( tag => (
+                       <a href={`/blog/tag/${tag}`} class="hover:underline">
+                           #{tag}
+                       </a>
+                   ))}
+                </div>
+            )}
+
+            <Image 
+                src={image.url}
+                width={image.width}
+                height={image.height}
+                alt={title}
+                class="w-full mb-4 rounded-md"
+            />
+
+            <PortableTextWrapper value={post} />
+
+
+		</Wrapper>
+	</section>

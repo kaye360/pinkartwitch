@@ -7,7 +7,7 @@ import { artwork } from './schemaTypes/artwork'
 import { bio } from './schemaTypes/bio'
 import { bloodAndThorns } from './schemaTypes/bloodAndThorns'
 import { contact } from './schemaTypes/contact'
-import { socialMediaPost } from './schemaTypes/socialMediaPost'
+import { blogPost } from './schemaTypes/blogPost'
 
 // These are one off pages, not content lists
 // This is used to remove the Create buttons
@@ -27,7 +27,7 @@ export default defineConfig({
   basePath: '/admin',
 
   schema: {
-    types: [home, socialMediaPost, artwork, bloodAndThorns, bio, contact],
+    types: [home, blogPost, artwork, bloodAndThorns, bio, contact],
   },
 
   document: {

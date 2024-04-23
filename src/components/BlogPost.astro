@@ -1,0 +1,67 @@
+---
+import Image from "./Image.astro";
+import Button from "./Button.astro";
+import PortableTextWrapper from "./PortableTextWrapper.astro";
+import H2 from "./Heading/H2.astro";
+
+export interface BlogPostProps {
+    title : string,
+    date : string, 
+    tags: string[],
+    post : string,
+    slug : string,
+    image : {
+        url : string,
+        width : number,
+        height : number
+    },
+    instagramUrl : string,
+    deviantArtUrl : string,
+    tumblrUrl : string,
+    threadsUrl : string,
+}
+
+interface Props {
+    post : BlogPostProps
+    showViewPostBtn? : boolean
+}
+
+
+const {
+    post, showViewPostBtn = true
+} = Astro.props
+
+---
+
+<div class="grid lg:grid-cols-[1.5fr_2fr] gap-x-4 gap-y-4">
+    <a href={'/blog/' + post.slug } class="">
+        <Image 
+            src={post.image.url}
+            width={post.image.width}
+            height={post.image.height}
+            alt="Social Media Post"
+            class="w-full max-h-[300px] object-cover rounded-md"
+        />
+    </a>
+
+    <div class="grid grid-cols-[200px_1fr] gap-4">
+
+        <div class="text-right">
+            <div class="font-bold text-lg text-primary-500">{post.date}</div>
+            <div class="flex gap-x-2 flex-wrap justify-end font-bold text-base">{post.tags && post.tags.map( tag => (
+                <a href={`/blog/tag/${tag}`} class="min-w-max text-primary-700 hover:underline">
+                    #{tag}
+                </a>
+            ))}
+            </div>
+        </div>
+
+        <div>
+            <H2 class="text-2xl mb-2">{post.title}</H2>
+            <PortableTextWrapper value={post.post} />
+
+            <Button variant="outline" href={'/blog/' + post.slug} class=" text-lg font-bold text-primary-500 mt-2">View Post</Button>
+        </div>
+
+    </div>
+</div>

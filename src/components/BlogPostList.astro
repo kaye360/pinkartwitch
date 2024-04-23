@@ -1,0 +1,39 @@
+---
+import { client } from "../lib/api/api"
+import { formatPostDate, formatSlug, getImageMetaDataFromURL } from "../lib/api/utils"
+import BlogPost, { type BlogPostProps } from "./BlogPost.astro"
+
+export const blogPostData = await client.fetch(`
+	*[ _type == 'blogPost'] | order(date desc)[0..4] {
+        title,
+		"imageURL" : image.asset->url,
+		post,
+		tags,
+		date,
+        instagramUrl,
+        deviantArtUrl,
+        tumblrUrl,
+        threadsUrl,
+	}
+`)
+
+export async function getBlogPostList(blogPostData: any) : Promise<BlogPostProps[]> {
+    const blogPostList: BlogPostProps[] = blogPostData.map( (postData: any) => {
+        const slug = formatSlug(postData)
+        const formattedDate = formatPostDate(postData.date)
+        const formattedTitle: string = postData.title.trim()
+        const metaData = getImageMetaDataFromURL(postData.imageURL)
+        return { image: metaData, slug, ...postData, date : formattedDate, title : formattedTitle}
+    })	
+    return blogPostList
+}
+
+const blogPostList = await getBlogPostList(blogPostData)
+---
+
+<div class="grid gap-12">
+
+    {blogPostList.map( post => <BlogPost post={post}  /> )}
+
+</div>
+

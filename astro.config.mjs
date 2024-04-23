@@ -20,7 +20,7 @@ export default defineConfig({
   build: {
     inlineStylesheets: 'never'
   },
-  // redirects : {
-  //   '/admin/[...page]' : '/admin'
-  // }
+  redirects : {
+    '/admin/[...page]' : '/admin'
+  }
 });

@@ -26,3 +26,17 @@ export function formatSocialMediaPostDate(date: string) : string {
         day : '2-digit'
     }).replace(',', '')
 }
+
+export function formatPostDate(date: string) : string {
+    if( !(typeof date === 'string')) return ''
+    return new Date(date).toLocaleDateString('en-CA', {
+        // year : '2-digit',
+        month : 'short',
+        day : '2-digit'
+    }).replace(',', '')
+}
+
+export function formatSlug(postData: any) : string {
+    const slug = (postData.date + '-' + postData.title.trim().replaceAll(' ', '-')).toLowerCase()
+    return slug
+}
