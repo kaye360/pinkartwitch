@@ -6,6 +6,11 @@ import Image from "../../components/Image.astro";
 import PortableTextWrapper from "../../components/PortableTextWrapper.astro";
 import { getBlogPostList, blogPostData } from "../../components/Blog/PostList.astro";
 import BackToBlog from "../../components/Blog/BackToBlog.astro";
+import Button from "../../components/Button.astro";
+import DeviantArtIcon from "../../components/icons/DeviantArtIcon.astro";
+import InstagramIcon from "../../components/icons/InstagramIcon.astro";
+import ThreadsIcon from "../../components/icons/ThreadsIcon.astro";
+import TumblrIcon from "../../components/icons/TumblrIcon.astro";
 
     
 export async function getStaticPaths() {
@@ -18,8 +23,9 @@ export async function getStaticPaths() {
     } )
 }
 
-// const { slug } = Astro.params
 const { post, image, title, deviantArtUrl, threadsUrl, instagramUrl, tumblrUrl, tags, date,   } = Astro.props
+
+const hasSocialLink = deviantArtUrl || threadsUrl || tumblrUrl || instagramUrl
 ---
 
 <BaseLayout props
@@ -29,7 +35,7 @@ const { post, image, title, deviantArtUrl, threadsUrl, instagramUrl, tumblrUrl, 
 >
 
 	<section class="mt-28">
-		<Wrapper width='text' padding='inline' class="min-h-[600px]">
+		<Wrapper width='text' padding='inline'>
 
             <BackToBlog />
 
@@ -38,7 +44,7 @@ const { post, image, title, deviantArtUrl, threadsUrl, instagramUrl, tumblrUrl, 
             </H1>
 
             {tags && (
-                <div class="flex gap-4 font-semibold flex-wrap text-base mb-2">
+                <div class="flex gap-x-4 font-semibold flex-wrap text-base mb-4">
                     { tags.map( tag => (
                        <a href={`/blog/tag/${tag}`} class="hover:underline text-primary-400">
                            #{tag}
@@ -55,8 +61,46 @@ const { post, image, title, deviantArtUrl, threadsUrl, instagramUrl, tumblrUrl, 
                 class="w-full mb-4 rounded-md"
             />
 
+            <p class="font-semibold mb-4">
+                {date}
+            </p>
+
             <PortableTextWrapper value={post} />
 
+            { hasSocialLink && (
+
+                <div class="flex items-center gap-6 [&_svg]:scale-150 mt-8">
+
+                    <span>
+                        View this post on:
+                    </span>
+    
+                    { deviantArtUrl && (
+                        <a href={deviantArtUrl} class="hover:text-primary-700">
+                            <DeviantArtIcon />    
+                        </a>
+                    )}
+    
+                    { instagramUrl && (
+                        <a href={instagramUrl} class="hover:text-primary-700">
+                            <InstagramIcon />    
+                        </a>
+                    )}
+    
+                    { tumblrUrl && (
+                        <a href={tumblrUrl} class="hover:text-primary-700">
+                            <TumblrIcon />    
+                        </a>
+                    )}
+    
+                    { threadsUrl && (
+                        <a href={threadsUrl} class="hover:text-primary-700">
+                            <ThreadsIcon />    
+                        </a>
+                    )}
+    
+                </div>
+            )}
 
 		</Wrapper>
 	</section>

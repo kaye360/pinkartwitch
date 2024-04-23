@@ -3,6 +3,10 @@ import Image from "../Image.astro";
 import Button from "../Button.astro";
 import PortableTextWrapper from "../PortableTextWrapper.astro";
 import H2 from "../Heading/H2.astro";
+import DeviantArtIcon from "../icons/DeviantArtIcon.astro";
+import InstagramIcon from "../icons/InstagramIcon.astro";
+import TumblrIcon from "../icons/TumblrIcon.astro";
+import ThreadsIcon from "../icons/ThreadsIcon.astro";
 
 export interface PostProps {
     title : string,
@@ -25,9 +29,7 @@ interface Props {
     post : PostProps
 }
 
-
 const { post } = Astro.props
-
 ---
 
 <div class="grid lg:grid-cols-[1.5fr_2fr] gap-x-4 gap-y-4">
@@ -57,7 +59,42 @@ const { post } = Astro.props
             <H2 class="text-2xl mb-2">{post.title}</H2>
             <PortableTextWrapper value={post.post} />
 
-            <Button variant="outline" href={'/blog/' + post.slug} class=" text-lg font-bold text-primary-500 mt-2">View Post</Button>
+            <div class="flex items-center gap-6 [&_svg]:scale-150">
+
+                <Button 
+                    variant="outline" 
+                    href={'/blog/' + post.slug} 
+                    class=" text-lg font-bold text-primary-500 mt-2"
+                >
+                    View Post
+                </Button>
+
+                { post.deviantArtUrl && (
+                    <a href={post.deviantArtUrl} class="hover:text-primary-700">
+                        <DeviantArtIcon />    
+                    </a>
+                )}
+
+                { post.instagramUrl && (
+                    <a href={post.instagramUrl} class="hover:text-primary-700">
+                        <InstagramIcon />    
+                    </a>
+                )}
+
+                { post.tumblrUrl && (
+                    <a href={post.tumblrUrl} class="hover:text-primary-700">
+                        <TumblrIcon />    
+                    </a>
+                )}
+
+                { post.threadsUrl && (
+                    <a href={post.threadsUrl} class="hover:text-primary-700">
+                        <ThreadsIcon />    
+                    </a>
+                )}
+
+            </div>
+
         </div>
 
     </div>
