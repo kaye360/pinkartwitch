@@ -9,6 +9,7 @@ import { bloodAndThorns } from './schemaTypes/bloodAndThorns'
 import { contact } from './schemaTypes/contact'
 import { blogPost } from './schemaTypes/blogPost'
 import { media } from 'sanity-plugin-media'
+import { commonTag } from './schemaTypes/tag'
 
 // These are one off pages, not content lists
 // This is used to remove the Create buttons
@@ -28,7 +29,7 @@ export default defineConfig({
   basePath: '/admin',
 
   schema: {
-    types: [home, blogPost, artwork, bloodAndThorns, bio, contact],
+    types: [home, bloodAndThorns, bio, contact, blogPost, artwork, commonTag],
   },
 
   document: {

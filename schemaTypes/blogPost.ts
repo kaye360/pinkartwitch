@@ -10,11 +10,18 @@ export const blogPost = defineType({
       media: 'image'
     }
   },
+  groups: [
+    { name: 'post',        title: 'Post' },
+    { name: 'tags',        title: 'Tags'},
+    { name: 'socialLinks', title: 'Social Links' },
+  ],
   fields: [
+
     defineField({ 
       type: "string", 
       name: "title", 
-      title: 'Title' 
+      title: 'Title',
+      group : 'post',
     }),
 
     defineField({ 
@@ -23,8 +30,20 @@ export const blogPost = defineType({
       title: 'Image', 
       description : 'This should be in a webp format. No more than 1000 pixels in width or height',
       options : {
-         hotspot : true 
-        }  
+        hotspot : true 
+      },
+      group : 'post',
+    }),
+
+    defineField({ 
+      type: "date", 
+      name: "date", 
+      title : 'Date', 
+      options: { 
+        dateFormat : 'MMM DD YYYY'
+      },
+      validation : rule => rule.required(),
+      group : 'post',
     }),
 
 		defineField({
@@ -35,46 +54,59 @@ export const blogPost = defineType({
 						{ title: 'Heading', value: 'h2' },
 					]
 				},
-				{ type: 'image' }]
+				{ type: 'image' }
+      ],
+      group : 'post',
+		}),
+
+    defineField({
+			name: 'commonTags',
+			title: 'Commonly Used Tags',
+			type: 'array',
+			of: [
+				{
+					type: 'reference',
+					to: [{ type: 'commonTag' }],
+				},
+			],
+      options : {
+        layout : 'tags'
+      },
+      group : 'tags'
 		}),
 
     defineField({ 
       type: "array", 
       of: [{type: 'string'}], 
       name: "tags", 
-      title : 'Tags'
+      title : 'Tags',
+      group : 'tags'
     }),
 
     defineField({ 
-      type: "date", 
-      name: "date", 
-      title : 'Date', 
-      options: { 
-        dateFormat : 'MMM DD YYYY'
-      },
-      validation : rule => rule.required()
+      type: "url", 
+      name: "instagramUrl", 
+      title : 'Instagram Url',
+      group : 'socialLinks'
     }),
-    
-      defineField({ 
-        type: "url", 
-        name: "instagramUrl", 
-        title : 'Instagram Url'
-      }),
-      defineField({ 
-        type: "url", 
-        name: "deviantArtUrl", 
-        title : 'Deviant Art Url'
-      }),
-      defineField({ 
-        type: "url", 
-        name: "tumblrUrl", 
-        title : 'Tumblr Url'
-      }),
-      defineField({ 
-        type: "url", 
-        name: "threadsUrl", 
-        title : 'Threads Url'
-      }),
+    defineField({ 
+      type: "url", 
+      name: "deviantArtUrl", 
+      title : 'Deviant Art Url',
+      group : 'socialLinks'
+    }),
+    defineField({ 
+      type: "url", 
+      name: "tumblrUrl", 
+      title : 'Tumblr Url',
+      group : 'socialLinks'
+    }),
+    defineField({ 
+      type: "url", 
+      name: "threadsUrl", 
+      title : 'Threads Url',
+      group : 'socialLinks'
+    }),
   ],
 });
 

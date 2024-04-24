@@ -1,6 +1,6 @@
 ---
 import { client } from "../../lib/api/api"
-import { formatSlug, formatPostDate, getImageMetaDataFromURL } from "../../lib/api/utils"
+import { formatPost } from "../../lib/api/blog"
 import Post, { type PostProps } from "./Post.astro"
 
 export const blogPostData = await client.fetch(`
@@ -9,6 +9,7 @@ export const blogPostData = await client.fetch(`
 		"imageURL" : image.asset->url,
 		post,
 		tags,
+        "commonTags" : commonTags[]->tag,
 		date,
         instagramUrl,
         deviantArtUrl,
@@ -18,13 +19,9 @@ export const blogPostData = await client.fetch(`
 `)
 
 export async function getBlogPostList(blogPostData: any) : Promise<PostProps[]> {
-    const blogPostList: PostProps[] = blogPostData.map( (postData: any) => {
-        const slug = formatSlug(postData)
-        const formattedDate = formatPostDate(postData.date)
-        const formattedTitle: string = postData.title.trim()
-        const metaData = getImageMetaDataFromURL(postData.imageURL)
-        return { image: metaData, slug, ...postData, date : formattedDate, title : formattedTitle}
-    })	
+    const blogPostList: PostProps[] = blogPostData.map( (postData: any) => (
+        formatPost(postData)
+    ))	
     return blogPostList
 }
 

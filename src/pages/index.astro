@@ -65,7 +65,7 @@ const content: HomeContent = {
 	</Hero>
 
 	<section>
-		<Wrapper width='text' padding='both' class="relative">
+		<Wrapper width='text' padding='both' margin='none' class="relative">
 
 			<PortableTextWrapper value={content.intro} />
 
@@ -80,8 +80,8 @@ const content: HomeContent = {
 	</section>
 
 
-	<section class="relative overflow-hidden py-4 bg-gradient-to-b from-transparent via-primary-200 to-transparent">
-		<Wrapper width="max" padding='inline' class='grid md:grid-cols-[auto_1fr] gap-8'>
+	<section class="relative overflow-hidden bg-gradient-to-b from-transparent via-primary-200 to-transparent">
+		<Wrapper width="max" padding='both' margin='none' class='grid md:grid-cols-[auto_1fr] gap-8 '>
 
 			<Image 
 				src="/img/blood-and-thorns.webp"
@@ -118,7 +118,7 @@ const content: HomeContent = {
 
 	<section id="social-media">
 
-		<Wrapper width="max" padding='both'>
+		<Wrapper width="max" padding='both' margin='none'>
 
 			<H2>Blog Posts</H2>
 
