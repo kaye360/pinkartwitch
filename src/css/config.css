@@ -59,11 +59,11 @@
         /* ------------------------ Spacing ------------------------ */
 
         --spacing-inline-default : 2vw;
-        --spacing-block-default : 2rem;
+        --spacing-block-default : 1rem;
         
         @media screen and (min-width : 768px) {
             --spacing-inline-default : 2vw;
-            --spacing-block-default : 4rem;
+            --spacing-block-default : 2rem;
         }
 
 

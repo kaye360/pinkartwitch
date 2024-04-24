@@ -31,7 +31,7 @@ export async function getBlogPostList(blogPostData: any) : Promise<PostProps[]> 
 const blogPostList = await getBlogPostList(blogPostData)
 ---
 
-<div class="grid gap-12">
+<div class="grid gap-10 ">
 
     {blogPostList.map( post => <Post post={post}  /> )}
 
