@@ -18,10 +18,7 @@
 <script>
 import Gallery from "../lib/gallery/gallery"
 
-const gallery = new Gallery({
-    modal  : '[data-art-modal]',
-    imgBtn : '[data-art-button]',
-})
+const gallery = new Gallery()
 gallery.init()
 
 // import.meta.env.DEV && modal.mockOpenModal()

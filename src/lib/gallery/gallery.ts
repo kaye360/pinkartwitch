@@ -1,4 +1,5 @@
 import type { Image } from "../api/api"
+import debounce from 'lodash.debounce'
 
 export default class Gallery {
 
@@ -9,9 +10,9 @@ export default class Gallery {
     imgList : Image[]
     tagList : Set<string>
 
-    constructor({ modal, imgBtn } : { modal: string, imgBtn: string }) {
-        this.dataModalElName = modal
-        this.imgBtnElName = imgBtn
+    constructor() {
+        this.dataModalElName = '[data-art-modal]'
+        this.imgBtnElName = '[data-art-button]'
         this.modal = null
         this.currentImageIndex = null
         this.imgList = []
@@ -40,7 +41,23 @@ export default class Gallery {
         this.setCurrentImageIndex(i)
         this.showModalUI( this.ModalHTML() )
         this.setIsModalOpen(true)
-        this.moveToImage(clickedImageIndex, 'instant')
+        this.moveScrollerToImage(clickedImageIndex, 'instant')
+        this.addImgModalScrollEventListeners()
+    }
+
+    addImgModalScrollEventListeners = () => {
+        const imgModal = document.querySelector('[data-img-modal-content-scroller]') as HTMLDivElement
+        const buttonList =  Array.from ( imgModal.children )
+
+        imgModal?.addEventListener('scroll', debounce( (e) => {
+
+            const currentBtn =  buttonList.filter( btn => {
+                return btn.getBoundingClientRect().left < 100 && btn.getBoundingClientRect().left > -100
+            })[0]
+
+            const currentBtnIndex = buttonList.indexOf(currentBtn)
+            this.moveScrollerToImage(currentBtnIndex)
+        }, 50))
     }
 
     close = () => {
@@ -85,7 +102,7 @@ export default class Gallery {
     addScrollerButtonEventListeners = () => {
         const buttons = document.querySelector('[data-img-modal-scroller]')?.querySelectorAll('button') as NodeListOf<HTMLButtonElement>
         buttons.forEach( (button, i) => { 
-            button.addEventListener('click', () => this.moveToImage(i) )
+            button.addEventListener('click', () => this.moveScrollerToImage(i) )
         })
     }
 
@@ -135,7 +152,7 @@ export default class Gallery {
         this.currentImageIndex = i
     }
 
-    moveToImage = (i : number, scroll : 'smooth' | 'instant' = 'smooth') => {
+    moveScrollerToImage = (i : number, scroll : 'smooth' | 'instant' = 'smooth') => {
         this.setScrollerImageOpacities(i)
         const imgContent = document.querySelector('[data-img-modal-content]')
         if(!imgContent) return
@@ -147,6 +164,7 @@ export default class Gallery {
             left : imgContentWidth * i,
             behavior : scroll
         })
+
     }
 
     setScrollerImageOpacities = (currentImage : number) => {
@@ -259,7 +277,7 @@ export default class Gallery {
                 <div class="img-modal-animation flex items-start overflow-x-auto snap-mandatory snap-x scrollbar-hide" data-img-modal-content-scroller>
 
                     ${ this.imgList.map( (art, index) => (`
-                        <div class="min-w-full grid lg:flex gap-4 lg:gap-12 items-center p-4 snap-center">
+                        <div class="min-w-full grid lg:flex gap-4 lg:gap-12 items-start p-4 snap-center">
                             <img 
                                 src="${art.image.url}" 
                                 width="${art.image.width}" 

@@ -93,10 +93,10 @@ export const PAGES : Page[] = [
 
 
 export const SOCIAL_LINKS = {
-    instagram : 'https://www.instagram.com/pinkartwitch',
+    instagram  : 'https://www.instagram.com/pinkartwitch',
     deviantArt : 'https://www.deviantart.com/pinkartwitch',
-    tumblr : 'https://pinkartwitch.tumblr.com',
-    threads : 'https://www.threads.net/@pinkartwitch',
-    kofi : 'https://ko-fi.com/pinkartwitch'
+    tumblr     : 'https://pinkartwitch.tumblr.com',
+    threads    : 'https://www.threads.net/@pinkartwitch',
+    kofi       : 'https://ko-fi.com/pinkartwitch'
 }
 
