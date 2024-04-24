@@ -45,6 +45,20 @@ export default class Gallery {
         this.addImgModalScrollEventListeners()
     }
 
+    close = () => {
+        this.hideModalUI()
+        this.setIsModalOpen(false)
+    }
+
+    // 
+    // Init Helpers
+    // 
+        
+    addImgButtonEventListeners = async () => {
+        const imgBtnList = document.querySelectorAll(this.imgBtnElName) as NodeListOf<HTMLButtonElement>
+        imgBtnList.forEach( (btn , i) => btn.addEventListener('click', (e : MouseEvent) => { this.open(i,e) }) )
+    }
+    
     addImgModalScrollEventListeners = () => {
         const imgModal = document.querySelector('[data-img-modal-content-scroller]') as HTMLDivElement
         const buttonList =  Array.from ( imgModal.children )
@@ -58,20 +72,6 @@ export default class Gallery {
             const currentBtnIndex = buttonList.indexOf(currentBtn)
             this.moveScrollerToImage(currentBtnIndex)
         }, 50))
-    }
-
-    close = () => {
-        this.hideModalUI()
-        this.setIsModalOpen(false)
-    }
-
-    // 
-    // Init Helpers
-    // 
-        
-    addImgButtonEventListeners = async () => {
-        const imgBtnList = document.querySelectorAll(this.imgBtnElName) as NodeListOf<HTMLButtonElement>
-        imgBtnList.forEach( (btn , i) => btn.addEventListener('click', (e : MouseEvent) => { this.open(i,e) }) )
     }
 
     generateImgList = () => {
@@ -274,7 +274,7 @@ export default class Gallery {
     ImageHTML = () : string => {
         return `
             <div data-img-modal-content class="mx-auto w-full max-w-6xl">
-                <div class="img-modal-animation flex items-start overflow-x-auto snap-mandatory snap-x scrollbar-hide" data-img-modal-content-scroller>
+                <div class="img-modal-animation flex items-start overflow-auto snap-mandatory snap-x scrollbar-hide" data-img-modal-content-scroller>
 
                     ${ this.imgList.map( (art, index) => (`
                         <div class="min-w-full grid lg:flex gap-4 lg:gap-12 items-start p-4 snap-center">
@@ -288,10 +288,10 @@ export default class Gallery {
                                 data-index="${index}"
                             >
                             <div>
-                                <h2 data-img-modal-img-title class="text-4xl font-semibold font-theme mb-4">
+                                <h2 data-img-modal-img-title class="text-2xl font-semibold font-theme mb-4">
                                     ${art.title}
                                 </h2>
-                                <p data-img-modal-img-description>
+                                <p class="text-base" data-img-modal-img-description>
                                     ${art.description}
                                 </p>
                             </div>
