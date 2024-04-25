@@ -11,12 +11,13 @@ import { blogPost } from './schemaTypes/blogPost'
 import { media } from 'sanity-plugin-media'
 import { commonTag } from './schemaTypes/tag'
 import { visionTool } from '@sanity/vision'
+import { support } from './schemaTypes/support'
 
-// These are one off pages, not content lists
+// These are one off pages, not content collections
 // This is used to remove the Create buttons
 // See link for more info:
 // https://www.sanity.io/schemas/use-newdocumentoptions-to-configure-new-document-creation-2c640bf6
-const pages = ['home', 'bio', 'bloodAndThorns', 'contact']
+const pages = ['home', 'bio','support', 'bloodAndThorns', 'contact']
 
 export default defineConfig({
   name: 'default',
@@ -30,7 +31,7 @@ export default defineConfig({
   basePath: '/admin',
 
   schema: {
-    types: [home, bloodAndThorns, bio, contact, blogPost, artwork, commonTag],
+    types: [home, bloodAndThorns, support, bio, contact, blogPost, artwork, commonTag],
   },
 
   document: {

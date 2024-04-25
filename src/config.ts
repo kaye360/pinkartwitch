@@ -81,7 +81,7 @@ export const PAGES : Page[] = [
     },
     {
         title : 'Blog',
-        path  : '/blog',
+        path  : '/blog/1',
         group : ['header', 'footer'],
     },
     {
