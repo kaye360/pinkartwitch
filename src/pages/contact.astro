@@ -9,17 +9,12 @@ import { client } from '../lib/api/api';
 import PortableTextWrapper from '../components/PortableTextWrapper.astro';
 import SocialsContact from '../components/SocialsContact.astro';
 
-interface Contact {
-    intro : any[]
-}
-
-const [data] = await client.fetch(`
+const [content] = await client.fetch(`
     *[ _type == 'contact' ] {
         intro
 	}
 `)
 
-const content: Contact = data
 ---
 
 <BaseLayout props
@@ -40,7 +35,7 @@ const content: Contact = data
 			<div class="mb-8">
 				<PortableTextWrapper value={content.intro} class='max-w-[60ch] mb-8' />
 	
-				<NetlifyForm name="PinkArtWitch Contact Form" subject='PinkArtWitch website inquiry'>
+				<NetlifyForm name="PinkArtWitch Contact Form" subject='PinkArtWitch.com website inquiry'>
 					
 					<FormField name="Name" type="text" required />
 	

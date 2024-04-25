@@ -10,8 +10,6 @@ By Josh Kaye
 * Contact Form
 * Art - Link if available as a print
 * Art - Spicy option
-* Social Nav links open in new tab
-* Support Page
 * Lighthouse tests
 * Add portable text type
 * Query validation
