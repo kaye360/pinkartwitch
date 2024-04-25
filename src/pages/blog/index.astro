@@ -1,4 +1,5 @@
 ---
+import DateList from "../../components/Blog/DateList.astro";
 import PostList from "../../components/Blog/PostList.astro";
 import TagCloud from "../../components/Blog/TagCloud.astro";
 import H1 from "../../components/Heading/H1.astro";
@@ -16,17 +17,29 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 >
 
 	<section class="mt-28">
-		<Wrapper width='max' padding='inline' class="">
+		<Wrapper width='max' padding='inline'>
 			<H1>Blog</H1>
+		</Wrapper>
+	</section>
 
+	<section>
+		<Wrapper width="max" padding='inline' class="relative grid md:grid-cols-[1fr_150px] gap-2">
 			<PostList />
-
+			<div>
+				<div class="sticky top-24">
+					<DateList />
+				</div>
+			</div>
+		</Wrapper>
+	</section>
+		
+	<section>
+		<Wrapper width="max" padding="inline">
 			<H2 class="mt-12 ">
 				<a href="/blog/tag">
 					More Topics
 				</a>
 			</H2>
-
 			<TagCloud />
 		</Wrapper>
 	</section>

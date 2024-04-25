@@ -23,5 +23,5 @@ export default defineConfig({
   // This causes a failed build with a getStaticPaths() error in production
   redirects : import.meta.env.DEV 
     ? { '/admin/[...page]' : '/admin'} 
-    : {}
+    : {},
 });

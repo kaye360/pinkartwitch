@@ -10,6 +10,7 @@ import { contact } from './schemaTypes/contact'
 import { blogPost } from './schemaTypes/blogPost'
 import { media } from 'sanity-plugin-media'
 import { commonTag } from './schemaTypes/tag'
+import { visionTool } from '@sanity/vision'
 
 // These are one off pages, not content lists
 // This is used to remove the Create buttons
@@ -24,7 +25,7 @@ export default defineConfig({
   projectId: 'v81020gt',
   dataset: 'production',
 
-  plugins: [structureTool(), scheduledPublishing(), media()],
+  plugins: [structureTool(), scheduledPublishing(), media(), visionTool()],
 
   basePath: '/admin',
 

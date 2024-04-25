@@ -1,0 +1,49 @@
+---
+import BackToBlog from "../../../components/Blog/BackToBlog.astro";
+import { dateToPhrase, getDates } from "../../../components/Blog/DateList.astro";
+import Post, { type PostProps } from "../../../components/Blog/Post.astro";
+import { blogPostData, getBlogPostList } from "../../../components/Blog/PostList.astro";
+import H1 from "../../../components/Heading/H1.astro";
+import Wrapper from "../../../components/Wrapper.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() : Promise<any> {
+
+    const blogPostList = await getBlogPostList(blogPostData)
+    const dateList = await getDates()
+
+    return dateList.map( (date : string) => {
+        const datePhrase = dateToPhrase(date)
+        const month = datePhrase.slice(0,4)
+        const year  = datePhrase.slice(-4)
+        const filteredPostList = blogPostList.filter( post => post.date.includes(month) && post.date.includes(year) )
+        return {
+            params: { date },
+            props : { posts: filteredPostList }
+        }
+    } )
+}
+
+const { date } = Astro.params
+const { posts } = Astro.props
+const postList = posts as PostProps[]
+---
+
+<BaseLayout props
+	title="Blog"
+	description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro in expedita beatae perferendis quod qui perspiciatis numquam."
+	lang="en"
+>
+
+	<section class="mt-28">
+		<Wrapper width='max' padding='inline' class="min-h-[600px]">
+
+            <BackToBlog />
+
+			<H1 class="mb-2">
+                Posts in: {dateToPhrase(date)}
+            </H1>
+
+            { postList.map( post => <Post post={post}  /> )}
+		</Wrapper>
+	</section>

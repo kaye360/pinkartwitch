@@ -4,7 +4,7 @@ import { formatPost } from "../../lib/api/blog"
 import Post, { type PostProps } from "./Post.astro"
 
 export const blogPostData = await client.fetch(`
-	*[ _type == 'blogPost'] | order(date desc)[0..4] {
+	*[ _type == 'blogPost'] | order(date desc)[0..9] {
         title,
 		"imageURL" : image.asset->url,
 		post,

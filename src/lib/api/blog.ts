@@ -13,7 +13,7 @@ export function formatPost(postData: any) : PostProps[] {
 export function formatPostDate(date: string) : string {
     if( !(typeof date === 'string')) return ''
     return new Date(date).toLocaleDateString('en-CA', {
-        // year : '2-digit',
+        year : 'numeric',
         month : 'short',
         day : '2-digit'
     }).replace(',', '')
@@ -25,11 +25,16 @@ export function formatSlug(postData: any) : string {
 }
 
 export function mergePostTags(postData: any) : string[]  {
-    if(postData.tags && !postData.commonTags) {
+
+    if( !Array.isArray(postData.tags) && !Array.isArray(postData.commonTags) ) {
+        return []
+    }
+
+    if( Array.isArray(postData.tags) && !Array.isArray(postData.commonTags) ) {
         return postData.tags
     }
 
-    if( !postData.tags && postData.commonTags) {
+    if( Array.isArray(postData.commonTags) && !Array.isArray(postData.tags) ) {
         return postData.commonTags
     }
 

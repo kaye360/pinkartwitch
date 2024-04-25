@@ -1,19 +1,35 @@
 ---
 import { client } from "../../lib/api/api"
 
-export async function getTags() : Promise<string[]> {
-	const tagSet = new Set()
-	
+interface GetTagData { 
+	tags : string[], 
+	commonTags : string[] 
+}
+
+export async function getTagData() : Promise<GetTagData[]> {
 	const tagData = await client.fetch(`
 		*[ _type == 'blogPost'] {
-			tags
+			tags,
+			"commonTags" : commonTags[]->tag,
 		}
 	`)
+	if(!tagData) return []
+	return tagData
+}
+
+export async function getTags() : Promise<string[]> {
+	const tagSet  = new Set()
+	const tagData = await getTagData()
 	
-	tagData.forEach( (post : {tags : string[]}) => {
-		post.tags.forEach( tag => {
-			tagSet.add(tag)
-		} )
+	tagData.forEach( (post : {tags : string[], commonTags : string[]}) => {
+		
+		if( Array.isArray(post.tags) ) {
+			post.tags.forEach( tag => tagSet.add(tag) )
+		}
+
+		if( Array.isArray(post.commonTags) ) {
+			post.commonTags.forEach( tag => tagSet.add(tag)) 
+		}
 	} )
 	
 	return Array.from( tagSet ).sort() as string[]

@@ -1,0 +1,54 @@
+---
+import { client } from "../../lib/api/api"
+
+export async function getDateData() : Promise<{date : string}[]> {
+    const dateData = await client.fetch(`
+        *[ _type == 'blogPost' ] {
+                date,
+        }
+    `)
+    return dateData
+}
+
+export async function getDates() {
+    const dateSet = new Set()
+    const dateData = await getDateData()
+    dateData.forEach( (date : {date : string} ) => {
+        dateSet.add( date.date.slice(0,7) )
+    } )
+    return Array.from( dateSet ).sort().reverse() as string[]
+}
+
+export function dateToPhrase(dateNumeric : string) {
+    const dateArr = dateNumeric.split('-')
+    const year = Number(dateArr[0])
+    const month = Number(dateArr[1]) - 1
+    const date = new Date(year, month)
+    const datePhrase = date.toLocaleDateString('en-EN', {
+        year : 'numeric',
+        month : 'short',
+    })
+    return datePhrase
+}
+
+const dates = await getDates()
+---
+
+<div class="pl-4 border-l border-primary-500">
+    <h2 class="text-base font-semibold mb-0">
+        <a href="/blog/date" class="hover:underline">
+            Post Archive
+        </a>
+    </h2>
+    <ul>
+        {
+            dates.map( (date) => (
+                <li>
+                    <a href={'/blog/date/' + date} class="hover:underline">
+                        {dateToPhrase(date)}
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</div>
