@@ -22,6 +22,7 @@ export const blogPost = defineType({
       name: "title", 
       title: 'Title',
       group : 'post',
+      validation : rule => rule.required(),
     }),
 
     defineField({ 
@@ -57,6 +58,7 @@ export const blogPost = defineType({
 				{ type: 'image' }
       ],
       group : 'post',
+      validation : rule => rule.required(),
 		}),
 
     defineField({
