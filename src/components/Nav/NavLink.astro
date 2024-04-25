@@ -35,9 +35,9 @@ const isActive = pathname === href;
         href={href}
         data-title={title}
         class:list={[
-            "relative z-10 hover:text-primary-50 px-3 py-2 flex items-center gap-2 font-bold border-b-4 min-w-max overflow-hidden text-2xl lg:text-base transition-all duration-100 text-primary-600",
+            "relative z-10 hover:text-primary-50 px-3 py-2 flex items-center gap-2 font-bold rborder-b-4 min-w-max overflow-hidden text-2xl lg:text-base transition-all duration-100 text-primary-600",
             className,
-            `${isActive ? " border-primary-300 " : "border-transparent"}`,
+            `${isActive ? "after:content-[''] after:absolute after:z-10 after:bottom-0 after:left-2 after:right-2 after:h-[3px]  after:bg-gradient-to-r after:from-primary-200 after:to-primary-400 after:rounded-sm" : ""}`,
         ]}
     >
         <span class="transition-all">
