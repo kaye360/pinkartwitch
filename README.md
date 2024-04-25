@@ -13,5 +13,6 @@ By Josh Kaye
 * Social Nav links open in new tab
 * Support Page
 * Lighthouse tests
-
-                
+* Add portable text type
+* Query validation
+* Fix mobile nav bug after click

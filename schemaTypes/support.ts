@@ -9,7 +9,7 @@ export const support = defineType({
 	},
 	fields: [
 		defineField({
-			title: 'Support Intro', name: 'supportIntro', type: 'array', of: [
+			title: 'Intro', name: 'intro', type: 'array', of: [
 				{ type: 'block' },
 				{ type : 'image'}
 		]}),

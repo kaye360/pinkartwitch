@@ -10,8 +10,8 @@ import { contact } from './schemaTypes/contact'
 import { blogPost } from './schemaTypes/blogPost'
 import { media } from 'sanity-plugin-media'
 import { commonTag } from './schemaTypes/tag'
-import { visionTool } from '@sanity/vision'
 import { support } from './schemaTypes/support'
+import { visionTool } from '@sanity/vision'
 
 // These are one off pages, not content collections
 // This is used to remove the Create buttons

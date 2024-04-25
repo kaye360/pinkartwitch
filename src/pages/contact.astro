@@ -1,6 +1,5 @@
 ---
 import Wrapper from '../components/Wrapper.astro';
-import Image from '../components/Image.astro';
 import H1 from '../components/Heading/H1.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FormSubmit from '../components/Forms/FormSubmit.astro'
@@ -21,7 +20,6 @@ const [data] = await client.fetch(`
 `)
 
 const content: Contact = data
-// const content = await getContact()
 ---
 
 <BaseLayout props

@@ -5,14 +5,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import { client } from '../lib/api/api';
 import PortableTextWrapper from '../components/PortableTextWrapper.astro';
-import { PortableText } from 'astro-portabletext';
 
-const [data] = await client.fetch(`
+const [content]  = await client.fetch(`
     *[ _type == 'support' ] {
-		supportIntro
+        intro
 	}
 `)
-console.log(data)
+
 ---
 
 <BaseLayout props
@@ -26,14 +25,14 @@ console.log(data)
 			<H1>Support</H1>
 
 			
-			<div class="grid gap-4 md:grid-cols-2">
+			<div class="grid gap-2 md:grid-cols-2 items-start">
 				
-				<div>
-					<Button href="">
+				<div class="grid gap-6">
+					<Button href="https://ko-fi.com/pinkartwitch/commissions">
 						Head to Shop
 					</Button>
 
-					<PortableTextWrapper value={data} />
+					<PortableTextWrapper value={content.intro} />
 
 				</div>
 
