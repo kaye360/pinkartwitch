@@ -4,7 +4,6 @@ import NavLink from "./NavLink.astro";
 import Image from "../Image.astro";
 
 const totalPages = PAGES.length
-
 ---
 
 <ul class="nav-links order-1 lg:order-2 lg:-translate-y-s1">
@@ -14,7 +13,14 @@ const totalPages = PAGES.length
             <NavLink href={page.path} title={page.title}>{page.title}</NavLink>
             <>
                 {i + 1 !== totalPages ? (
-                    <Image src="/img/nav-star.svg" width={13} height={13} alt="" class="hidden lg:block" /> 
+                    <Image 
+                        src="/img/nav-star.svg" 
+                        width={13} 
+                        height={13} 
+                        alt="" 
+                        role="presentation"
+                        class="hidden lg:block"
+                     /> 
                 ) : (
                     ''
                 )}
@@ -24,7 +30,6 @@ const totalPages = PAGES.length
     })}
 
 </ul>
-
 
 <style is:global>
 

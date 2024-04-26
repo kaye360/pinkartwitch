@@ -342,6 +342,7 @@ export default class Gallery {
                                 width="${art.image.width}" 
                                 height="${art.image.height}" 
                                 alt="" 
+                                role="presentation"
                                 class='rounded max-h-[60vh] w-auto lg:max-w-[50%] justify-self-center '
                                 data-index="${index}"
                             >

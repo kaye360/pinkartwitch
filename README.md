@@ -5,10 +5,10 @@ By Josh Kaye
 [Live Site](https://pinkartwitch.com)
 
 ## TODO
-* Alt tags
 * Meta titles, description
 * Art - Link if available as a print
 * Art - Spicy option
 * Lighthouse tests
 * Add portable text type
 * Query validation
+* Figure out sanity alt text

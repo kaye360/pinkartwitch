@@ -11,12 +11,13 @@ const {
 
 ---
 
-<h1 class:list={[`relative mb-8 text-3xl lg:text-4xl text-primary-500 uppercase font-medium tracking-wide font-theme`, className]} {...rest}>
+<h1 class:list={[`relative mb-8 -mt-4 lg:mt-0 text-3xl lg:text-4xl text-primary-500 uppercase font-medium tracking-wide font-theme`, className]} {...rest}>
     <Image 
         src="/img/h1-star.svg" 
         width={88}
         height={90}
         alt=""
+        role="presentation"
         class="absolute -z-10 -left-8 lg:-left-20 -top-6"
     />
     <slot />
