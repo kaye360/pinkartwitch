@@ -17,35 +17,21 @@ const {
 } = Astro.props
 ---
 
-<a href="/" class="font-theme">
-    <div class={className}>
+<a href="/" class="font-theme hover:underline">
+    <div class:list={['flex items-center gap-2 lg:gap-4 text-xl font-semibold text-primary-500', className]}>
     
         <Image 
             src={ HEADER_LOGO_PATH } 
             alt={SITE_FULL_NAME} 
             width={HEADER_LOGO_DIMENSIONS.width} 
             height={HEADER_LOGO_DIMENSIONS.height} 
+            class='lg:scale-[1.35] lg:w-[40px] lg:h-[40px]'
         />
 
-        {LOGO_NAME}
+        <span class="translate-y-[2px]">
+            {LOGO_NAME}
+        </span>
 
     </div>
 </a>    
 
-
-
-<style>
-
-div {
-    display : flex;
-    align-items: center;
-    gap : 0.5rem;
-
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-    font-weight : 600;
-
-    stroke: var(--nav-bar-logo-color);
-}
-
-</style>

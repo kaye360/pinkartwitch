@@ -22,7 +22,11 @@ const {
 
 	<Meta title={title} description={description} />
 
-	<body class:list={['bg-[var(--body-bg-color)] text-primary-900 font-base lg:text-lg ', className]}>
+	<body class:list={[
+		'bg-[var(--body-bg-color)] text-primary-900 font-base lg:text-lg ',
+		'mobile-nav-is-open',
+		className
+	]}>
 
 		<SkipToContent />
 
