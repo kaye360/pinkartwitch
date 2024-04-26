@@ -113,20 +113,17 @@ export default class Gallery {
     
     addModalScrollEventListeners = () => {
         const imgModal = document.querySelector('[data-img-modal-content-scroller]') as HTMLDivElement
-        const imgList =  Array.from ( imgModal.children )
+        const buttonList =  Array.from ( imgModal.children )
 
         imgModal?.addEventListener('scroll', debounce( (e) => {
 
-            const imgCurrentlyInViewport = imgList.sort( (a, b) : number => {
-                const aLeft = a.getBoundingClientRect().left
-                const bLeft = b.getBoundingClientRect().left
-                if ( Math.abs(aLeft) < Math.abs(bLeft) ) return -1
-                if ( Math.abs(aLeft) > Math.abs(bLeft) ) return 1
-                return 0
-            })[0]
-            
-            const imgCurrentlyInViewportIndex = Number( imgCurrentlyInViewport.querySelector('img')?.dataset.index )
-            this.setScrollerImageOpacities(imgCurrentlyInViewportIndex)
+            const currentBtnList =  buttonList.filter( btn => {
+                return btn.getBoundingClientRect().left < 100 && btn.getBoundingClientRect().left > -100
+            })
+            const currentBtn = currentBtnList[0]
+
+            const currentBtnIndex = buttonList.indexOf(currentBtn)
+            this.scrollToImage(currentBtnIndex)
         }, 50))
     }
 
