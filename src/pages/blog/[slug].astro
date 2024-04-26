@@ -29,7 +29,7 @@ const hasSocialLink = deviantArtUrl || threadsUrl || tumblrUrl || instagramUrl
 
 <BaseLayout props
 	title={title}
-	description={post.slice(0,100)}
+	description={post ? post.slice(0,100) : ''}
 	lang="en"
 >
 
