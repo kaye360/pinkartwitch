@@ -1,7 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 
-
 interface Props extends HTMLAttributes<'div'> {
 
     /** 
@@ -20,14 +19,11 @@ interface Props extends HTMLAttributes<'div'> {
     props? : true
 }
 
-
-
 const {
     breakpoints = 1,
     class : classList = '',
     ...rest
 } = Astro.props
-
 
 const breakpointsClass = 
     breakpoints === 0 ? 'even-columns-0' : 

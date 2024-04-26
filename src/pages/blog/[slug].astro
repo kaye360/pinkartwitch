@@ -1,16 +1,15 @@
 ---
 import H1 from "../../components/Heading/H1.astro";
-import Wrapper from "../../components/Wrapper.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Image from "../../components/Image.astro";
-import PortableTextWrapper from "../../components/PortableTextWrapper.astro";
 import { getBlogPostList, blogPostData } from "../../components/Blog/PostList.astro";
 import BackToBlog from "../../components/Blog/BackToBlog.astro";
 import DeviantArtIcon from "../../components/icons/DeviantArtIcon.astro";
 import InstagramIcon from "../../components/icons/InstagramIcon.astro";
 import ThreadsIcon from "../../components/icons/ThreadsIcon.astro";
 import TumblrIcon from "../../components/icons/TumblrIcon.astro";
-
+import PortableTextWrapper from "../../components/Base/PortableTextWrapper.astro";
+import Wrapper from "../../components/Base/Wrapper.astro";
+import Image from "../../components/Base/Image.astro";
     
 export async function getStaticPaths() {
     const blogPostList = await getBlogPostList(blogPostData)

@@ -2,14 +2,14 @@
 import Wrapper from "./Wrapper.astro";
 import Image from "./Image.astro";
 import type { HTMLAttributes } from "astro/types";
-import { PAGES, SOCIAL_LINKS } from "../config";
-import NavLink from "./Nav/NavLink.astro";
-import DeviantArtIcon from "./icons/DeviantArtIcon.astro";
-import InstagramIcon from "./icons/InstagramIcon.astro";
-import ThreadsIcon from "./icons/ThreadsIcon.astro";
-import TumblrIcon from "./icons/TumblrIcon.astro";
-import KofiIcon from "./icons/KofiIcon.astro";
 import Socials from "./Socials.astro";
+import { PAGES, SOCIAL_LINKS } from "../../config";
+import NavLink from "../Nav/NavLink.astro";
+import DeviantArtIcon from "../icons/DeviantArtIcon.astro";
+import InstagramIcon from "../icons/InstagramIcon.astro";
+import KofiIcon from "../icons/KofiIcon.astro";
+import ThreadsIcon from "../icons/ThreadsIcon.astro";
+import TumblrIcon from "../icons/TumblrIcon.astro";
 
 interface Props extends HTMLAttributes<'footer'> {}
 const {...rest} = Astro.props

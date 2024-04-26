@@ -1,20 +1,19 @@
 ---
-import Wrapper from '../components/Wrapper.astro';
 import H1 from '../components/Heading/H1.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FormSubmit from '../components/Forms/FormSubmit.astro'
 import NetlifyForm from '../components/Forms/NetlifyForm.astro';
 import FormField from '../components/Forms/FormField.astro';
 import { client } from '../lib/api/api';
-import PortableTextWrapper from '../components/PortableTextWrapper.astro';
-import SocialsContact from '../components/SocialsContact.astro';
+import PortableTextWrapper from '../components/Base/PortableTextWrapper.astro';
+import SocialsContact from '../components/Base/SocialsContact.astro';
+import Wrapper from '../components/Base/Wrapper.astro';
 
 const [content] = await client.fetch(`
     *[ _type == 'contact' ] {
         intro
 	}
 `)
-
 ---
 
 <BaseLayout props

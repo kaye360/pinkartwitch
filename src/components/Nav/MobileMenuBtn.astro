@@ -1,8 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 
-
-
 interface Props extends HTMLAttributes<'button'> {
     class? : string,
 
@@ -12,12 +10,9 @@ interface Props extends HTMLAttributes<'button'> {
     props? : true
 }
 
-
-
 const {
     class : className,
 } = Astro.props
-
 ---
 
 

@@ -1,22 +1,11 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 
-
-
 interface Props extends HTMLAttributes<'div'> {
 
-    /** Width of Wrapper.
-     * Default is wide with of 100%
-     * max = 72rem, 1152px
-     * text = 70ch
-     */
     width? : 'max' | 'text',
-
-    /** Default padding applied to inline, block, or both */
     padding? : 'inline' | 'block' | 'both'
-
     margin? : 'block' | 'none',
-    
     class? : string,
 
     /**

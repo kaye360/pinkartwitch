@@ -1,14 +1,12 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import Image  from "../Image.astro";
+import Image  from "../Base/Image.astro";
 interface Props extends HTMLAttributes<'h1'> {}
-
 
 const {
     class : className,
     ...rest
 } = Astro.props
-
 ---
 
 <h1 class:list={[`relative mb-8 -mt-4 lg:mt-0 text-3xl lg:text-4xl text-primary-500 uppercase font-medium tracking-wide font-theme`, className]} {...rest}>

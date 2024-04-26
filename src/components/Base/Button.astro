@@ -1,15 +1,9 @@
 ---
-import Icon from './Icon.astro';
-
-
 interface Base  { 
 
     variant? : 'fill' | 'outline',
-
     icon? : string,
-
     class? : string,
-
     id? : string,
 
     /**
@@ -20,16 +14,13 @@ interface Base  {
      * @prop icon? : string
      * @prop class? : string
      * @prop id? : string
-     * 
      * @prop href? : string
      * @prop target? : '_blank'
      * @prop download? : boolean
-     * 
      * @prop type? : 'submit' | 'reset' | 'button'
      * @prop disabled? : boolean
      * @prop name? : string
      * @prop value? : string
-     * 
      * @prop slot
      */
     props? : true,
@@ -39,7 +30,6 @@ interface HtmlATag extends Base {
     href : string,
     target? : '_blank',
     download? : boolean,
-
     type? : never,
     disabled?  : never,
     name? : never,
@@ -50,13 +40,11 @@ interface HtmlButtonTag extends Base {
     href? : never,
     target? : never,
     download? : never
-
     type? : 'submit' | 'reset' | 'button',
     disabled?  : boolean,
     name? : string,
     value? : string
 }
-
 
 type Props = HtmlATag | HtmlButtonTag
 
@@ -76,7 +64,6 @@ delete attrs.icon
 delete attrs.variant
 
 const Element = attrs.href ? 'a' : 'button'
-
 ---
 
 <Element 
@@ -87,7 +74,6 @@ const Element = attrs.href ? 'a' : 'button'
     ]}
     {...attrs}
 >
-    {icon && <Icon icon={icon} /> }
     <slot />
 
     { variant === 'fill' &&

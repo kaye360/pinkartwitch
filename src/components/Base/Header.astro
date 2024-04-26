@@ -2,26 +2,22 @@
 import type { HTMLAttributes } from 'astro/types'
 import Wrapper from './Wrapper.astro';
 import Logo from './Logo.astro';
-import MobileMenuBtn from './Nav/MobileMenuBtn.astro';
-import NavLinkList from './Nav/NavLinkList.astro';
-import SocialLinkList from './Nav/SocialLinkList.astro';
+import MobileMenuBtn from '../Nav/MobileMenuBtn.astro';
+import NavLinkList from '../Nav/NavLinkList.astro';
+import SocialLinkList from '../Nav/SocialLinkList.astro';
 
 interface Props extends HTMLAttributes<'header'> {
 
     variant? : 'relative' | 'sticky' | 'fixed',
-
     class? : string,
 
     /**
      * @extends <header>
      * @prop variant? : 'relative' | 'sticky' | 'fixed'
-     * @prop toggleTransparencyOnScroll? : boolean,
      * @prop class? : string,
      */
     props? : true
 }
-
-
 
 const {
     variant = 'relative',
@@ -29,9 +25,7 @@ const {
 } = Astro.props
 
 const currentPage = Astro.url.pathname
-
 ---
-
 
 {/**
  * NavBar ordering

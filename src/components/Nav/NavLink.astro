@@ -2,22 +2,18 @@
 import type { HTMLAttributes } from "astro/types";
 
 interface Props extends HTMLAttributes<"li"> {
-    /** Link href of Nav Link */
+
     href: string;
-
-    title: string;
-
     class?: string;
 
     /**
      * @prop href (string)
-     * @prop icon (string)
      * @prop slot
      */
     props?: true;
 }
 
-const { href, title, class: className } = Astro.props;
+const { href, class: className } = Astro.props;
 
 let { pathname } = Astro.url;
 
@@ -33,7 +29,6 @@ const isActive = pathname === href;
 <li class="relative transition-all duration-100 rounded">
     <a
         href={href}
-        data-title={title}
         class:list={[
             "relative z-10 hover:text-primary-50 px-3 py-2 flex items-center gap-2 min-w-max overflow-hidden text-2xl lg:text-base transition-all duration-100",
             `${isActive ? "after:content-[''] after:absolute after:z-10 after:bottom-0 after:left-2 after:right-2 after:h-[3px]  after:bg-gradient-to-r after:from-primary-200 after:to-primary-400 after:rounded-sm" : ""}`,

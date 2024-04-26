@@ -4,17 +4,10 @@ type TextInputs = 'textarea' | 'date' | 'datetime-local' | 'email' | 'month' | '
 
 type NonTextInputs = 'checkbox' | 'color' | 'file' | 'image' | 'radio' | 'range' | 'reset' | 'select'
 
-
-
 interface BaseFormFieldProps {
 
-    /** <label> title and <input>, <textarea> name, id (toLowerCase) */
     name : string,
-
-    /** Label title if name and label need to be different */
     label? : string,
-
-    /** Required Field */
     required? : boolean,
     
     /**
@@ -27,14 +20,10 @@ interface BaseFormFieldProps {
      props? : true,
 }
 
-
-
 interface TextInput extends BaseFormFieldProps {
     type : TextInputs,
     floatingLabel? : boolean
 }
-
-
 
 interface NonTextInput extends BaseFormFieldProps {
     type : NonTextInputs,
@@ -59,8 +48,6 @@ const inputTextTypes = [
 ]
 
 const isInputTextType = inputTextTypes.includes(type)
-
-
 ---
 
 <label class={floatingLabel && isInputTextType ? 'floating-label' : ''}>

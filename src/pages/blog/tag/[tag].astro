@@ -1,10 +1,10 @@
 ---
+import Wrapper from "../../../components/Base/Wrapper.astro";
 import BackToBlog from "../../../components/Blog/BackToBlog.astro";
 import Post, { type PostProps } from "../../../components/Blog/Post.astro";
 import { blogPostData, getBlogPostList } from "../../../components/Blog/PostList.astro";
 import { getTags } from "../../../components/Blog/TagCloud.astro";
 import H1 from "../../../components/Heading/H1.astro";
-import Wrapper from "../../../components/Wrapper.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() : Promise<any> {
@@ -21,7 +21,7 @@ export async function getStaticPaths() : Promise<any> {
     } )
 }
 
-const { tag } = Astro.params
+const { tag } = Astro.params as {tag: string}
 const { posts } = Astro.props
 const postList = posts as PostProps[]
 ---
@@ -38,7 +38,7 @@ const postList = posts as PostProps[]
             <BackToBlog />
 
 			<H1 class="mb-2">
-                Posts Tagged: #{tag}
+                Posts Tagged: #{tag.replaceAll('-', ' ')}
             </H1>
 
             { postList.map( post => <Post post={post}  /> )}

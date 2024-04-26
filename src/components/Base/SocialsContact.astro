@@ -1,14 +1,13 @@
 ---
-import { SOCIAL_LINKS } from "../config";
-import BioLink from "./BioLink.astro";
-import DeviantArtIcon from "./icons/DeviantArtIcon.astro";
-import InstagramIcon from "./icons/InstagramIcon.astro";
-import KofiIcon from "./icons/KofiIcon.astro";
-import ThreadsIcon from "./icons/ThreadsIcon.astro";
-import TumblrIcon from "./icons/TumblrIcon.astro";
+import { SOCIAL_LINKS } from "../../config"
+import DeviantArtIcon from "../icons/DeviantArtIcon.astro"
+import InstagramIcon from "../icons/InstagramIcon.astro"
+import KofiIcon from "../icons/KofiIcon.astro"
+import ThreadsIcon from "../icons/ThreadsIcon.astro"
+import TumblrIcon from "../icons/TumblrIcon.astro"
+import BioLink from "./BioLink.astro"
 
 const { class: className = ''} = Astro.props
-
 ---
 
 <div class:list={["pl-3 lg:pl-16 border-l border-primary-500 text-primary-500", className]}>

@@ -1,12 +1,11 @@
 ---
+import Wrapper from '../../components/Base/Wrapper.astro';
 import DateList from '../../components/Blog/DateList.astro';
 import Pagination from '../../components/Blog/Pagination.astro';
-import Post from '../../components/Blog/Post.astro';
 import PostList, { getBlogPostList, blogPostData } from '../../components/Blog/PostList.astro';
 import TagCloud from '../../components/Blog/TagCloud.astro';
 import H1 from '../../components/Heading/H1.astro';
 import H2 from '../../components/Heading/H2.astro';
-import Wrapper from '../../components/Wrapper.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { type PaginateFunction } from 'astro';
 
@@ -17,7 +16,6 @@ export async function getStaticPaths({paginate} : {paginate : PaginateFunction})
 
 const { page } = Astro.props
 ---
-
 
 <BaseLayout props
 	title={`Blog Posts - Page ${page.currentPage}`}

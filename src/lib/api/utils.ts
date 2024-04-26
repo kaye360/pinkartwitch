@@ -1,4 +1,3 @@
-import type { PostProps } from "../../components/Blog/Post.astro"
 import type { ImageMetaData } from "./api"
 
 

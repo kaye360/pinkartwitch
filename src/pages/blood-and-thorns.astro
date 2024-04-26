@@ -1,13 +1,12 @@
 ---
-import Wrapper from '../components/Wrapper.astro';
+import Button from '../components/Base/Button.astro';
+import PortableTextWrapper from '../components/Base/PortableTextWrapper.astro';
+import TextFlow from '../components/Base/TextFlow.astro';
+import Wrapper from '../components/Base/Wrapper.astro';
+import Image from '../components/Base/Image.astro';
 import H1 from '../components/Heading/H1.astro';
-import Image from '../components/Image.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { client } from '../lib/api/api';
-import PortableTextWrapper from '../components/PortableTextWrapper.astro';
-import Button from '../components/Button.astro';
-import TextFlow from '../components/TextFlow.astro';
-import Socials from '../components/Socials.astro';
 import type { ImageMetaData } from '../lib/api/api';
 import { getImageMetaDataFromURL } from '../lib/api/utils';
 
