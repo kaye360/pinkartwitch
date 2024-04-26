@@ -11,4 +11,3 @@ By Josh Kaye
 * Lighthouse tests
 * Add portable text type
 * Query validation
-* Figure out sanity alt text
