@@ -11,11 +11,12 @@ export async function getStaticPaths() : Promise<any> {
 
     const blogPostList = await getBlogPostList(blogPostData)
     const tagList = await getTags()
+    console.log(blogPostList[0].tags)
 
-    return tagList.map( (tag : string) => {
-        const filteredPostList = blogPostList.filter( post => post.tags.includes(tag) )
+    return tagList.map( (tag) => {
+        const filteredPostList = blogPostList.filter( post => post.tags.map( tag => tag.hyphen).includes( tag.hyphen ) )
         return {
-            params: { tag },
+            params: { tag: tag.hyphen },
             props : { posts: filteredPostList }
         }
     } )

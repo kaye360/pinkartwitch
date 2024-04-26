@@ -7,11 +7,12 @@ import DeviantArtIcon from "../icons/DeviantArtIcon.astro";
 import InstagramIcon from "../icons/InstagramIcon.astro";
 import TumblrIcon from "../icons/TumblrIcon.astro";
 import ThreadsIcon from "../icons/ThreadsIcon.astro";
+import type { PostTag } from "./TagCloud.astro";
 
 export interface PostProps {
     title : string,
     date : string, 
-    tags: string[],
+    tags: PostTag[],
     commonTags : any,
     post : string,
     slug : string,
@@ -57,8 +58,8 @@ const hasImage      = !!post.image.url
         <div class="md:text-right">
             <div class="font-bold text-lg text-primary-500">{post.date}</div>
             <div class="flex gap-x-2 flex-wrap md:justify-end font-bold text-base">{post.tags && post.tags.map( tag => (
-                <a href={`/blog/tag/${tag}`} class="min-w-max text-primary-700 hover:underline">
-                    #{tag}
+                <a href={`/blog/tag/${tag.hyphen}`} class="min-w-max text-primary-700 hover:underline">
+                    #{tag.space}
                 </a>
             ))}
             </div>

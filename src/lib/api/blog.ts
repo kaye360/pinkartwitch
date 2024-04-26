@@ -1,4 +1,5 @@
 import type { PostProps } from "../../components/Blog/Post.astro"
+import { createPostTagList, type PostTag } from "../../components/Blog/TagCloud.astro"
 import { getImageMetaDataFromURL } from "./utils"
 
 export function formatPost(postData: any) : PostProps[] {
@@ -24,21 +25,21 @@ export function formatSlug(postData: any) : string {
     return slug
 }
 
-export function mergePostTags(postData: any) : string[]  {
+export function mergePostTags(postData: any) : PostTag[]  {
 
     if( !Array.isArray(postData.tags) && !Array.isArray(postData.commonTags) ) {
         return []
     }
 
     if( Array.isArray(postData.tags) && !Array.isArray(postData.commonTags) ) {
-        return postData.tags
+        return createPostTagList( postData.tags )
     }
 
     if( Array.isArray(postData.commonTags) && !Array.isArray(postData.tags) ) {
-        return postData.commonTags
+        return createPostTagList( postData.commonTags )
     }
 
     const mergedUniqueTags = new Set([...postData.tags, ...postData.commonTags])
 
-    return Array.from(mergedUniqueTags)
+    return createPostTagList( Array.from(mergedUniqueTags) )
 }
