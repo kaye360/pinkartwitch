@@ -29,16 +29,11 @@ const artWorkList : Artwork[] = data.map( (art : any) => {
 	return { image, ...art }
 }  )
 
-function formatArtworkDescription(desc : string, maxLength: number ) : string {
-	if( !desc || typeof desc !== 'string' ) return ''
-	if( desc.length > maxLength ) return desc.slice(0,maxLength) + '...'
-	return desc
-}
 ---
 
 <BaseLayout props
-	title="Home"
-	description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro in expedita beatae perferendis quod qui perspiciatis numquam."
+	title="Featured Artwork"
+	description="The digital artwork collection of Nova Alexander"
 	lang="en"
 >
 

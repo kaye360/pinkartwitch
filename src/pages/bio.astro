@@ -5,13 +5,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { client, type ImageMetaData } from '../lib/api/api'
 import PortableTextWrapper from '../components/PortableTextWrapper.astro';
 import Image from '../components/Image.astro';
-import BioLink from '../components/BioLink.astro';
-import InstagramIcon from '../components/icons/InstagramIcon.astro';
-import DeviantArtIcon from '../components/icons/DeviantArtIcon.astro';
-import TumblrIcon from '../components/icons/TumblrIcon.astro';
-import ThreadsIcon from '../components/icons/ThreadsIcon.astro';
-import {SOCIAL_LINKS} from '../config'
-import KofiIcon from '../components/icons/KofiIcon.astro';
 import { getImageMetaDataFromURL } from '../lib/api/utils';
 import SocialsContact from '../components/SocialsContact.astro';
 
@@ -36,8 +29,8 @@ const content: Bio = {
 ---
 
 <BaseLayout props
-	title="Home"
-	description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro in expedita beatae perferendis quod qui perspiciatis numquam."
+	title="Artist Bio"
+	description="NOVA ALEXANDER - queer, disabled, traditionally trained digital artist and writer living in the Greater Vancouver Area of Canada"
 	lang="en"
 >
 

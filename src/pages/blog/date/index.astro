@@ -9,16 +9,16 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout props
-	title="Blog"
-	description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro in expedita beatae perferendis quod qui perspiciatis numquam."
+	title="Blog Post Archive"
+	description="View blog posts by date in the blog of Nova Alexander"
 	lang="en"
 >
 
 	<section class="mt-28">
 		<Wrapper width='max' padding='inline' class="">
-			<H1>Blog Dates</H1>
+			<H1>Post Archive</H1>
 
-            <DateList />
+            <DateList showHeading={false} />
 
 		</Wrapper>
 	</section>

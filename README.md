@@ -11,3 +11,5 @@ By Josh Kaye
 * Lighthouse tests
 * Add portable text type
 * Query validation
+* OG images
+* fix blog url slugs (spaces %20)
