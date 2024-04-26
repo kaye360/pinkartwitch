@@ -61,6 +61,7 @@ function formatArtworkDescription(desc : string, maxLength: number ) : string {
 							height={art.image.height}
 							alt=""
 							class='h-[125px] lg:h-[250px] w-auto rounded-md  art-button-animation'
+							lazy={true}
 							data-description={art.description}
 							data-title={art.title}
 							data-tags={JSON.stringify(art.tags)}

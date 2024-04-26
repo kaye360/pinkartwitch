@@ -1,6 +1,56 @@
 import type { Image } from "../api/api"
 import debounce from 'lodash.debounce'
 
+/**
+ * 
+ * @class Gallery
+ * @description Image Gallery with slider/modal
+ * 
+ * ------- Main Methods
+ * @method init()
+ * @method open()
+ * @method close()
+ * 
+ * ------- Init methods
+ * @method addImgClickEventListeners()
+ * @method addModalScrollEventListeners()
+ * @method generateImgList()
+ * 
+ * ------- Open modal methods
+ * @method ModalHTML()
+ * @method addScrollerClickEventListeners()
+ * @method showModalUI()
+ * @method getClickedImage()
+ * 
+ * ------- Close modal methods
+ * @method hideModalUI()
+ * 
+ * ------- Modal State
+ * @method isModalOpen()
+ * @method setIsModalOpen()
+ * 
+ * ------- Gallery navigation methods
+ * @method setCurrentImageIndex()
+ * @method scrollToImage()
+ * @method setScrollerImageOpacities()
+ * 
+ * ------- Tag methods
+ * @method generateTags()
+ * @method showTags()
+ * @method addTagButtonEventListeners()
+ * @method showCurrentTaggedImgs()
+ * @method TagButtonHTML()
+ * 
+ * ------- HTML Components
+ * @method CloseButtonHTML()
+ * @method ScrollerHTML()
+ * @method ImageHTML()
+ * 
+ * ------- Dev Methods
+ * @method mockOpenModal()
+ * 
+ */
+
 export default class Gallery {
 
     dataModalElName : string
@@ -26,7 +76,7 @@ export default class Gallery {
     init = () => {
         this.imgList = this.generateImgList()
         this.modal = document.querySelector(this.dataModalElName) as HTMLDivElement
-        this.addImgButtonEventListeners()
+        this.addImgClickEventListeners()
         this.tagList = this.generateTags()
         this.showTags()
     }
@@ -41,8 +91,8 @@ export default class Gallery {
         this.setCurrentImageIndex(i)
         this.showModalUI( this.ModalHTML() )
         this.setIsModalOpen(true)
-        this.moveScrollerToImage(clickedImageIndex, 'instant')
-        this.addImgModalScrollEventListeners()
+        this.scrollToImage(clickedImageIndex, 'instant')
+        this.addModalScrollEventListeners()
     }
 
     close = () => {
@@ -54,23 +104,26 @@ export default class Gallery {
     // Init Helpers
     // 
         
-    addImgButtonEventListeners = async () => {
+    addImgClickEventListeners = async () => {
         const imgBtnList = document.querySelectorAll(this.imgBtnElName) as NodeListOf<HTMLButtonElement>
-        imgBtnList.forEach( (btn , i) => btn.addEventListener('click', (e : MouseEvent) => { this.open(i,e) }) )
+        imgBtnList.forEach( (btn , i) => {
+            btn.addEventListener('click', (e : MouseEvent) => { this.open(i,e) }) 
+        })
     }
     
-    addImgModalScrollEventListeners = () => {
+    addModalScrollEventListeners = () => {
         const imgModal = document.querySelector('[data-img-modal-content-scroller]') as HTMLDivElement
         const buttonList =  Array.from ( imgModal.children )
 
         imgModal?.addEventListener('scroll', debounce( (e) => {
 
-            const currentBtn =  buttonList.filter( btn => {
+            const currentBtnList =  buttonList.filter( btn => {
                 return btn.getBoundingClientRect().left < 100 && btn.getBoundingClientRect().left > -100
-            })[0]
+            })
+            const currentBtn = currentBtnList[0]
 
             const currentBtnIndex = buttonList.indexOf(currentBtn)
-            this.moveScrollerToImage(currentBtnIndex)
+            this.scrollToImage(currentBtnIndex)
         }, 50))
     }
 
@@ -99,10 +152,10 @@ export default class Gallery {
         return this.CloseButtonHTML() + this.ScrollerHTML() + this.ImageHTML()
     }
 
-    addScrollerButtonEventListeners = () => {
+    addScrollerClickEventListeners = () => {
         const buttons = document.querySelector('[data-img-modal-scroller]')?.querySelectorAll('button') as NodeListOf<HTMLButtonElement>
         buttons.forEach( (button, i) => { 
-            button.addEventListener('click', () => this.moveScrollerToImage(i) )
+            button.addEventListener('click', () => this.scrollToImage(i) )
         })
     }
 
@@ -112,7 +165,7 @@ export default class Gallery {
         this.modal.classList.remove('opacity-0', '-z-50')
         this.modal.classList.add('z-[9999]')
         document.querySelector('[data-close-img-modal-button]')?.addEventListener('click', this.close)
-        this.addScrollerButtonEventListeners()
+        this.addScrollerClickEventListeners()
     }
 
     getClickedImage = (x: number, y:number) : HTMLImageElement | null => {
@@ -152,7 +205,10 @@ export default class Gallery {
         this.currentImageIndex = i
     }
 
-    moveScrollerToImage = (i : number, scroll : 'smooth' | 'instant' = 'smooth') => {
+    scrollToImage = (i : number, scroll : 'smooth' | 'instant' = 'smooth') => {
+        // If i < 0, the modal will scroll to the first image, which isn't what we want
+        if( i < 0 ) return 
+
         this.setScrollerImageOpacities(i)
         const imgContent = document.querySelector('[data-img-modal-content]')
         if(!imgContent) return
@@ -238,7 +294,7 @@ export default class Gallery {
     }
 
     // 
-    // Components
+    // HTML Components
     // 
     
     CloseButtonHTML = () => {
@@ -283,8 +339,7 @@ export default class Gallery {
                                 width="${art.image.width}" 
                                 height="${art.image.height}" 
                                 alt="" 
-                                class='rounded'
-                                style='max-height:70vh; width: auto'
+                                class='rounded max-h-[60vh] w-auto lg:max-w-[50%] justify-self-center '
                                 data-index="${index}"
                             >
                             <div>
