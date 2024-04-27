@@ -1,55 +1,11 @@
 ---
-import { client } from "../../lib/api/api"
+import type { Tags } from '../../lib/api/blogTag'
 
-interface GetTagData { 
-	tags : string[], 
-	commonTags : string[] 
+interface Props {
+	tags: Tags[]
 }
 
-export async function getTagData() : Promise<GetTagData[]> {
-	const tagData = await client.fetch(`
-		*[ _type == 'blogPost'] {
-			tags,
-			"commonTags" : commonTags[]->tag,
-		}
-	`)
-	if(!tagData) return []
-	return tagData
-}
-
-export interface PostTag {
-	hyphen : string,
-	space : string
-}
-
-export function createPostTagList(tagList: string[]) : PostTag[] {
-	return tagList.map( (tag: string) => (
-		{
-			hyphen : tag.replaceAll(' ', '-'),
-			space  : tag.replaceAll('-', ' ')
-		}
-	))
-}
-
-export async function getTags() : Promise<PostTag[]> {
-	const tagSet: Set<string>  = new Set()
-	const tagData = await getTagData()
-	
-	tagData.forEach( (post : {tags : string[], commonTags : string[]}) => {
-		
-		if( Array.isArray(post.tags) ) {
-			post.tags.forEach( tag => tagSet.add( tag ))
-		}
-
-		if( Array.isArray(post.commonTags) ) {
-			post.commonTags.forEach( tag => tagSet.add( tag )) 
-		}
-	} )
-	
-	return createPostTagList( Array.from( tagSet ).sort() )
-}
-
-const tags = await getTags()
+const { tags } = Astro.props
 ---
 
 <ul class=" flex items-center gap-4 flex-wrap">

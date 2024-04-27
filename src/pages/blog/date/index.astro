@@ -3,6 +3,9 @@ import Wrapper from "../../../components/Base/Wrapper.astro";
 import DateList from "../../../components/Blog/DateList.astro";
 import H1 from "../../../components/Heading/H1.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getDates } from "../../../lib/api/blogDate";
+
+const dates = await getDates()
 ---
 
 <BaseLayout props
@@ -15,7 +18,7 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 		<Wrapper width='max' padding='inline' class="">
 			<H1>Post Archive</H1>
 
-            <DateList showHeading={false} />
+            <DateList {dates} showHeading={false} />
 
 		</Wrapper>
 	</section>

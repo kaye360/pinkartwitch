@@ -3,6 +3,9 @@ import Wrapper from "../../../components/Base/Wrapper.astro";
 import TagCloud from "../../../components/Blog/TagCloud.astro";
 import H1 from "../../../components/Heading/H1.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getTags } from "../../../lib/api/blogTag";
+
+const tags = await getTags()
 ---
 
 <BaseLayout props
@@ -28,7 +31,7 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 
 			<H1>Blog Tags</H1>
 
-			<TagCloud />
+			<TagCloud {tags} />
 
 		</Wrapper>
 	</section>

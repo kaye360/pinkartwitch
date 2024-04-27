@@ -10,6 +10,7 @@ import Hero from '../components/Base/Hero.astro';
 import PortableTextWrapper from '../components/Base/PortableTextWrapper.astro';
 import Wrapper from '../components/Base/Wrapper.astro';
 import Image from '../components/Base/Image.astro';
+import { getBlogPostList } from '../lib/api/blogPost';
 
 interface HomeContent {
     hero:  {
@@ -40,6 +41,8 @@ const content: HomeContent = {
 	intro : heroData.intro,
 	bloodAndThornsIntro : heroData.bloodAndThornsIntro
 }
+
+const posts = await getBlogPostList({amount : 4})
 ---
 
 <BaseLayout props
@@ -125,7 +128,7 @@ const content: HomeContent = {
 
 			<H2>Blog Posts</H2>
 
-			<PostList />
+			<PostList {posts} />
 
 		</Wrapper>
 

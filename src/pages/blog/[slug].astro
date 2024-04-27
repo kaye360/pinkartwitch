@@ -1,7 +1,6 @@
 ---
 import H1 from "../../components/Heading/H1.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getBlogPostList, blogPostData } from "../../components/Blog/PostList.astro";
 import BackToBlog from "../../components/Blog/BackToBlog.astro";
 import DeviantArtIcon from "../../components/icons/DeviantArtIcon.astro";
 import InstagramIcon from "../../components/icons/InstagramIcon.astro";
@@ -10,9 +9,12 @@ import TumblrIcon from "../../components/icons/TumblrIcon.astro";
 import PortableTextWrapper from "../../components/Base/PortableTextWrapper.astro";
 import Wrapper from "../../components/Base/Wrapper.astro";
 import Image from "../../components/Base/Image.astro";
-    
+import { getBlogPostList, type BlogPost } from "../../lib/api/blogPost";
+
+type Props = BlogPost
+
 export async function getStaticPaths() {
-    const blogPostList = await getBlogPostList(blogPostData)
+    const blogPostList = await getBlogPostList({})
     return blogPostList.map( post => {
         return {
             params: {slug : post.slug},
@@ -21,7 +23,7 @@ export async function getStaticPaths() {
     } )
 }
 
-const { post, image, title, deviantArtUrl, threadsUrl, instagramUrl, tumblrUrl, tags, date,   } = Astro.props
+const { post, image, title, deviantArtUrl, threadsUrl, instagramUrl, tumblrUrl, tags, date } = Astro.props
 
 const hasSocialLink = deviantArtUrl || threadsUrl || tumblrUrl || instagramUrl
 ---
@@ -60,7 +62,7 @@ const hasSocialLink = deviantArtUrl || threadsUrl || tumblrUrl || instagramUrl
             />
 
             <p class="font-semibold mb-4">
-                {date}
+                {date.phrase}
             </p>
 
             <PortableTextWrapper value={post} />

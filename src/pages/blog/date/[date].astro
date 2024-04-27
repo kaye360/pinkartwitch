@@ -1,36 +1,42 @@
 ---
 import BackToBlog from "../../../components/Blog/BackToBlog.astro";
-import { dateToPhrase, getDates } from "../../../components/Blog/DateList.astro";
-import Post, { type PostProps } from "../../../components/Blog/Post.astro";
-import { blogPostData, getBlogPostList } from "../../../components/Blog/PostList.astro";
+import Post from "../../../components/Blog/Post.astro";
 import H1 from "../../../components/Heading/H1.astro";
 import Wrapper from "../../../components/Base/Wrapper.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getBlogPostList, type BlogPost } from "../../../lib/api/blogPost";
+import { getDates, type BlogPostDate } from "../../../lib/api/blogDate";
+
+interface Props {
+    posts: BlogPost[],
+    blogPostDate : BlogPostDate
+}
 
 export async function getStaticPaths() : Promise<any> {
 
-    const blogPostList = await getBlogPostList(blogPostData)
+    const blogPostList = await getBlogPostList({})
     const dateList = await getDates()
 
-    return dateList.map( (date : string) => {
-        const datePhrase = dateToPhrase(date)
-        const month = datePhrase.slice(0,4)
-        const year  = datePhrase.slice(-4)
-        const filteredPostList = blogPostList.filter( post => post.date.includes(month) && post.date.includes(year) )
+    return dateList.map( date => {
+        const month = date.phrase.slice(0,4)
+        const year  = date.phrase.slice(-4)
+        const filteredPostList = blogPostList.filter( post => post.date.phrase.includes(month) && post.date.phrase.includes(year) )
         return {
-            params: { date },
-            props : { posts: filteredPostList }
+            params: { date: date.numeric },
+            props : { 
+                posts: filteredPostList, 
+                blogPostDate : date  
+            }
         }
     } )
 }
 
-const { date } = Astro.params
-const { posts } = Astro.props
-const postList = posts as PostProps[]
+// const { date } : { date: string } = Astro.params
+const { posts, blogPostDate } = Astro.props
 ---
 
 <BaseLayout props
-	title={`Blog Posts : ${dateToPhrase(date)}`}
+	title={`Blog Posts : ${blogPostDate.phrase}`}
 	description="View blog posts by date in the blog of Nova Alexander"
 	lang="en"
 >
@@ -41,9 +47,9 @@ const postList = posts as PostProps[]
             <BackToBlog />
 
 			<H1 class="mb-2">
-                Posts in: {dateToPhrase(date)}
+                Posts in: {blogPostDate.phrase}
             </H1>
 
-            { postList.map( post => <Post post={post}  /> )}
+            { posts.map( post => <Post post={post}  /> )}
 		</Wrapper>
 	</section>

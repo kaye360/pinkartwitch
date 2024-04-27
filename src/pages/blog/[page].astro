@@ -1,20 +1,31 @@
 ---
 import Wrapper from '../../components/Base/Wrapper.astro';
-import DateList from '../../components/Blog/DateList.astro';
 import Pagination from '../../components/Blog/Pagination.astro';
-import PostList, { getBlogPostList, blogPostData } from '../../components/Blog/PostList.astro';
-import TagCloud from '../../components/Blog/TagCloud.astro';
+import PostList from '../../components/Blog/PostList.astro';
 import H1 from '../../components/Heading/H1.astro';
 import H2 from '../../components/Heading/H2.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { type PaginateFunction } from 'astro';
+import { type Page, type PaginateFunction } from 'astro';
+import { getBlogPostList } from '../../lib/api/blogPost';
+import DateList from '../../components/Blog/DateList.astro';
+import TagCloud from '../../components/Blog/TagCloud.astro';
+import type { BlogPostDate } from '../../lib/api/blogDate';
+import { getDates } from '../../lib/api/blogDate';
+import { getTags } from '../../lib/api/blogTag';
+
+interface Props {
+	page : Page,
+	dates : BlogPostDate
+}
 
 export async function getStaticPaths({paginate} : {paginate : PaginateFunction}) {
-	const pages = await getBlogPostList(blogPostData)
+	const pages = await getBlogPostList({})
 	return paginate(pages, {pageSize: 3})
 }
 
 const { page } = Astro.props
+const dates = await getDates()
+const tags  = await getTags()
 ---
 
 <BaseLayout props
@@ -34,13 +45,13 @@ const { page } = Astro.props
             <PostList posts={page.data} />
 			<div>
 				<div class="sticky top-24">
-					<DateList />
+					<DateList {dates} />
 				</div>
 			</div>
 		</Wrapper>
 	</section>
 
-    <Pagination page={page} />
+    <Pagination {page} />
 		
 	<section>
 		<Wrapper width="max" padding="inline">
@@ -49,7 +60,7 @@ const { page } = Astro.props
 					More Topics
 				</a>
 			</H2>
-			<TagCloud />
+			<TagCloud {tags} />
 		</Wrapper>
 	</section>
 

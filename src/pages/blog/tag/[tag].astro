@@ -1,15 +1,19 @@
 ---
 import Wrapper from "../../../components/Base/Wrapper.astro";
 import BackToBlog from "../../../components/Blog/BackToBlog.astro";
-import Post, { type PostProps } from "../../../components/Blog/Post.astro";
-import { blogPostData, getBlogPostList } from "../../../components/Blog/PostList.astro";
-import { getTags } from "../../../components/Blog/TagCloud.astro";
+import Post from "../../../components/Blog/Post.astro";
 import H1 from "../../../components/Heading/H1.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getBlogPostList, type BlogPost } from "../../../lib/api/blogPost";
+import { getTags } from "../../../lib/api/blogTag";
+
+interface Props {
+    posts : BlogPost[]
+}
 
 export async function getStaticPaths() : Promise<any> {
 
-    const blogPostList = await getBlogPostList(blogPostData)
+    const blogPostList = await getBlogPostList({})
     const tagList = await getTags()
 
     return tagList.map( (tag) => {
@@ -21,9 +25,8 @@ export async function getStaticPaths() : Promise<any> {
     } )
 }
 
-const { tag } = Astro.params as {tag: string}
+const { tag } : {[key:string]: string} = Astro.params
 const { posts } = Astro.props
-const postList = posts as PostProps[]
 ---
 
 <BaseLayout props
@@ -41,6 +44,6 @@ const postList = posts as PostProps[]
                 Posts Tagged: #{tag.replaceAll('-', ' ')}
             </H1>
 
-            { postList.map( post => <Post post={post}  /> )}
+            { posts.map( post => <Post {post}  /> )}
 		</Wrapper>
 	</section>

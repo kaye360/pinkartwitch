@@ -1,57 +1,17 @@
 ---
-import { client } from "../../lib/api/api"
-import { formatPost } from "../../lib/api/blog"
-import Post, { type PostProps } from "./Post.astro"
+import type { BlogPost } from "../../lib/api/blogPost"
+import Post from "./Post.astro"
 
 interface Props {
-    posts? : PostProps[]
+    posts : BlogPost[]
 }
 
 const { posts } = Astro.props
-
-export const blogPostData = await client.fetch(`
-	*[ _type == 'blogPost'] | order(date desc) {
-        title,
-		"imageURL" : image.asset->url,
-		post,
-		tags,
-        "commonTags" : commonTags[]->tag,
-		date,
-        instagramUrl,
-        deviantArtUrl,
-        tumblrUrl,
-        threadsUrl,
-	}
-`)
-
-export const recentBlogPostData = await client.fetch(`
-	*[ _type == 'blogPost'] | order(date desc)[0..3] {
-        title,
-		"imageURL" : image.asset->url,
-		post,
-		tags,
-        "commonTags" : commonTags[]->tag,
-		date,
-        instagramUrl,
-        deviantArtUrl,
-        tumblrUrl,
-        threadsUrl,
-	}
-`)
-
-export async function getBlogPostList(blogPostData: any) : Promise<PostProps[]> {
-    const blogPostList: PostProps[] = blogPostData.map( (postData: any) => (
-        formatPost(postData)
-    ))	
-    return blogPostList
-}
-
-const blogPostList = posts || await getBlogPostList(recentBlogPostData)
 ---
 
 <div class="grid gap-10 ">
 
-    {blogPostList.map( post => <Post post={post}  /> )}
+    {posts.map( post => <Post post={post}  /> )}
 
 </div>
 
