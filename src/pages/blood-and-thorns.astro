@@ -7,13 +7,12 @@ import Image from '../components/Base/Image.astro';
 import H1 from '../components/Heading/H1.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { client } from '../lib/api/api';
-import type { ImageMetaData } from '../lib/api/api';
-import { getImageMetaDataFromURL } from '../lib/api/utils';
+import { getImageDataFromURL, type ImageData } from '../lib/api/image';
 
 interface BloodAndThorns {
-    section1image : ImageMetaData,
+    section1image : ImageData,
     section1content : any[],
-    section2image : ImageMetaData,
+    section2image : ImageData,
     section2content : any[]
 }
 
@@ -27,8 +26,8 @@ const [data] = await client.fetch(`
 `)
 
 const content : BloodAndThorns = {
-	section1image : getImageMetaDataFromURL(data.section1imageURL),
-    section2image : getImageMetaDataFromURL(data.section2imageURL),
+	section1image : getImageDataFromURL(data.section1imageURL),
+    section2image : getImageDataFromURL(data.section2imageURL),
 	...data
 }
 ---

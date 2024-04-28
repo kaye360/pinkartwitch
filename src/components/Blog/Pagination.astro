@@ -1,10 +1,10 @@
 ---
 import type { Page } from "astro";
-import type { PostProps } from "./Post.astro";
 import Wrapper from "../Base/Wrapper.astro";
+import type { BlogPost } from "../../lib/api/blogPost";
 
 interface Props {
-    page : Page<PostProps>,
+    page : Page<BlogPost>,
 }
 
 const { page } = Astro.props

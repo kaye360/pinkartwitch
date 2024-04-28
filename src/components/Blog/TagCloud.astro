@@ -1,8 +1,9 @@
 ---
-import type { Tags } from '../../lib/api/blogTag'
+import type { BlogPostTag } from '../../lib/api/blogTag'
+
 
 interface Props {
-	tags: Tags[]
+	tags: BlogPostTag[]
 }
 
 const { tags } = Astro.props

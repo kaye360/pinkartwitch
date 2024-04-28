@@ -16,16 +16,16 @@ interface Props {
 const { post } = Astro.props
 
 const hasSocialLink = post.instagramUrl || post.deviantArtUrl || post.threadsUrl || post.tumblrUrl
-const hasImage      = !!post.image.url
+const hasImage =  !(post.image === null || post.image === undefined)
 ---
 
 <div class="grid lg:grid-cols-[1.5fr_2fr] items-start gap-x-4 gap-y-4 bg-gradient-to-br from-primary-50 to-transparent p-6 rounded-lg">
     { hasImage ? (
         <a href={'/blog/' + post.slug } class="hover:shadow-xl hover:shadow-primary-500/30">
             <Image 
-                src={post.image.url}
-                width={post.image.width}
-                height={post.image.height}
+                src={post.image?.url as string}
+                width={post.image?.width as number}
+                height={post.image?.height as number}
                 alt=""
                 role="presentation"
                 class="w-full max-h-[300px] object-cover rounded-md"

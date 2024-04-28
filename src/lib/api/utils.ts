@@ -1,18 +1,16 @@
-import type { ImageMetaData } from "./api"
+import type { Block } from "astro-portabletext/types"
 
 
-export function getImageListMetaData(imgURLList: string[]) : ImageMetaData[] {
-    if( !Array.isArray(imgURLList) ) return []
-    return imgURLList.map( (imgURL : string) => getImageMetaDataFromURL(imgURL) )
-}
-
-
-export function getImageMetaDataFromURL(url : string) : ImageMetaData {
-    if( !(typeof url === 'string') ) return {url : '', width : 0, height : 0}
-
-    const [width, height] = url.split('-')[1]
-        .split('.')[0]
-        .split('x')
-
-    return { url, width : Number(width), height : Number(height) }
+/**
+ * @description https://www.sanity.io/docs/presenting-block-text#ac67a867dd69
+ */
+export function portableTextToPlainText(blocks: Block[] = []) : string {
+    return blocks
+        .map(block => {
+            if (block._type !== 'block' || !block.children) {
+                return ''
+            }
+            return block.children.map(child => child.text).join('')
+        })
+        .join('\n\n')
 }

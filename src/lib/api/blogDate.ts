@@ -2,8 +2,12 @@ import { client } from "./api"
 
 export interface BlogPostDate {
     numeric : string,
-    phrase  : string
+    longNumeric : string,
+    phrase  : string,
+    longPhrase : string
 }
+
+export interface BlogArchiveDate extends Omit<BlogPostDate, "longNumeric" | "longPhrase"> {}
 
 async function getDateData() : Promise<{date : string}[]> {
     const dateData = await client.fetch(`
@@ -26,14 +30,14 @@ export async function getDates() {
     } )
     const dateDataUniqueOrdered = Array.from( dateSet ).sort().reverse() as string[]
     
-    const blogPostDates : BlogPostDate[] = dateDataUniqueOrdered.map( date => ({
+    const blogPostDates : BlogArchiveDate[] = dateDataUniqueOrdered.map( date => ({
         numeric : date,
         phrase : dateToPhrase(date)
     }))
     return blogPostDates
 }
 
-function dateToPhrase(dateNumeric : string) {
+function dateToPhrase(dateNumeric : string, isDayIncluded : boolean = false) {
     const dateArr = dateNumeric.split('-')
     const year = Number(dateArr[0])
     const month = Number(dateArr[1]) - 1
@@ -41,6 +45,7 @@ function dateToPhrase(dateNumeric : string) {
     const datePhrase = date.toLocaleDateString('en-EN', {
         year : 'numeric',
         month : 'short',
+        day : isDayIncluded ? '2-digit' : undefined
     })
     return datePhrase
 }
@@ -48,7 +53,9 @@ function dateToPhrase(dateNumeric : string) {
 export function formatPostDate(date: string) : BlogPostDate {
     return { 
         phrase : dateToPhrase(date), 
-        numeric : date.slice(0,7)
+        longPhrase : dateToPhrase(date, true),
+        numeric : date.slice(0,7),
+        longNumeric : date
     }
 }
 

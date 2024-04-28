@@ -20,7 +20,7 @@ export async function getStaticPaths() : Promise<any> {
     return dateList.map( date => {
         const month = date.phrase.slice(0,4)
         const year  = date.phrase.slice(-4)
-        const filteredPostList = blogPostList.filter( post => post.date.phrase.includes(month) && post.date.phrase.includes(year) )
+        const filteredPostList = blogPostList.filter( post => post && post.date.phrase.includes(month) && post.date.phrase.includes(year) )
         return {
             params: { date: date.numeric },
             props : { 

@@ -1,6 +1,6 @@
 import { client } from "./api"
 
-export interface Tags {
+export interface BlogPostTag {
 	hyphen : string,
 	space : string
 }
@@ -23,27 +23,27 @@ export async function getTagData() : Promise<GetTagData[]> {
 }
 
 
-export function mergePostTags(postData: any) : Tags[]  {
+export function mergeRawBlogPostTags(tags : unknown, commonTags : unknown) : BlogPostTag[]  {
 
-    if( !Array.isArray(postData.tags) && !Array.isArray(postData.commonTags) ) {
+    if( !Array.isArray(tags) && !Array.isArray(commonTags) ) {
         return []
     }
 
-    if( Array.isArray(postData.tags) && !Array.isArray(postData.commonTags) ) {
-        return createPostTagList( postData.tags )
+    if( Array.isArray(tags) && !Array.isArray(commonTags) ) {
+        return createPostTagList( tags )
     }
 
-    if( Array.isArray(postData.commonTags) && !Array.isArray(postData.tags) ) {
-        return createPostTagList( postData.commonTags )
+    if( Array.isArray(commonTags) && !Array.isArray(tags) ) {
+        return createPostTagList( commonTags )
     }
 
-    const mergedUniqueTags = new Set([...postData.tags, ...postData.commonTags])
+    const mergedUniqueTags = new Set([...tags as string[], ...commonTags as string[]])
 
     return createPostTagList( Array.from(mergedUniqueTags) )
 }
 
 
-export function createPostTagList(tagList: string[]) : Tags[] {
+export function createPostTagList(tagList: string[]) : BlogPostTag[] {
 	return tagList.map( (tag: string) => (
 		{
 			hyphen : tag.replaceAll(' ', '-'),
@@ -52,7 +52,7 @@ export function createPostTagList(tagList: string[]) : Tags[] {
 	))
 }
 
-export async function getTags() : Promise<Tags[]> {
+export async function getTags() : Promise<BlogPostTag[]> {
 	const tagSet: Set<string>  = new Set()
 	const tagData = await getTagData()
 	

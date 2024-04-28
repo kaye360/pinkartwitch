@@ -1,6 +1,5 @@
 ---
-import { imageUrlFor } from '../../lib/api/image';
-import { getImageMetaDataFromURL } from '../../lib/api/utils';
+import { getImageDataFromURL, imageUrlFor, type ImageData } from '../../lib/api/image';
 
 
 type Asset = Parameters<typeof imageUrlFor>[0];
@@ -27,7 +26,8 @@ const url = image.options.baseUrl +
             image.options.dataset + '/' + 
             imageFileName
 
-const { width, height } = getImageMetaDataFromURL(url)
+const  imageData = getImageDataFromURL(url) as ImageData
+const { width, height } = imageData
 
 ---
 

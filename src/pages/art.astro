@@ -2,8 +2,7 @@
 import H1 from '../components/Heading/H1.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { client } from '../lib/api/api';
-import { getImageMetaDataFromURL } from '../lib/api/utils';
-import type { ImageMetaData } from '../lib/api/api';
+import { getImageDataFromURL, type ImageData } from '../lib/api/image';
 import GalleryModal from '../components/Base/GalleryModal.astro';
 import Wrapper from '../components/Base/Wrapper.astro';
 import Image from '../components/Base/Image.astro';
@@ -11,7 +10,7 @@ import Image from '../components/Base/Image.astro';
 interface Artwork {
     title : string,
     description : string,
-    image : ImageMetaData,
+    image : ImageData,
     tags : string | string[]
 }
 
@@ -25,7 +24,7 @@ const data = await client.fetch(`
 `)
 
 const artWorkList : Artwork[] = data.map( (art : any) => {
-	const image = getImageMetaDataFromURL(art.imageURL)
+	const image = getImageDataFromURL(art.imageURL)
 	return { image, ...art }
 })
 ---

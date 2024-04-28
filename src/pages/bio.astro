@@ -5,11 +5,11 @@ import Wrapper from '../components/Base/Wrapper.astro';
 import Image from '../components/Base/Image.astro';
 import H1 from '../components/Heading/H1.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { client, type ImageMetaData } from '../lib/api/api'
-import { getImageMetaDataFromURL } from '../lib/api/utils';
+import { client } from '../lib/api/api'
+import { getImageDataFromURL, type ImageData } from '../lib/api/image';
 
 interface Bio {
-    bioImage : ImageMetaData,
+    bioImage : ImageData,
     section1content : any[],
     section2content : any[]
 }
@@ -23,7 +23,7 @@ const [data] = await client.fetch(`
 `)
 
 const content: Bio = {
-	bioImage : getImageMetaDataFromURL(data.bioImageURL),
+	bioImage : getImageDataFromURL(data.bioImageURL),
 	...data
 }
 ---
