@@ -1,7 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { client } from '../lib/api/api';
-import { getImageListData, type ImageData } from '../lib/api/image';
 import H2 from '../components/Heading/H2.astro';
 import PostList from '../components/Blog/PostList.astro';
 import Button from '../components/Base/Button.astro';
@@ -10,37 +8,9 @@ import PortableTextWrapper from '../components/Base/PortableTextWrapper.astro';
 import Wrapper from '../components/Base/Wrapper.astro';
 import Image from '../components/Base/Image.astro';
 import { getBlogPostList, type BlogPost } from '../lib/api/blogPost';
+import { getHomeContent } from '../lib/api/home';
 
-interface HomeContent {
-    hero:  {
-        headline: string,
-        subHeadline: string,
-        featuredArt : ImageData[]
-    },
-    intro: any[],
-	bloodAndThornsIntro : any[]
-}
-
-const [heroData] = await client.fetch(`
-	*[ _type == 'home']{
-		heroHeadline, 
-		heroSubHeadline,
-		"featuredArtURLs" : featuredArt[].asset->url,
-		intro,
-		bloodAndThornsIntro
-	}
-`)
-	
-const content: HomeContent = {
-	hero : {
-		headline : heroData.heroHeadline,
-		subHeadline : heroData.heroSubHeadline,
-		featuredArt : getImageListData(heroData.featuredArtURLs) as ImageData[]
-	},
-	intro : heroData.intro,
-	bloodAndThornsIntro : heroData.bloodAndThornsIntro
-}
-
+const content = await getHomeContent()
 const posts = await getBlogPostList({amount : 4}) as BlogPost[]
 ---
 
@@ -54,7 +24,7 @@ const posts = await getBlogPostList({amount : 4}) as BlogPost[]
 		<Fragment slot="heroHeadline">{content.hero.headline}</Fragment>
 		<Fragment slot="heroSubHeadline">{content.hero.subHeadline}</Fragment>
 		<Fragment slot="heroArt">
-			{ content.hero.featuredArt.map( img => (
+			{ content.hero.featuredArt && content.hero.featuredArt.map( img => (
 				<Image 
 					src={img.url}
 					width={img.width}
@@ -65,6 +35,7 @@ const posts = await getBlogPostList({amount : 4}) as BlogPost[]
 			))}
 		</Fragment>
 	</Hero>
+
 
 	<section>
 		<Wrapper width='text' padding='both' margin='none' class="relative">
