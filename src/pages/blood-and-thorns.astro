@@ -6,30 +6,9 @@ import Wrapper from '../components/Base/Wrapper.astro';
 import Image from '../components/Base/Image.astro';
 import H1 from '../components/Heading/H1.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { client } from '../lib/api/api';
-import { getImageDataFromURL, type ImageData } from '../lib/api/image';
+import { getBloodAndThorns } from '../lib/api/bloodAndThorns';
 
-interface BloodAndThorns {
-    section1image : ImageData,
-    section1content : any[],
-    section2image : ImageData,
-    section2content : any[]
-}
-
-const [data] = await client.fetch(`
-	*[ _type == 'bloodAndThorns' ] {
-		"section1imageURL" : section1image.asset->url,
-		section1content,
-		"section2imageURL" : section2image.asset->url,
-		section2content
-	}
-`)
-
-const content : BloodAndThorns = {
-	section1image : getImageDataFromURL(data.section1imageURL),
-    section2image : getImageDataFromURL(data.section2imageURL),
-	...data
-}
+const content = await getBloodAndThorns()
 ---
 
 <BaseLayout props
@@ -46,24 +25,28 @@ const content : BloodAndThorns = {
 		<Wrapper props width="max" padding='inline'>
 			<div class="relative grid lg:grid-cols-[auto_1fr] items-stretch justify-center mx-auto gap-8 flex-wrap">
 	
-				<Image 
-					src={content.section1image.url}
-					width={content.section1image.width}
-					height={content.section1image.height}
-					alt=""
-					role="presentation"
-					class='max-h-[80vh] w-auto sticky top-0 ml-auto rounded hidden lg:block'
-				/>
-	
-				<div>
+				{ content.section1image &&
 					<Image 
 						src={content.section1image.url}
 						width={content.section1image.width}
 						height={content.section1image.height}
 						alt=""
 						role="presentation"
-						class='max-h-auto w-1/2 ml-2 rounded lg:hidden float-right'
+						class='max-h-[80vh] w-auto sticky top-0 ml-auto rounded hidden lg:block'
 					/>
+				}
+	
+				<div>
+					{ content.section2image &&
+						<Image 
+							src={content.section2image.url}
+							width={content.section2image.width}
+							height={content.section2image.height}
+							alt=""
+							role="presentation"
+							class='max-h-auto w-1/2 ml-2 rounded lg:hidden float-right'
+						/>
+					}
 					<PortableTextWrapper value={content.section1content} />
 
 					<Button 

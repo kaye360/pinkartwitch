@@ -1,5 +1,5 @@
-import type { Image } from "../api/api"
 import debounce from 'lodash.debounce'
+import type { Image } from '../api/image'
 
 /**
  * 
@@ -53,12 +53,12 @@ import debounce from 'lodash.debounce'
 
 export default class Gallery {
 
-    dataModalElName : string
-    imgBtnElName : string
-    modal : HTMLDivElement | null
+    dataModalElName   : string
+    imgBtnElName      : string
+    modal             : HTMLDivElement | null
     currentImageIndex : number | null
-    imgList : Image[]
-    tagList : Set<string>
+    imgList           : Image[]
+    tagList           : Set<string>
 
     constructor() {
         this.dataModalElName = '[data-art-modal]'
