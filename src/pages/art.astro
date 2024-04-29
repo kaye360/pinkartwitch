@@ -1,32 +1,12 @@
 ---
 import H1 from '../components/Heading/H1.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { client } from '../lib/api/api';
-import { getImageDataFromURL, type ImageData } from '../lib/api/image';
 import GalleryModal from '../components/Base/GalleryModal.astro';
 import Wrapper from '../components/Base/Wrapper.astro';
 import Image from '../components/Base/Image.astro';
+import { getArt } from '../lib/api/art';
 
-interface Artwork {
-    title : string,
-    description : string,
-    image : ImageData,
-    tags : string | string[]
-}
-
-const data = await client.fetch(`
-	*[ _type == 'artwork']  | order(_createdAt desc) {
-		title,
-		description,
-		"imageURL" : image.asset->url,
-		tags
-	}
-`)
-
-const artWorkList : Artwork[] = data.map( (art : any) => {
-	const image = getImageDataFromURL(art.imageURL)
-	return { image, ...art }
-})
+const artList = await getArt()
 ---
 
 <BaseLayout props
@@ -46,7 +26,7 @@ const artWorkList : Artwork[] = data.map( (art : any) => {
 
 			<div class="flex justify-center items-stretch gap-2 lg:gap-6 flex-wrap">
 
-				{ artWorkList.map( (art, i) => (
+				{ artList.map( (art, i) => (
 					<button data-art-button class=" hover:cursor-pointer relative group overflow-hidden">
 						<Image 
 							src={art.image.url}
