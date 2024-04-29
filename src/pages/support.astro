@@ -4,13 +4,10 @@ import PortableTextWrapper from '../components/Base/PortableTextWrapper.astro';
 import Wrapper from '../components/Base/Wrapper.astro';
 import H1 from '../components/Heading/H1.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { client } from '../lib/api/api';
+import { getSupport } from '../lib/api/support';
 
-const [content]  = await client.fetch(`
-    *[ _type == 'support' ] {
-        intro
-	}
-`)
+const support = await getSupport()
+console.log(support)
 ---
 
 <BaseLayout props
@@ -31,7 +28,7 @@ const [content]  = await client.fetch(`
 						Head to Shop
 					</Button>
 
-					<PortableTextWrapper value={content.intro} />
+					<PortableTextWrapper value={support.intro} />
 				</div>
 
 				<div>
