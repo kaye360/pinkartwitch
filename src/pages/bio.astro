@@ -5,27 +5,10 @@ import Wrapper from '../components/Base/Wrapper.astro';
 import Image from '../components/Base/Image.astro';
 import H1 from '../components/Heading/H1.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { client } from '../lib/api/api'
-import { getImageDataFromURL, type ImageData } from '../lib/api/image';
+import { getBio } from '../lib/api/bio';
 
-interface Bio {
-    bioImage : ImageData,
-    section1content : any[],
-    section2content : any[]
-}
-
-const [data] = await client.fetch(`
-	*[ _type == 'bio' ] {
-		"bioImageURL" : bioImage.asset->url,
-		section1content,
-		section2content
-	}
-`)
-
-const content: Bio = {
-	bioImage : getImageDataFromURL(data.bioImageURL),
-	...data
-}
+const bio = await getBio()
+console.log(bio)
 ---
 
 <BaseLayout props
@@ -43,15 +26,17 @@ const content: Bio = {
 	<section class="bg-primary-100 bg-[url('/img/cloud-bg.webp')] bg-cover">
 		<Wrapper width='max' padding='inline' class="grid md:grid-cols-[2fr_0.5fr] gap-12 md:gap-36 items-center py-6">
 			
-			<PortableTextWrapper value={content.section1content} class="max-w-[70ch]" />
+			<PortableTextWrapper value={bio.section1content} class="max-w-[70ch]" />
 
-			<Image 
-				src={content.bioImage.url}
-				width={content.bioImage.width}
-				height={content.bioImage.height}
-				alt="Portrait of the artist, Nova Alexander"
-				class=' w-3/4 md:w-full mx-auto md:m-0 md:scale-[1.60] lg:scale-[1.40] md:origin-right'
-			/>
+			{ bio.bioImage &&
+				<Image 
+					src={bio.bioImage.url}
+					width={bio.bioImage.width}
+					height={bio.bioImage.height}
+					alt="Portrait of the artist, Nova Alexander"
+					class=' w-3/4 md:w-full mx-auto md:m-0 md:scale-[1.60] lg:scale-[1.40] md:origin-right'
+				/>
+			}
 
 		</Wrapper>
 	</section>
@@ -60,7 +45,7 @@ const content: Bio = {
 	<section>
 		<Wrapper width="max" padding='both' class='grid md:grid-cols-[1fr_auto] gal-12 md:gap-24 items-start'>
 
-			<PortableTextWrapper value={content.section2content} />
+			<PortableTextWrapper value={bio.section2content} />
 
 			<SocialsContact />
 		</Wrapper>
