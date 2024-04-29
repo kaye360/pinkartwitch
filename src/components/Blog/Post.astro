@@ -30,6 +30,8 @@ const hasSocialLink = post.instagramUrl || post.deviantArtUrl || post.threadsUrl
                 alt=""
                 role="presentation"
                 class="w-full max-h-[300px] object-cover rounded-md"
+                aria-label={`View post: ${post.title}`}
+                lazy
             />
         </a>
     ) : (
@@ -75,25 +77,41 @@ const hasSocialLink = post.instagramUrl || post.deviantArtUrl || post.threadsUrl
                     )}
 
                     { post.deviantArtUrl && (
-                        <a href={post.deviantArtUrl} class="hover:text-primary-700">
+                        <a 
+                            href={post.deviantArtUrl} 
+                            class="hover:text-primary-700"
+                            aria-label="View this post on DeviantArt"
+                        >
                             <DeviantArtIcon />    
                         </a>
                     )}
 
                     { post.instagramUrl && (
-                        <a href={post.instagramUrl} class="hover:text-primary-700">
+                        <a 
+                            href={post.instagramUrl} 
+                            class="hover:text-primary-700"
+                            aria-label="View this post on Instagram"
+                        >
                             <InstagramIcon />    
                             </a>
                         )}
 
                     { post.tumblrUrl && (
-                        <a href={post.tumblrUrl} class="hover:text-primary-700">
+                        <a 
+                            href={post.tumblrUrl} 
+                            class="hover:text-primary-700"
+                            aria-label="View this post on Tumblr"
+                        >
                             <TumblrIcon />    
                             </a>
                         )}
 
                     { post.threadsUrl && (
-                        <a href={post.threadsUrl} class="hover:text-primary-700">
+                        <a 
+                            href={post.threadsUrl} 
+                            class="hover:text-primary-700"
+                            aria-label="View this post on Threads"
+                        >
                             <ThreadsIcon />    
                         </a>
                     )}

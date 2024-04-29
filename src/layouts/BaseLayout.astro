@@ -19,7 +19,9 @@ const {
 
 <html lang={lang}>
 
-	<Meta title={title} description={description} />
+	<Meta title={title} description={description}>
+		<slot name="meta" />
+	</Meta>
 
 	<body class:list={[
 		'bg-[var(--body-bg-color)] text-primary-900 font-base lg:text-lg ',

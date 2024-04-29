@@ -11,8 +11,8 @@ const totalPages = PAGES.length
         return page.group.includes('header') && (
 
             <NavLink href={page.path} title={page.title}>{page.title}</NavLink>
-            <>
-                {i + 1 !== totalPages ? (
+            <li>
+                {i + 1 !== totalPages && (
                     <Image 
                         src="/img/nav-star.svg" 
                         width={13} 
@@ -21,10 +21,8 @@ const totalPages = PAGES.length
                         role="presentation"
                         class="hidden lg:block"
                      /> 
-                ) : (
-                    ''
                 )}
-            </>
+            </li>
 
         )
     })}
