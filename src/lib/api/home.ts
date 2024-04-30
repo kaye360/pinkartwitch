@@ -14,6 +14,7 @@ interface HomeContent {
 	bloodAndThornsIntro : Block[] | null
 }
 
+
 interface HomeData {
     heroHeadline        : string|null
     heroSubHeadline     : string|null
@@ -22,19 +23,12 @@ interface HomeData {
     bloodAndThornsIntro : Block[]
 }
 
-async function getHomeData() : Promise<HomeData> {
-    const [data] = await client.fetch(`
-        *[ _type == 'home']{
-            heroHeadline, 
-            heroSubHeadline,
-            "featuredArtURLs" : featuredArt[].asset->url,
-            intro,
-            bloodAndThornsIntro
-        }
-    `)
-    return data
-}
-	
+
+/**
+ * 
+ * @returns Gets validated homepage content
+ * 
+ */
 export async function getHomeContent() : Promise<HomeContent> {
     const data = await getHomeData()
     const content: HomeContent = {
@@ -52,3 +46,24 @@ export async function getHomeContent() : Promise<HomeContent> {
     }
     return content
 }
+
+
+/**
+ * 
+ * @description Gets Homepage raw data from Sanity 
+ * The data is not validated
+ * 
+ */
+async function getHomeData() : Promise<HomeData> {
+    const [data] = await client.fetch(`
+        *[ _type == 'home']{
+            heroHeadline, 
+            heroSubHeadline,
+            "featuredArtURLs" : featuredArt[].asset->url,
+            intro,
+            bloodAndThornsIntro
+        }
+    `)
+    return data
+}
+	

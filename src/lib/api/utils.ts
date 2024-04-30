@@ -1,8 +1,10 @@
 import type { Block } from "astro-portabletext/types"
 
-
 /**
- * @description https://www.sanity.io/docs/presenting-block-text#ac67a867dd69
+ * 
+ * @description Converts portable text to a plain text string
+ * @see https://www.sanity.io/docs/presenting-block-text#ac67a867dd69
+ * 
  */
 export function portableTextToPlainText(blocks: Block[] = []) : string {
     return blocks

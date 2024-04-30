@@ -9,19 +9,13 @@ export interface BlogPostDate {
 
 export interface BlogArchiveDate extends Omit<BlogPostDate, "longNumeric" | "longPhrase"> {}
 
-async function getDateData() : Promise<{date : string}[]> {
-    const dateData = await client.fetch(`
-        *[ _type == 'blogPost' ] {
-                date,
-        }
-    `)
-    return dateData
-}
 
-function validateDateData() {
-
-}
-
+/**
+ * 
+ * @description Gets an array of unique dates of blog posts for blog post archives
+ * This function only returns month and year, no days.
+ * 
+ */
 export async function getDates() {
     const dateSet = new Set()
     const dateData = await getDateData()
@@ -37,19 +31,55 @@ export async function getDates() {
     return blogPostDates
 }
 
-function dateToPhrase(dateNumeric : string, isDayIncluded : boolean = false) {
+
+/**
+ * 
+ * @description Gets all dates from all blog post entries
+ * Data is not validated
+ * 
+ */
+async function getDateData() : Promise<{date : string}[]> {
+    const dateData = await client.fetch(`
+        *[ _type == 'blogPost' ] {
+                date,
+        }
+    `)
+    return dateData
+}
+
+
+/**
+ *  
+ * @description Converts a numeric date string to a phrase
+ * @example 2020-04 -> Apr 2020
+ * @example 2020-04-31 -> Apr 31, 2020
+ * @param dateNumeric  Date string YYYY-MM-DD (Day is optional)
+ * @param isDayReturned Is day need in the returned object 
+ * 
+ */
+function dateToPhrase(dateNumeric : string, isDayReturned : boolean = false) {
     const dateArr = dateNumeric.split('-')
+    // console.log(dateArr)
     const year = Number(dateArr[0])
     const month = Number(dateArr[1]) - 1
-    const date = new Date(year, month)
+    const day = dateArr[2] ? Number(dateArr[2]) : null
+    const date =  day ? new Date(year, month, day) : new Date(year, month)
     const datePhrase = date.toLocaleDateString('en-EN', {
         year : 'numeric',
         month : 'short',
-        day : isDayIncluded ? '2-digit' : undefined
+        day : isDayReturned ? '2-digit' : undefined
     })
     return datePhrase
 }
 
+
+/**
+ * 
+ * @description Takes a date string  and returns short and long versions of both
+ *  numeric and phrase dates
+ * @param date date string: YYYY-MM-DD
+ * 
+ */
 export function formatPostDate(date: string) : BlogPostDate {
     return { 
         phrase : dateToPhrase(date), 

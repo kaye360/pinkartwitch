@@ -9,6 +9,12 @@ export interface Bio {
     section2content : Block[]
 }
 
+
+/**
+ * 
+ * @description Gets the validated Bio content from Sanity CMS
+ * 
+ */
 export async function getBio() : Promise<Bio> {
     const query = await getBioData()
     return {
@@ -18,6 +24,13 @@ export async function getBio() : Promise<Bio> {
     }
 }
 
+
+/**
+ * 
+ * @description Gets the raw Bio data from Sanity CMS. 
+ * The data is not validated
+ * 
+ */
 async function getBioData() : Promise<object[]> {
     const [data] = await client.fetch(`
         *[ _type == 'bio' ] {

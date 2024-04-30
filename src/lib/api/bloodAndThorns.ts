@@ -10,6 +10,11 @@ export interface BloodAndThorns {
     section2content : Block[]
 }
 
+/**
+ * 
+ * @description Get validated Blood and Thorns page content
+ * 
+ */
 export async function getBloodAndThorns() : Promise<BloodAndThorns> {
 	const query = await getBloodAndThornsData()
 	return {
@@ -20,6 +25,13 @@ export async function getBloodAndThorns() : Promise<BloodAndThorns> {
 	}
 }
 
+
+/**
+ * 
+ * @description Get raw Blood and Thorns page data from Sanity CMS
+ * Data is not validated
+ * 
+ */
 async function getBloodAndThornsData() {
 	const [data] = await client.fetch(`
 		*[ _type == 'bloodAndThorns' ] {

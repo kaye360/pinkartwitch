@@ -41,7 +41,7 @@ const { posts } = Astro.props
             <BackToBlog />
 
 			<H1 class="mb-2">
-                Posts Tagged: #{tag.replaceAll('-', ' ')}
+                Posts Tagged: #{tag}
             </H1>
 
             { posts.map( post => <Post {post}  /> )}

@@ -9,6 +9,12 @@ export interface Art {
     tags : string[]
 }
 
+
+/**
+ * 
+ * @description Gets a validated array of artwork and related data from Sanity CMS
+ * 
+ */
 export async function getArt() : Promise<Art[]> {
     const query = await getArtworkData()
     
@@ -29,6 +35,13 @@ export async function getArt() : Promise<Art[]> {
     return artList
 }
 
+
+/**
+ * 
+ * @description Gets the raw artwork data from Sanity CMS. 
+ * The data is not validated
+ * 
+ */
 async function getArtworkData() : Promise<object[]> {
     const data : object[] = await client.fetch(`
         *[ _type == 'artwork']  | order(_createdAt desc) {
