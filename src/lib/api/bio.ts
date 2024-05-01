@@ -1,5 +1,5 @@
 import type { Block } from "astro-portabletext/types"
-import { isString } from "../validation/validation"
+import { isArray, isString } from "../validation/validation"
 import { client } from "./api"
 import { getImageDataFromURL, type ImageData } from "./image"
 
@@ -19,8 +19,8 @@ export async function getBio() : Promise<Bio> {
     const query = await getBioData()
     return {
         bioImage        : 'bioImageURL' in query     && isString(query.bioImageURL)          ? getImageDataFromURL(query.bioImageURL) : null,
-        section1content : 'section1content' in query && Array.isArray(query.section1content) ? query.section1content                  : [],
-        section2content : 'section2content' in query && Array.isArray(query.section2content) ? query.section2content                  : [],
+        section1content : 'section1content' in query && isArray(query.section1content) ? query.section1content                  : [],
+        section2content : 'section2content' in query && isArray(query.section2content) ? query.section2content                  : [],
     }
 }
 

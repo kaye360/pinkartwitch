@@ -2,7 +2,7 @@ import { client } from "./api"
 import { getImageDataFromURL, type ImageData } from "./image"
 import { formatPostDate, type BlogPostDate } from "./blogDate"
 import { mergeRawBlogPostTags, type BlogPostTag } from "./blogTag"
-import { isObject, isString } from "../validation/validation"
+import { isArray, isObject, isString } from "../validation/validation"
 import type { Block } from "astro-portabletext/types"
 
 export interface BlogPost {
@@ -48,8 +48,12 @@ interface GetBlogPostListOptions {
 export async function getBlogPostList( {amount} : GetBlogPostListOptions ) : Promise<BlogPost[]> {
     const query = await queryBlogPosts()
     const validatedBlogPostList = validateBlogPostQuery(query)
-    if( validatedBlogPostList === null || !Array.isArray(validatedBlogPostList) ) return []
-    return amount === null ? validatedBlogPostList : validatedBlogPostList.slice(0,amount)
+
+    if( validatedBlogPostList === null || !isArray(validatedBlogPostList) ) return []
+
+    return amount === null 
+        ? validatedBlogPostList 
+        : validatedBlogPostList.slice(0,amount)
 }
 
 

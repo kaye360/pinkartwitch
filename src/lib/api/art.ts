@@ -1,12 +1,13 @@
-import { isString } from "../validation/validation"
+import { isArray, isBoolean, isString } from "../validation/validation"
 import { client } from "./api"
 import { getImageDataFromURL, type ImageData } from "./image"
 
 export interface Art {
-    title : string,
+    title       : string,
     description : string,
-    image : ImageData,
-    tags : string[]
+    image       : ImageData,
+    tags        : string[],
+    isSpicy     : boolean
 }
 
 
@@ -27,7 +28,8 @@ export async function getArt() : Promise<Art[]> {
                 image, 
                 title       : isString(art.title)       ? art.title       : '',
                 description : isString(art.description) ? art.description : '',
-                tags        : Array.isArray(art.tags)   ? art.tags        : ''
+                tags        : isArray(art.tags)         ? art.tags        : '',
+                isSpicy     : isBoolean(art.isSpicy)    ? art.isSpicy     : false
             }
         })
         .filter(art => art !== null) as Art[]
@@ -48,9 +50,10 @@ async function getArtworkData() : Promise<object[]> {
             title,
             description,
             "imageURL" : image.asset->url,
-            tags
+            tags,
+            isSpicy
         }
     `)
-    return Array.isArray(data) ? data : []
+    return isArray(data) ? data : []
 }
 

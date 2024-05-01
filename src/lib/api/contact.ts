@@ -1,5 +1,6 @@
 import type { Block } from "astro-portabletext/types";
 import { client } from "./api";
+import { isArray } from "../validation/validation";
 
 interface GetContact {
     intro : Block[]
@@ -18,5 +19,5 @@ export async function getContact() : Promise<GetContact> {
             intro
         }
     `)
-    return Array.isArray(data.intro) ? {intro: data.intro } : {intro: []}
+    return isArray(data.intro) ? {intro: data.intro } : {intro: []}
 }

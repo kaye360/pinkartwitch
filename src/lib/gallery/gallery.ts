@@ -134,15 +134,16 @@ export default class Gallery {
         const btnList = Array.from( document.querySelectorAll(this.imgBtnElName) )
         return btnList.map( btn => {
             const imageEL = btn.querySelector('img')
-            const image = {
-                url : imageEL?.getAttribute('src'),
-                width : Number( imageEL?.getAttribute('width') ),
+            const image   = {
+                url    : imageEL?.getAttribute('src'),
+                width  : Number( imageEL?.getAttribute('width') ),
                 height : Number (imageEL?.getAttribute('height' ))
             }
             const description = imageEL?.dataset.description || ''
-            const title = imageEL?.dataset.title || ''
-            const tags = JSON.parse(imageEL?.dataset.tags || '') || []
-            return { image, title, description, tags }
+            const title       = imageEL?.dataset.title || ''
+            const tags        = JSON.parse(imageEL?.dataset.tags || '') || []
+            const isSpicy     = imageEL?.dataset.isspicy
+            return { image, title, description, tags, isSpicy }
         } ) as Image[]
     }
 
@@ -252,7 +253,7 @@ export default class Gallery {
         this.tagList.forEach(tag => {
             tags += this.TagButtonHTML(tag)
         })
-        tagEl?.insertAdjacentHTML('afterbegin', tags)
+        tagEl?.insertAdjacentHTML('beforeend', tags)
         this.addTagButtonEventListeners()
     }
 

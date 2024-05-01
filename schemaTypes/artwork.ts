@@ -27,6 +27,11 @@ export const artwork = defineType({
 			title : 'Tags'
 		  }),
 		
+		defineField({
+			type  : 'boolean',
+			name  : 'isSpicy',
+			title : 'Spicy Content'
+		})
 	],
 });
 

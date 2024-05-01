@@ -1,23 +1,25 @@
 /* lib/sanity/image.ts */
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "./api";
+import { isArray } from "../validation/validation";
 
 type ImageUrlBuilder = ReturnType<typeof imageUrlBuilder>;
 type ImageSource = Parameters<ImageUrlBuilder["image"]>[0];
 
 
 export interface Image {
-  image : ImageData,
-  tags : string[],
-  title : string,
-  description : string
+	image		: ImageData,
+	tags 		: string[],
+	title 		: string,
+	description : string,
+	isSpicy?	: boolean
 }
 
 
 export interface ImageData {
-  url: string, 
-  width : number,
-  height : number
+	url    : string,
+	width  : number,
+	height : number
 }
 
 
@@ -27,7 +29,7 @@ export interface ImageData {
  * 
  */
 export const imageUrlFor = (source: ImageSource) =>
-  imageUrlBuilder(client).image(source);
+	imageUrlBuilder(client).image(source);
 
 
 /**
@@ -37,9 +39,9 @@ export const imageUrlFor = (source: ImageSource) =>
  * 
  */
 export function getImageListData(imgURLList: string[]): (ImageData)[] {
-  if (!Array.isArray(imgURLList)) return []
-  return imgURLList.map((imgURL: string) => getImageDataFromURL(imgURL))
-                   .filter( imageData => imageData !== null ) as ImageData[]
+	if (!isArray(imgURLList)) return []
+	return imgURLList.map((imgURL: string) => getImageDataFromURL(imgURL))
+		.filter(imageData => imageData !== null) as ImageData[]
 }
 
 
@@ -50,11 +52,11 @@ export function getImageListData(imgURLList: string[]): (ImageData)[] {
  * 
  */
 export function getImageDataFromURL(url: string): ImageData | null {
-  if (!(typeof url === 'string')) return null
+	if (!(typeof url === 'string')) return null
 
-  const [width, height] = url.split('-')[1]
-      .split('.')[0]
-      .split('x')
+	const [width, height] = url.split('-')[1]
+		.split('.')[0]
+		.split('x')
 
-  return { url, width: Number(width), height: Number(height) }
+	return { url, width: Number(width), height: Number(height) }
 }

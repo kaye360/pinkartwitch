@@ -6,8 +6,7 @@ By Josh Kaye
 
 ## TODO
 * Art - Link if available as a print
-* Art - Spicy option
 * Lighthouse tests
 * OG images
 * look into tests (cypress?)
-* comments
+* google fonts

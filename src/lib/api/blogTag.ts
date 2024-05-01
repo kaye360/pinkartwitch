@@ -1,3 +1,4 @@
+import { isArray } from "../validation/validation"
 import { client } from "./api"
 
 export interface BlogPostTag {
@@ -23,11 +24,11 @@ export async function getTags() : Promise<BlogPostTag[]> {
 	
 	tagData.forEach( (post : {tags : string[], commonTags : string[]}) => {
 		
-		if( Array.isArray(post.tags) ) {
+		if( isArray(post.tags) ) {
 			post.tags.forEach( tag => tagSet.add( tag ))
 		}
 
-		if( Array.isArray(post.commonTags) ) {
+		if( isArray(post.commonTags) ) {
 			post.commonTags.forEach( tag => tagSet.add( tag )) 
 		}
 	} )
@@ -63,15 +64,15 @@ async function getTagData() : Promise<GetTagData[]> {
  */
 export function mergeRawBlogPostTags(tags : unknown, commonTags : unknown) : BlogPostTag[]  {
 
-    if( !Array.isArray(tags) && !Array.isArray(commonTags) ) {
+    if( !isArray(tags) && !isArray(commonTags) ) {
         return []
     }
 
-    if( Array.isArray(tags) && !Array.isArray(commonTags) ) {
+    if( isArray(tags) && !isArray(commonTags) ) {
         return createPostTagList( tags )
     }
 
-    if( Array.isArray(commonTags) && !Array.isArray(tags) ) {
+    if( isArray(commonTags) && !isArray(tags) ) {
         return createPostTagList( commonTags )
     }
 
