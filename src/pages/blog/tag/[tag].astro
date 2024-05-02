@@ -17,7 +17,7 @@ export async function getStaticPaths() : Promise<any> {
     const tagList = await getTags()
 
     return tagList.map( (tag) => {
-        const filteredPostList = blogPostList.filter( post => post && post.tags.map( tag => tag.hyphen).includes( tag.hyphen ) )
+        const filteredPostList = blogPostList.filter( post => post && post.tags.map( postTag => postTag.hyphen).includes( tag.hyphen ) )
         return {
             params: { tag: tag.hyphen },
             props : { posts: filteredPostList }

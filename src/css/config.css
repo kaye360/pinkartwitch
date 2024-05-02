@@ -58,29 +58,6 @@
     font-weight: 900;
 }
 
-/* 
-@font-face {
-    font-family: "Lato";
-    src: url("/font/Lato-Medium.ttf") format("truetype");
-    font-weight: 400;
-}
-@font-face {
-    font-family: "Lato";
-    src: url("/font/Lato-Regular.ttf") format("truetype");
-    font-weight: 500;
-}
-@font-face {
-    font-family: "Lato";
-    src: url("/font/Lato-SemiBold.ttf") format("truetype");
-    font-weight: 700;
-}
-@font-face {
-    font-family: "Lato";
-    src: url("/font/Lato-Bold.ttf") format("truetype");
-    font-weight: 800;
-} */
-
-
 
 
 @layer base {

@@ -59,7 +59,6 @@ async function getDateData() : Promise<{date : string}[]> {
  */
 function dateToPhrase(dateNumeric : string, isDayReturned : boolean = false) {
     const dateArr = dateNumeric.split('-')
-    // console.log(dateArr)
     const year = Number(dateArr[0])
     const month = Number(dateArr[1]) - 1
     const day = dateArr[2] ? Number(dateArr[2]) : null

@@ -90,10 +90,12 @@ export function mergeRawBlogPostTags(tags : unknown, commonTags : unknown) : Blo
  * 
  */
 function createPostTagList(tagList: string[]) : BlogPostTag[] {
-	return tagList.map( (tag: string) => (
-		{
+	return tagList
+		.map( (tag: string) => ({
 			hyphen : tag.replaceAll(' ', '-'),
 			space  : tag
-		}
-	))
+		}))
+		.filter(tag => (
+			!(tag.hyphen === '' || tag.space === '')
+		))
 }
