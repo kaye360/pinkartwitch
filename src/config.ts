@@ -21,7 +21,7 @@ export const HERO_IMG_PATH          = '/img/hero.webp'
 export const HERO_IMG_ALT_TEXT      = 'Hero image alt text'
 export const HERO_IMG_DIMENSIONS    = { width : 200, height : 100 }
 export const FAVICON_PATH           = '/meta-img/favicon.svg'
-export const OPENGRAPH_PATH         = '/meta-img/og.png'
+export const OPENGRAPH_PATH         = '/meta-img/og.webp'
 
 
 

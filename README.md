@@ -9,4 +9,3 @@ By Josh Kaye
 * Lighthouse tests
 * OG images
 * look into tests (cypress?)
-* google fonts
