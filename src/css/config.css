@@ -2,24 +2,98 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+@font-face {
+    font-family: "Laila";
+    src: url("/font/Laila-Light.ttf") format("truetype");
+    font-weight: 300;
+}
+@font-face {
+    font-family: "Laila";
+    src: url("/font/Laila-Medium.ttf") format("truetype");
+    font-weight: 400;
+}
+@font-face {
+    font-family: "Laila";
+    src: url("/font/Laila-Regular.ttf") format("truetype");
+    font-weight: 500;
+}
+@font-face {
+    font-family: "Laila";
+    src: url("/font/Laila-SemiBold.ttf") format("truetype");
+    font-weight: 700;
+}
+@font-face {
+    font-family: "Laila";
+    src: url("/font/Laila-Bold.ttf") format("truetype");
+    font-weight: 800;
+}
+
+
+@font-face {
+    font-family: "Lato";
+    src: url("/font/Lato-Thin.ttf") format("truetype");
+    font-weight: 200;
+}
+@font-face {
+    font-family: "Lato";
+    src: url("/font/Lato-Light.ttf") format("truetype");
+    font-weight: 300;
+}
+@font-face {
+    font-family: "Lato";
+    src: url("/font/Lato-Regular.ttf") format("truetype");
+    font-weight: 500;
+}
+@font-face {
+    font-family: "Lato";
+    src: url("/font/Lato-Bold.ttf") format("truetype");
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url("/font/Lato-Black.ttf") format("truetype");
+    font-weight: 900;
+}
+
+/* 
+@font-face {
+    font-family: "Lato";
+    src: url("/font/Lato-Medium.ttf") format("truetype");
+    font-weight: 400;
+}
+@font-face {
+    font-family: "Lato";
+    src: url("/font/Lato-Regular.ttf") format("truetype");
+    font-weight: 500;
+}
+@font-face {
+    font-family: "Lato";
+    src: url("/font/Lato-SemiBold.ttf") format("truetype");
+    font-weight: 700;
+}
+@font-face {
+    font-family: "Lato";
+    src: url("/font/Lato-Bold.ttf") format("truetype");
+    font-weight: 800;
+} */
+
+
+
+
 @layer base {
     :root {
 
 
         /* ------------------------ Colors ------------------------ */
                 
-        /* Color Picker is just for use in IDE */
-        --color-picker : hsl(204, 36%, 36%);
-        --color-picker : hsl(0, 0%, 0%);
-        --color-picker : hsl(0, 0%, 0%);
-
         /* 
             Base Site Colors (HSL) 
             Note: only provide H and S values. L values are not needed
         */
         --primary-color   : 336deg 76%;
-        --secondary-color : 0deg 0%;
-        --tertiary-color  : 0deg 0%;
 
         
         /* Color Config */
@@ -65,7 +139,6 @@
             --spacing-inline-default : 2vw;
             --spacing-block-default : 2rem;
         }
-
 
     }
     

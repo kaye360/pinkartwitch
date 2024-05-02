@@ -22,16 +22,18 @@ const {
 <head>
     <meta 
         http-equiv="Content-Security-Policy" 
-        content=`default-src https:; 
-                 img-src 'self' https://cdn.sanity.io; 
-                 object-src 'self';
-                 connect-src 'self' https://v81020gt.apicdn.sanity.io;
-                 script-src 'self' ${import.meta.env.DEV ? 'http://localhost:4321;' : ''};
-                 ${import.meta.env.DEV 
-                    ? "style-src 'unsafe-inline' https://fonts.googleapis.com;" 
-                    : "style-src 'self' https://fonts.googleapis.com;"
-                 }
-                 style-src-attr 'unsafe-inline';
+        content=`default-src ${import.meta.env.Dev? 'http:' : 'https:'}; 
+                manifest-src 'self';
+                font-src 'self';
+                img-src 'self' https://cdn.sanity.io; 
+                object-src 'self';
+                connect-src 'self' https://v81020gt.apicdn.sanity.io;
+                script-src 'self ' ${import.meta.env.DEV ? 'http://localhost:4321;' : ''};
+                ${import.meta.env.DEV 
+                    ? "style-src 'unsafe-inline';" 
+                    : "style-src 'self';"
+                }
+                style-src-attr 'unsafe-inline';
     `/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -40,12 +42,8 @@ const {
     <link rel="apple-touch-icon" sizes="180x180" href="/meta/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/meta/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/meta/favicon-16x16.png">
+
     <link rel="manifest" href="/site.webmanifest">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-
     
     <meta name="description" content={description}>
 

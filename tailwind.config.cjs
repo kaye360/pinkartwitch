@@ -5,7 +5,7 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily : {
-				'base' : ['Lato', 'Helvetica'],
+				'base' : ['Lato', 'Georgia', 'Helvetica'],
 				'theme' : ['Laila', 'Helvetica'],
 			},
 			colors : {
