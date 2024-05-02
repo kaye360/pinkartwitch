@@ -9,7 +9,7 @@
  * Site Info
  */
 
-export const SITE_URL               = 'http://'
+export const SITE_URL               = 'http://www.pinkartwitch.com'
 export const SITE_BASE_PATH         = '/'
 export const SITE_FULL_NAME         = '@PinkArtWitch'
 export const SITE_SHORT_NAME        = '@PinkArtWitch'
@@ -20,8 +20,6 @@ export const HEADER_LOGO_DIMENSIONS = { width : 48, height : 48 }
 export const HERO_IMG_PATH          = '/img/hero.webp'
 export const HERO_IMG_ALT_TEXT      = 'Hero image alt text'
 export const HERO_IMG_DIMENSIONS    = { width : 200, height : 100 }
-export const FAVICON_PATH           = '/meta-img/favicon.svg'
-export const OPENGRAPH_PATH         = '/meta-img/og.webp'
 
 
 
