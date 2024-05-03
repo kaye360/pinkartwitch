@@ -16,8 +16,15 @@ export const artwork = defineType({
 			options: { hotspot: true } }),
 			
 		defineField({ 
-			type: "text", 
-			name: "description" 
+			type: "array", 
+			of : [{
+				type: 'block', styles: [
+					{ title: 'Normal', value: 'normal' },
+					{ title: 'Heading', value: 'h2' },
+				]
+			}],
+			name: "description",
+			title: 'Description'
 		}),
 
 		defineField({ 

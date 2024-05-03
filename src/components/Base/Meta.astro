@@ -28,7 +28,7 @@ const {
                 img-src 'self' https://cdn.sanity.io; 
                 object-src 'self';
                 connect-src 'self' https://v81020gt.apicdn.sanity.io;
-                script-src 'self ' ${import.meta.env.DEV ? 'http://localhost:4321;' : ''};
+                script-src 'self' ${import.meta.env.DEV ? 'http://localhost:4321' : ''};
                 ${import.meta.env.DEV 
                     ? "style-src 'unsafe-inline';" 
                     : "style-src 'self';"

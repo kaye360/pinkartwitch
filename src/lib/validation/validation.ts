@@ -37,3 +37,18 @@ export function isArray(value: unknown) : value is Array<any> {
 export function isBoolean(value: unknown) : value is boolean {
     return typeof value ===  'boolean'
 }
+
+
+/**
+ * 
+ * @description Determine if a value is a valid JSON
+ * 
+ */
+export function isJson(str: any) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}

@@ -27,7 +27,7 @@ export async function getArt() : Promise<Art[]> {
             return { 
                 image, 
                 title       : isString(art.title)       ? art.title       : '',
-                description : isString(art.description) ? art.description : '',
+                description : isString(art.description) ? art.description : JSON.stringify(art.description),
                 tags        : isArray(art.tags)         ? art.tags        : '',
                 isSpicy     : isBoolean(art.isSpicy)    ? art.isSpicy     : false
             }

@@ -1,5 +1,7 @@
 import debounce from 'lodash.debounce'
 import type { Image } from '../api/image'
+import { portableTextToHTML, portableTextToPlainText } from '../api/utils'
+import { isArray, isJson } from '../validation/validation'
 
 /**
  * 
@@ -336,7 +338,8 @@ export default class Gallery {
             <div data-img-modal-content class="mx-auto w-full max-w-6xl">
                 <div class="img-modal-animation flex items-start overflow-auto snap-mandatory snap-x scrollbar-hide" data-img-modal-content-scroller>
 
-                    ${ this.imgList.map( (art, index) => (`
+                    ${ this.imgList.map( (art, index) => {
+                        return `
                         <div class="min-w-full grid lg:flex gap-4 lg:gap-12 items-start p-4 snap-center">
                             <img 
                                 src="${art.image.url}" 
@@ -344,19 +347,17 @@ export default class Gallery {
                                 height="${art.image.height}" 
                                 alt="" 
                                 role="presentation"
-                                class='rounded max-h-[60vh] w-auto lg:max-w-[50%] justify-self-center '
+                                class='rounded w-auto lg:w-1/2 lg:h-auto justify-self-center '
                                 data-index="${index}"
                             >
-                            <div>
+                            <div class="grid gap-2 text-base max-w-[60ch] text-primary-700">
                                 <h2 data-img-modal-img-title class="text-2xl font-semibold font-theme mb-4">
                                     ${art.title}
                                 </h2>
-                                <p class="text-base" data-img-modal-img-description>
-                                    ${art.description}
-                                </p>
+                                ${ portableTextToHTML( JSON.parse( art.description ) ) }
                             </div>
                         </div>
-                    `))}
+                    `})}
 
                     
                 </div>

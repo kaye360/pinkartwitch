@@ -1,3 +1,4 @@
+import { toHTML } from "@portabletext/to-html"
 import type { Block } from "astro-portabletext/types"
 
 /**
@@ -15,4 +16,14 @@ export function portableTextToPlainText(blocks: Block[] = []) : string {
             return block.children.map(child => child.text).join('')
         })
         .join('\n\n')
+}
+
+
+/**
+ * 
+ * @description Converts portable text to HTML
+ * 
+ */
+export function portableTextToHTML( blocks: Block[] = []) : string {
+    return toHTML(blocks)
 }
