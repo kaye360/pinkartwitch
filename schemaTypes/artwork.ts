@@ -1,9 +1,15 @@
+import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list';
 import { defineType, defineField } from 'sanity'
 
 export const artwork = defineType({
 	type: "document",
+	title : 'Artwork',
 	name: "artwork",
+	orderings : [orderRankOrdering],
 	fields: [
+
+		orderRankField({ type: "artwwork" }),
+
 		defineField({ 
 			type: "string", 
 			name: "title" 

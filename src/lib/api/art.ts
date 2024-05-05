@@ -46,7 +46,7 @@ export async function getArt() : Promise<Art[]> {
  */
 async function getArtworkData() : Promise<object[]> {
     const data : object[] = await client.fetch(`
-        *[ _type == 'artwork']  | order(_createdAt desc) {
+        *[ _type == 'artwork']  | order(orderRank) {
             title,
             description,
             "imageURL" : image.asset->url,
