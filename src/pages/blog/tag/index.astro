@@ -1,5 +1,6 @@
 ---
 import Wrapper from "../../../components/Base/Wrapper.astro";
+import BackToBlog from "../../../components/Blog/BackToBlog.astro";
 import TagCloud from "../../../components/Blog/TagCloud.astro";
 import H1 from "../../../components/Heading/H1.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
@@ -17,17 +18,7 @@ const tags = await getTags()
 	<section class="mt-28">
 		<Wrapper width='max' padding='inline' class="">
 
-			<a 
-				href="/blog"
-				class="flex items-center gap-2 text-lg font-semibold mb-2 ml-auto hover:underline"
-			>
-				<svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M2 8L20 8M2 8L8 14M2 8L8 2" stroke="#E11E6A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-				</svg>
-				<span>
-					Back to blog
-				</span>                
-			</a>
+			<BackToBlog />
 
 			<H1>Blog Tags</H1>
 
