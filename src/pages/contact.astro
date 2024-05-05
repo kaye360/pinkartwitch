@@ -30,11 +30,13 @@ const content = await getContact()
 			<div class="mb-8">
 				<PortableTextWrapper value={content.intro} class='max-w-[60ch] mb-8' />
 	
-				<NetlifyForm props name="PinkArtWitch Contact Form" subject='PinkArtWitch.com website inquiry'>
+				<NetlifyForm props name="PinkArtWitch Contact Form">
 					
 					<FormField name="Name" type="text" required />
 	
 					<FormField name="Email" type="email" required />
+
+					<FormField name="subject" label='Subject' type="text" />
 	
 					<FormField name="Message" type="textarea" required />
 	
